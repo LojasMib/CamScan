@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Landing\Logo MIB.png" />
+    <None Remove="Images\Landing\LogoMib.svg" />
+    <None Remove="Images\Landing\scanner.png" />
+    <None Remove="Images\Landing\setting.png" />
+    <None Remove="Images\Landing\setting.svg" />
+    <None Remove="Images\Landing\webCam.png" />
+    <None Remove="Images\Settings\backButton.png" />
+    <None Remove="Images\Window\IconScanCam.png" />
+    <None Remove="Pages\Logo MIB.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Landing\Logo MIB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Landing\scanner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Landing\setting.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Landing\webCam.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Settings\backButton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Window\IconScanCam.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Pages\Logo MIB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ServiceStack.Text" Version="8.3.0" />
+  </ItemGroup>
+
+</Project>

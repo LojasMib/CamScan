@@ -1,0 +1,21 @@
+﻿<Page x:Class="PrintScanner.Photo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PrintScanner"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Photo">
+    <Grid>
+        <Frame x:Name="NavigationFrame"/>
+        <Grid x:Name="FramePhoto" Background="white">
+            <Button Content="Voltar" Command="NavigationCommands.BrowseBack" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="44" Width="54"/>
+            <Button x:Name="CameraImage" Content="Button" Height="271" Margin="90,85,90,0" VerticalAlignment="Top"/>
+            <Button x:Name="Salvar" Content="SALVAR" HorizontalAlignment="Left" Height="32" Margin="613,384,0,0" VerticalAlignment="Top" Width="97"/>
+            <TextBox HorizontalAlignment="Left" Margin="233,391,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Content="Codigo do Cliente:" HorizontalAlignment="Left" Margin="90,385,0,0" VerticalAlignment="Top" Width="145" VerticalContentAlignment="Center" FontSize="16"/>
+        </Grid>
+    </Grid>
+
+</Page>

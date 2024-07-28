@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfConfigScanner xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ConfigScanner>
+    <ConfigDriver>C:\Users\Amaur\OneDrive\Documentos\IISExpress</ConfigDriver>
+    <FolderDocumentoCliente>C:\Users\Amaur\OneDrive\Documentos\IISExpress\Logs</FolderDocumentoCliente>
+    <FolderConfissaoDivida>C:\Users\Amaur\OneDrive\Documentos\IISExpress\TraceLogFiles</FolderConfissaoDivida>
+  </ConfigScanner>
+</ArrayOfConfigScanner>

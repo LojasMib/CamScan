@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "UcLKMKJpUFybzxRWiR/xpHr7QmoHIzFCrv7nSofzDuy224f4E9ctRKBaXnfu4AtUOcztilEPxmZ2DeK2+JHp/w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\CamScan.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amaur\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Amaur\\.nuget\\packages\\servicestack.text\\8.3.0\\servicestack.text.8.3.0.nupkg.sha512",
+    "C:\\Users\\Amaur\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.0\\system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
+    "C:\\Users\\Amaur\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512"
+  ],
+  "logs": []
+}
