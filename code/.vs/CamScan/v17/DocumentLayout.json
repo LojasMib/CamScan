@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\",
+  "WorkspaceRootPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\codigo\\printscanner\\services\\xmlconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\services\\xmlconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\codigo\\printscanner\\pages\\settingsphoto.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\settingsphoto.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\codigo\\printscanner\\pages\\settingsphoto.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\pages\\settingsphoto.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\settingsphoto.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\codigo\\printscanner\\pages\\settingsscanner.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\pages\\settingsphoto.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\settingsphoto.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\pages\\settingsscanner.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\settingsscanner.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\codigo\\printscanner\\pages\\settingsscanner.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\services\\xmlconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\services\\xmlconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\pages\\settingsscanner.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\settingsscanner.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 759,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,11 +38,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "SettingsPhoto.xaml",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsPhoto.xaml",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsPhoto.xaml",
               "RelativeDocumentMoniker": "PrintScanner\\Pages\\SettingsPhoto.xaml",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsPhoto.xaml",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsPhoto.xaml",
               "RelativeToolTip": "PrintScanner\\Pages\\SettingsPhoto.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-07-28T00:07:44.738Z",
@@ -50,24 +50,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "XmlConnect.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Services\\XmlConnect.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Services\\XmlConnect.cs",
               "RelativeDocumentMoniker": "PrintScanner\\Services\\XmlConnect.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Services\\XmlConnect.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Services\\XmlConnect.cs",
               "RelativeToolTip": "PrintScanner\\Services\\XmlConnect.cs",
-              "ViewState": "AQIAAHwAAAAAAAAAAAAwwG4AAAAhAAAA",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAAwIYAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-28T00:07:19.786Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "SettingsScanner.xaml",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsScanner.xaml",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsScanner.xaml",
               "RelativeDocumentMoniker": "PrintScanner\\Pages\\SettingsScanner.xaml",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsScanner.xaml",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsScanner.xaml",
               "RelativeToolTip": "PrintScanner\\Pages\\SettingsScanner.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2024-07-27T23:59:12.468Z",
@@ -97,7 +97,7 @@
         "Y": 169,
         "Width": 763,
         "Height": 556,
-        "WindowState": 0
+        "WindowState": 2
       },
       "DocumentGroups": [
         {
@@ -108,11 +108,11 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "SettingsScanner.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsScanner.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsScanner.xaml.cs",
               "RelativeDocumentMoniker": "PrintScanner\\Pages\\SettingsScanner.xaml.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsScanner.xaml.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsScanner.xaml.cs",
               "RelativeToolTip": "PrintScanner\\Pages\\SettingsScanner.xaml.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAzwB0AAAAJAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAE4AAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-28T00:00:00.111Z",
               "EditorCaption": ""
@@ -121,11 +121,11 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "SettingsPhoto.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsPhoto.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsPhoto.xaml.cs",
               "RelativeDocumentMoniker": "PrintScanner\\Pages\\SettingsPhoto.xaml.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\Pages\\SettingsPhoto.xaml.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\SettingsPhoto.xaml.cs",
               "RelativeToolTip": "PrintScanner\\Pages\\SettingsPhoto.xaml.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAIA5wD0AAAAmAAAA",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAawD0AAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-28T00:07:48.122Z",
               "EditorCaption": ""

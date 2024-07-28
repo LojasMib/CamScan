@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\CamScan.csproj": {}
+    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\CamScan.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\CamScan.csproj": {
+    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\CamScan.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\CamScan.csproj",
+        "projectUniqueName": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\CamScan.csproj",
         "projectName": "CamScan",
-        "projectPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\CamScan.csproj",
+        "projectPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\CamScan.csproj",
         "packagesPath": "C:\\Users\\Amaur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\codigo\\PrintScanner\\obj\\",
+        "outputPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

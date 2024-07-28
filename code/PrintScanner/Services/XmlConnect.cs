@@ -23,25 +23,19 @@ namespace PrintScanner.Services
         public string? FolderImagemClientes { get; set; }
         public string? FolderImagemItens { get;set; }
     }
+
+    [XmlRoot("Configurations")]
+    public class Configurations
+    {
+        public List<ConfigScanner> Scanner { get; set; } = new();
+        public List<ConfigPhoto> Photos { get; set; } = new();
+    }
     public class XMLConnect
     {
-        private string? ConfigLocal { get; set; }
-        private string? ConfigDriverPhoto { get; set; }
-        private string? ConfigDriver { get; set; }
-        private string? FolderDocumentoCliente { get; set; }
-        private string? FolderConfissaoDivida { get; set; }
-        private string? FolderDespesas { get; set; }
-        private string? FolderOutros { get; set; }
-        public string? FolderImagemClientes { get; set; }
-        public string? FolderImagemItens { get; set; }
+
+        private string ConfigLocal => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
 
         public XMLConnect() { }
-
-        private string LocalFolder()
-        {
-            string folderPath= AppDomain.CurrentDomain.BaseDirectory;
-            return System.IO.Path.Combine(folderPath, "config.xml");
-        }
 
         public string SelectFolder()
         {
@@ -60,167 +54,88 @@ namespace PrintScanner.Services
             else
             {
                 Console.WriteLine("Error in select folder");
-                return "";
+                return string.Empty;
             }
 
         }
 
-        public List<ConfigPhoto> LoadConfigPhoto()
+        public Configurations LoadConfigurations()
         {
-
-            ConfigLocal = LocalFolder();
             if (File.Exists(ConfigLocal))
             {
-                var serializer = new XmlSerializer(typeof(List<ConfigPhoto>));
+                var serializer = new XmlSerializer(typeof(Configurations));
                 using (var reader = new StreamReader(ConfigLocal))
                 {
-                    var configs = (List<ConfigPhoto>?)serializer.Deserialize(reader) ?? null;
-                    if (configs != null && configs.Any())
-                    {
-                        var config = configs.Last();
-                        ConfigDriverPhoto = config.ConfigDriverPhoto;
-                        FolderImagemClientes = config.FolderImagemClientes;
-                        FolderImagemItens = config.FolderImagemItens;
-                        return configs;
-                    }
+                    var configs = (Configurations?)serializer.Deserialize(reader) ?? new Configurations();
+                    return configs;
                 }
             }
-            return new List<ConfigPhoto>();
+            return new Configurations();
+        }
+        public void SaveConfigurations(Configurations configs)
+        {
+            var serializerSave = new XmlSerializer(typeof(Configurations));
+            using (var writer = new StreamWriter(ConfigLocal))
+            {
+                serializerSave.Serialize(writer, configs);
+            }
         }
         public void SaveConfigPhoto(string tipo, string folder)
         {
-            ConfigLocal = LocalFolder();
-            List<ConfigPhoto> configs = new List<ConfigPhoto>();
+            var configs = LoadConfigurations();
 
-            if (File.Exists(ConfigLocal))
-            {
-                var serializer = new XmlSerializer(typeof(List<ConfigPhoto>));
-                using (var reader = new StreamReader(ConfigLocal))
-                {
-                    var existingConfigs = (List<ConfigPhoto>?)serializer.Deserialize(reader);
-                    if (existingConfigs != null)
-                    {
-                        configs = existingConfigs;
-                    }
-                }
-            }
-
+            ConfigPhoto newConfig = configs.Photos.FirstOrDefault() ?? new ConfigPhoto();
 
             if (tipo == "ConfigDriverPhoto")
             {
-                ConfigDriverPhoto = folder;
+                newConfig.ConfigDriverPhoto = folder;
             }
             else if (tipo == "FolderImagemClientes")
             {
-                FolderDocumentoCliente = folder;
+                newConfig.FolderImagemClientes = folder;
             }
             else if (tipo == "FolderImagemItens")
             {
-                FolderConfissaoDivida = folder;
+                newConfig.FolderImagemItens = folder;
             }
-            // Add or update configuration
-            ConfigPhoto newConfig = new ConfigPhoto
-            {
-                ConfigDriverPhoto = ConfigDriverPhoto,
-                FolderImagemClientes = FolderImagemClientes,
-                FolderImagemItens = FolderImagemItens
-            };
-            configs.Clear();
-            configs.Add(newConfig);
+            configs.Photos.Clear();
+            configs.Photos.Add(newConfig);
 
-            var serializerSave = new XmlSerializer(typeof(List<ConfigPhoto>));
-            using (var writer = new StreamWriter(ConfigLocal))
-            {
-                serializerSave.Serialize(writer, configs);
-            }
+            SaveConfigurations(configs);
         }
 
-        public List<ConfigScanner> LoadConfig()
+
+        public void SaveConfigScanner(string tipo, string folder)
         {
-
-            ConfigLocal = LocalFolder();
-            if (File.Exists(ConfigLocal))
-            {
-                var serializer = new XmlSerializer(typeof(List<ConfigScanner>));
-                using (var reader = new StreamReader(ConfigLocal))
-                {
-                    var configs = (List<ConfigScanner>?)serializer.Deserialize(reader);
-                    if (configs != null && configs.Any())
-                    {
-                        var config = configs.Last();
-                        ConfigDriver = config.ConfigDriver;
-                        FolderDocumentoCliente = config.FolderDocumentoCliente;
-                        FolderConfissaoDivida = config.FolderConfissaoDivida;
-                        FolderDespesas = config.FolderDespesas;
-                        FolderOutros = config.FolderOutros;
-                        return configs;
-                    }
-                }
-            }
-            return new List<ConfigScanner>();
-        }
-
-        
-
-        public void SaveConfig(string tipo, string folder)
-        {
-            ConfigLocal = LocalFolder();
-            List<ConfigScanner> configs = new List<ConfigScanner>();
-
-            if (File.Exists(ConfigLocal))
-            {
-                var serializer = new XmlSerializer(typeof(List<ConfigScanner>));
-                using (var reader = new StreamReader(ConfigLocal))
-                {
-                    var existingConfigs = (List<ConfigScanner>?)serializer.Deserialize(reader);
-                    if (existingConfigs != null)
-                    {
-                        configs = existingConfigs;
-                    }
-                }
-            }
-
+            var configs = LoadConfigurations();
+            ConfigScanner newConfig = configs.Scanner.FirstOrDefault() ?? new ConfigScanner();
 
             if (tipo == "ConfigDriver")
             {
-                ConfigDriver = folder;
+                newConfig.ConfigDriver = folder;
             }
             else if (tipo == "FolderDocumentoCliente")
             {
-                FolderDocumentoCliente = folder;
+                newConfig.FolderDocumentoCliente = folder;
             }
             else if (tipo == "FolderConfissaoDivida")
             {
-                FolderConfissaoDivida = folder;
+                newConfig.FolderConfissaoDivida = folder;
             }
             else if (tipo == "FolderDespesas")
             {
-                FolderDespesas = folder;
+                newConfig.FolderDespesas = folder;
             }
             else if (tipo == "FolderOutros")
             {
-                FolderOutros = folder;
+                newConfig.FolderOutros = folder;
             }
-            // Add or update configuration
-            ConfigScanner newConfig = new ConfigScanner
-            {
-                ConfigDriver = ConfigDriver,
-                FolderDocumentoCliente = FolderDocumentoCliente,
-                FolderConfissaoDivida = FolderConfissaoDivida,
-                FolderDespesas = FolderDespesas,
-                FolderOutros = FolderOutros
-            };
-            configs.Clear();
-            configs.Add(newConfig);
 
-            var serializerSave = new XmlSerializer(typeof(List<ConfigScanner>));
-            using (var writer = new StreamWriter(ConfigLocal))
-            {
-                serializerSave.Serialize(writer, configs);
-            }
+            configs.Scanner.Clear();
+            configs.Scanner.Add(newConfig);
+
+            SaveConfigurations(configs);
         }
-
-
 
     }
 }

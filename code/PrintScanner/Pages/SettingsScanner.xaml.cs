@@ -31,10 +31,10 @@ namespace PrintScanner.Pages
 
         private void LocalFolder()
         {
-            var config = xmlConnect.LoadConfig();
-            if (config != null && config.Any())
+            var config = xmlConnect.LoadConfigurations();
+            if (config != null && config.Scanner.Any())
             {
-                var xml = config.Last();
+                var xml = config.Scanner.Last();
                 DriverScanner.Text = xml.ConfigDriver ?? "";
                 FolderDocClientes.Text = xml.FolderDocumentoCliente ?? "";
                 ConfissaoDivida.Text = xml.FolderConfissaoDivida ?? "";
@@ -49,14 +49,14 @@ namespace PrintScanner.Pages
         private void DriverScanner_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfig("ConfigDriver", folder);
+            xmlConnect.SaveConfigScanner("ConfigDriver", folder);
             DriverScanner.Text = folder;
         }
 
         private void FolderDocClientes_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfig("FolderDocumentoCliente", folder);
+            xmlConnect.SaveConfigScanner("FolderDocumentoCliente", folder);
             FolderDocClientes.Text = folder;
         }
 
@@ -64,20 +64,20 @@ namespace PrintScanner.Pages
         private void ConfissaoDivida_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfig("FolderConfissaoDivida", folder);
+            xmlConnect.SaveConfigScanner("FolderConfissaoDivida", folder);
             ConfissaoDivida.Text = folder;
         }
 
         private void Despesas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfig("FolderDespesas", folder);
+            xmlConnect.SaveConfigScanner("FolderDespesas", folder);
             Despesas.Text = folder;
         }
         private void Outros_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfig("FolderOutros", folder);
+            xmlConnect.SaveConfigScanner("FolderOutros", folder);
             Outros.Text = folder;
         }
     }

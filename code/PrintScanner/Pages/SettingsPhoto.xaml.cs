@@ -30,10 +30,10 @@ namespace PrintScanner.Pages
 
         private void LocalFolder()
         {
-            var config = xmlConnect.LoadConfigPhoto();
-            if (config != null && config.Any())
+            var config = xmlConnect.LoadConfigurations();
+            if (config != null && config.Photos.Any())
             {
-                var xml = config.Last();
+                var xml = config.Photos.Last();
                 DriverPhoto.Text = xml.ConfigDriverPhoto ?? "";
                 ImagemDeClientes.Text = xml.FolderImagemClientes ?? "";
                 ImagemDeItens.Text = xml.FolderImagemItens ?? "";
@@ -52,14 +52,14 @@ namespace PrintScanner.Pages
         {
             string folder = xmlConnect.SelectFolder();
             xmlConnect.SaveConfigPhoto("FolderImagemClientes", folder);
-            DriverPhoto.Text = folder;
+            ImagemDeClientes.Text = folder;
         }
 
         private void ImagemDeItens_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
             xmlConnect.SaveConfigPhoto("FolderImagemItens", folder);
-            DriverPhoto.Text = folder;
+            ImagemDeItens.Text = folder;
         }
     }
 }
