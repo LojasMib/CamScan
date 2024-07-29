@@ -7,10 +7,12 @@
         xmlns:local="clr-namespace:PrintScanner"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="ScanCam" Height="500" Width="800" Icon="pack://application:,,,/Images/Window/IconScanCam.png">
+        WindowStartupLocation="CenterScreen"
+        Title="ScanCam" Height="500" Width="800" Icon="pack://application:,,,/Images/Window/IconScanCam.png"
+        Closed="Window_Closed">
 
     <Grid>
-        <Frame Source="/Pages/Landing.xaml" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" Source="/Pages/Landing.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
     
 </Window>

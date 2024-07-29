@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\App.xaml
-8592825717
+9-897110487
 
-121313485997
-199-1577731152
-MainWindow.xaml;Pages\Landing.xaml;Pages\Photo.xaml;Pages\Scanner.xaml;Pages\Settings.xaml;Pages\SettingsPhoto.xaml;Pages\SettingsScanner.xaml;Themes\Generic.xaml;
+131100699793
+203-160986832
+MainWindow.xaml;Pages\Landing.xaml;Pages\Photo.xaml;Pages\Scanner.xaml;Pages\SelectDriver.xaml;Pages\Settings.xaml;Pages\SettingsPhoto.xaml;Pages\SettingsScanner.xaml;Themes\Generic.xaml;
 
 False
 

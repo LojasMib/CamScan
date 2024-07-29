@@ -16,6 +16,9 @@
     <Compile Update="Pages\Scanner.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\SelectDriver.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Settings.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -37,6 +40,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Scanner.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\SelectDriver.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Settings.xaml">

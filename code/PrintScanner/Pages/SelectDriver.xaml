@@ -1,0 +1,37 @@
+﻿<Window x:Class="CamScan.Pages.SelectDriver"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:r="clr-namespace:PrintScanner.Router"
+        xmlns:local="clr-namespace:CamScan.Pages"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="ToolWindow"
+        Title="Dispositivo de Câmera" Height="300" Width="500" Icon="pack://application:,,,/Images/Window/IconScanCam.png">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center"
+               FontFamily="Arial"
+               FontSize="20"
+               FontWeight="Bold"
+               Foreground="#FF534C4C" 
+               Content="Drivers da WebCam"/>
+        <Grid x:Name="DriversOptions" Grid.Row="1">
+        </Grid>
+        
+    </Grid>
+</Window>

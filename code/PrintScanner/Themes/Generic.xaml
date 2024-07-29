@@ -57,6 +57,29 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="SettingDrivers" TargetType="{x:Type r:Navigator}">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type r:Navigator}">
+                    <Border Background="LightGray"
+                    BorderBrush="Black"
+                    BorderThickness="0"
+                    CornerRadius="8" Cursor="Hand"
+                    Width="300"
+                    Height="30"
+                    Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Padding="15,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{TemplateBinding Text}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
     <Style TargetType="{x:Type r:FolderSearch}">

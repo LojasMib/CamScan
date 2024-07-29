@@ -22,5 +22,12 @@ namespace PrintScanner
         {
             InitializeComponent();
         }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if(MainFrame.Content is Photo photo)
+            {
+                photo.StopCamera();
+            }
+        }
     }
 }

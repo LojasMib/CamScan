@@ -11,7 +11,14 @@
         <Frame x:Name="NavigationFrame"/>
         <Grid x:Name="FramePhoto" Background="white">
             <Button Content="Voltar" Command="NavigationCommands.BrowseBack" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="44" Width="54"/>
-            <Button x:Name="CameraImage" Content="Button" Height="271" Margin="90,85,90,0" VerticalAlignment="Top"/>
+
+            <Border BorderThickness="2"
+                    BorderBrush="black"
+                    Margin="90,57,90,84"
+                    >
+                <Image x:Name="webCamImage" MouseDown="webCamImage_MouseDown"/>
+            </Border>
+            
             <Button x:Name="Salvar" Content="SALVAR" HorizontalAlignment="Left" Height="32" Margin="613,384,0,0" VerticalAlignment="Top" Width="97"/>
             <TextBox HorizontalAlignment="Left" Margin="233,391,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200" FontSize="14" VerticalContentAlignment="Center"/>
             <Label Content="Codigo do Cliente:" HorizontalAlignment="Left" Margin="90,385,0,0" VerticalAlignment="Top" Width="145" VerticalContentAlignment="Center" FontSize="16"/>

@@ -1,6 +1,8 @@
-﻿using PrintScanner.Services;
+﻿using CamScan.Pages;
+using PrintScanner.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,9 +45,8 @@ namespace PrintScanner.Pages
 
         private void DriverPhoto_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfigPhoto("ConfigDriverPhoto", folder);
-            DriverPhoto.Text = folder;
+            SelectDriver selectDriver = new SelectDriver();
+            selectDriver.ShowDialog();
         }
 
         private void ImagemDeClientes_MouseDown(object sender, MouseButtonEventArgs e)
