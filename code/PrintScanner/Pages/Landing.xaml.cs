@@ -1,4 +1,5 @@
-﻿using PrintScanner.Router;
+﻿using CamScan.Pages;
+using CamScan.Router;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PrintScanner.Pages
+namespace CamScan.Pages
 {
     /// <summary>
-    /// Interação lógica para Landing.xam
+    /// Interação lógica para Landing.xaml
     /// </summary>
     public partial class Landing : Page
     {
@@ -29,13 +30,23 @@ namespace PrintScanner.Pages
         private void Grid_Click(object sender, RoutedEventArgs e)
         {
             var ClickButton = e.OriginalSource as Navigator;
-
             NavigationService.Navigate(ClickButton?.NavUri);
         }
 
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate("Pages/Settings");
+            KeyAcess keyAcess = new KeyAcess();
+            Window parentWindow = Window.GetWindow(this);
+            if(parentWindow != null)
+            {
+                keyAcess.Owner = parentWindow;
+            }
+            keyAcess.ShowDialog();
+            if(keyAcess.FreeAcess == true)
+            {
+                NavigationService.Navigate(new Uri("/Pages/Settings.xaml", UriKind.Relative));
+            }
+            
         }
     }
 }

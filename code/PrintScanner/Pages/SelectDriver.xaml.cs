@@ -1,5 +1,6 @@
 ﻿using AForge.Video.DirectShow;
-using PrintScanner.Router;
+using CamScan.Pages;
+using CamScan.Router;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using WpfSystem = System.Windows;
+
 namespace CamScan.Pages
 {
     /// <summary>
@@ -22,7 +25,10 @@ namespace CamScan.Pages
     public partial class SelectDriver : Window
     {
         private FilterInfoCollection? videoDevices;
-        private VideoCaptureDevice? videoSource;
+
+        public FilterInfo? SelectDeviceName { get; private set; }
+
+        public event Action<FilterInfo>? SelectionMade;
         public SelectDriver()
         {
             InitializeComponent();
@@ -34,7 +40,7 @@ namespace CamScan.Pages
             videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (videoDevices.Count == 0)
             {
-                MessageBox.Show("No video source found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                WpfSystem.MessageBox.Show("No video source found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -52,13 +58,21 @@ namespace CamScan.Pages
                     Text = device.Name
                 };
 
-                navigator.MouseDown += Navigator_MouseDown;
+                navigator.Click += (s, args) => Navigator_Click(s, args, device);
 
                 DriversOptions.Children.Add(navigator);
                 Grid.SetRow(navigator, rowIndex);
                 rowIndex++;
 
             }
+        }
+
+        private void Navigator_Click(object s, RoutedEventArgs args, FilterInfo device)
+        {
+            SelectDeviceName = device;
+            SelectionMade?.Invoke(SelectDeviceName);
+            this.DialogResult = true;
+            this.Close();
         }
 
 

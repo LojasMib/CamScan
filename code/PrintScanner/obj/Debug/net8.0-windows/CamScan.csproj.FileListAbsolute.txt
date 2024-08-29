@@ -80,3 +80,11 @@ C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\bin\Debug\ne
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\bin\Debug\net8.0-windows\System.Drawing.Common.dll
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\Debug\net8.0-windows\Pages\SelectDriver.g.cs
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\Debug\net8.0-windows\Pages\SelectDriver.baml
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\Debug\net8.0-windows\Pages\Error.g.cs
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\Debug\net8.0-windows\Pages\Error.baml
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\Debug\net8.0-windows\Pages\SelectDriverScanner.g.cs
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\Debug\net8.0-windows\Pages\SelectDriverScanner.baml
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\bin\Debug\net8.0-windows\TwainDotNet.WinFroms.dll
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\bin\Debug\net8.0-windows\TwainDotNet.Wpf.dll
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\bin\Debug\net8.0-windows\TwainDotNet.dll
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\bin\Debug\net8.0-windows\log4net.dll

@@ -1,10 +1,10 @@
-﻿<Page x:Class="PrintScanner.Pages.SettingsPhoto"
+﻿<Page x:Class="CamScan.Pages.SettingsPhoto"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:r="clr-namespace:PrintScanner.Router"
-      xmlns:local="clr-namespace:PrintScanner.Pages"
+      xmlns:r="clr-namespace:CamScan.Router"
+      xmlns:local="clr-namespace:CamScan.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPhoto">
@@ -13,7 +13,7 @@
         <Border
             CornerRadius="20"
             BorderThickness="0"
-            Background="DarkBlue" 
+            Background="#F69D0D" 
             Margin="80,0,80,5">
             <Grid x:Name="SetSelect" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
@@ -24,7 +24,7 @@
 
                 <r:FolderSearch x:Name="DriverPhoto" Grid.Row="0" Title="Driver WebCam:" Text="" Width="400" MouseDown="DriverPhoto_MouseDown" />
                 <r:FolderSearch x:Name="ImagemDeClientes" Grid.Row="1" Title="Imagens de Cliente: " Text="" Width="500" MouseDown="ImagemDeClientes_MouseDown"/>
-                <r:FolderSearch x:Name="ImagemDeItens" Grid.Row="2" Title="Imagens de Itens: " Text="" Width="500" Cursor="Hand" MouseDown="ImagemDeItens_MouseDown"/>
+                <r:FolderSearch x:Name="ImagemDeItens" Grid.Row="2" Title="Imagens de Itens: " Text="" Width="500" MouseDown="ImagemDeItens_MouseDown"/>
             </Grid>
         </Border>
     </Grid>

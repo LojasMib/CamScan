@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)leadtools.kernel\23.0.0.2\build\net7.0\Leadtools.Kernel.targets" Condition="Exists('$(NuGetPackageRoot)leadtools.kernel\23.0.0.2\build\net7.0\Leadtools.Kernel.targets')" />
+    <Import Project="$(NuGetPackageRoot)leadtools.twain\23.0.0.2\build\net7.0\Leadtools.Twain.targets" Condition="Exists('$(NuGetPackageRoot)leadtools.twain\23.0.0.2\build\net7.0\Leadtools.Twain.targets')" />
+  </ImportGroup>
+</Project>

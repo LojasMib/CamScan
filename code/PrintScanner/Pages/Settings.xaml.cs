@@ -17,13 +17,16 @@ using System;
 using System.Xml.Serialization;
 using ServiceStack.Text;
 using Microsoft.VisualBasic;
-using PrintScanner.Services;
-using PrintScanner.Router;
+using CamScan.Services;
+using CamScan.Router;
+using CamScan.Pages;
 
 
-namespace PrintScanner.Pages
+namespace CamScan.Pages
 {
-
+    /// <summary>
+    /// Interação lógica para Settings.xaml
+    /// </summary>
     public partial class Settings : Page
     {
         
@@ -47,6 +50,11 @@ namespace PrintScanner.Pages
         {
             var clickButton = e.OriginalSource as Navigator;
             NavigationService.Navigate(clickButton?.NavUri);
+        }
+
+        private void SetFranquia_Click(object sender, RoutedEventArgs e)
+        {
+            MainSetting.Content = new SettingFranquia();
         }
     }
     

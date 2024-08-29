@@ -2,25 +2,72 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <Configurations>Debug;Release;Build_x86</Configurations>
+    <Platforms>AnyCPU;x86</Platforms>
+    <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>Images\Window\IconScanCam.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="IconScanCam.ico" />
+    <None Remove="Images\Error\error.png" />
     <None Remove="Images\Landing\Logo MIB.png" />
     <None Remove="Images\Landing\LogoMib.svg" />
     <None Remove="Images\Landing\scanner.png" />
     <None Remove="Images\Landing\setting.png" />
     <None Remove="Images\Landing\setting.svg" />
     <None Remove="Images\Landing\webCam.png" />
+    <None Remove="Images\Scanner\Cancel_Gray.png" />
+    <None Remove="Images\Scanner\Cancel_Red.png" />
     <None Remove="Images\Settings\backButton.png" />
+    <None Remove="Images\Window\IconScanCam.ico" />
     <None Remove="Images\Window\IconScanCam.png" />
     <None Remove="Pages\Logo MIB.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <COMReference Include="WIA">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>94a0e92d-43c0-494e-ac29-fd45948a5221</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Shell32">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>50a7e9b0-70ef-11d1-b75a-00a0c90564fe</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="IWshRuntimeLibrary">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>f935dc20-1cf0-11d0-adb9-00c04fd58a0b</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\Window\IconScanCam.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="IconScanCam.ico" />
+    <Resource Include="Images\Error\error.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Landing\Logo MIB.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -33,7 +80,12 @@
     <Resource Include="Images\Landing\webCam.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Scanner\Cancel_Gray.png" />
+    <Resource Include="Images\Scanner\Cancel_Red.png" />
     <Resource Include="Images\Settings\backButton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Window\IconScanCam.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Window\IconScanCam.png">
@@ -45,15 +97,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AForge" Version="2.2.5" />
     <PackageReference Include="AForge.Video" Version="2.2.5" />
     <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="13.10.0" />
+    <PackageReference Include="PDFsharp" Version="6.1.1" />
     <PackageReference Include="ServiceStack.Text" Version="8.3.0" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,10 @@
-﻿<Page x:Class="PrintScanner.Pages.Settings"
+﻿<Page x:Class="CamScan.Pages.Settings"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:router="clr-namespace:PrintScanner.Router"
-      xmlns:local="clr-namespace:PrintScanner.Pages"
+      xmlns:router="clr-namespace:CamScan.Router"
+      xmlns:local="clr-namespace:CamScan.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Settings">
@@ -15,22 +15,38 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <router:Navigator Style="{StaticResource NavigatorSettings}"
-                              ImageSource="/Images/Settings/backButton.png"
-                              NavUri="/Pages/Landing.xaml" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" Click="Navigator_Click" 
-                              />
-            <Grid VerticalAlignment="Center" Width="640" Height="75" >
-                <Button x:Name="SetScaner" Content="Scanner" Height="48" Width="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,27,0,0" Click="SetScaner_Click" />
-                <Button x:Name="SetPhoto" Content="Pthoto" Height="48" Width="84" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="336,27,0,0" Click="SetPhoto_Click" />
-            </Grid>
-        </StackPanel>
-        <Frame x:Name="MainSetting" Grid.Row="1"/>
+    <Grid>
+        <Frame x:Name="NavigationFrame"/>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <router:Navigator Style="{StaticResource NavigatorImage}"
+                          ImageSource="/Images/Settings/backButton.png"
+                          NavUri="/Pages/Landing.xaml" VerticalAlignment="Top"
+                          HorizontalAlignment="Left" Margin="10,10,0,0" Click="Navigator_Click" 
+                          />
+                <Grid VerticalAlignment="Center" Width="640" Height="75" >
+                    <router:ScannerFolderOptions x:Name="SetScaner" Width="90" Height="50" 
+                                         Text="Scanner"  Click="SetScaner_Click" 
+                                         Margin="-180,35,0,-10" Background="#FFCB23"
+                                         GroupName="Setting_Options"/>
+                    <router:ScannerFolderOptions x:Name="SetPhoto" Width="90" Height="50"
+                                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                                         Text="Photo"  Click="SetPhoto_Click"
+                                         Margin="300,35,0,-10" Background="#F69D0D"
+                                         GroupName="Setting_Options"/>
+                    <router:ScannerFolderOptions x:Name="SetFranquia" Width="90" Height="50"
+                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                         Text="Franquia" Click="SetFranquia_Click"
+                         Margin="418,35,0,-10" Background="#ED6B28"
+                         GroupName="Setting_Options"  />
+                </Grid>
+            </StackPanel>
+            <Frame x:Name="MainSetting" Grid.Row="1"/>
+        </Grid>
     </Grid>
+    
 </Page>

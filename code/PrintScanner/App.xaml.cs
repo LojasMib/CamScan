@@ -1,13 +1,13 @@
 ﻿using System.Configuration;
 using System.Data;
-using System.Windows;
+using WpfSystem = System.Windows;
 
 namespace PrintScanner
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : WpfSystem.Application
     {
     }
 

@@ -1,28 +1,80 @@
-﻿<Page x:Class="PrintScanner.Photo"
+﻿<Page x:Class="CamScan.Pages.Photo"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:PrintScanner"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:b="clr-namespace:CamScan.Components"
+      xmlns:local="clr-namespace:CamScan"
+      xmlns:router="clr-namespace:CamScan.Router"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Photo">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="/Components/PhotoComponent.Designer.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Frame x:Name="NavigationFrame"/>
         <Grid x:Name="FramePhoto" Background="white">
-            <Button Content="Voltar" Command="NavigationCommands.BrowseBack" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="44" Width="54"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="176*"/>
+                <RowDefinition Height="49*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <router:Navigator Style="{StaticResource NavigatorImage}"
+                      ImageSource="/Images/Settings/backButton.png"
+                      NavUri="/Pages/Landing.xaml" VerticalAlignment="Top"
+                      HorizontalAlignment="Left" Margin="10,10,0,0" Click="Navigator_Click" 
+                />
 
-            <Border BorderThickness="2"
-                    BorderBrush="black"
-                    Margin="90,57,90,84"
-                    >
-                <Image x:Name="webCamImage" MouseDown="webCamImage_MouseDown"/>
-            </Border>
-            
-            <Button x:Name="Salvar" Content="SALVAR" HorizontalAlignment="Left" Height="32" Margin="613,384,0,0" VerticalAlignment="Top" Width="97"/>
-            <TextBox HorizontalAlignment="Left" Margin="233,391,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="200" FontSize="14" VerticalContentAlignment="Center"/>
-            <Label Content="Codigo do Cliente:" HorizontalAlignment="Left" Margin="90,385,0,0" VerticalAlignment="Top" Width="145" VerticalContentAlignment="Center" FontSize="16"/>
+                <Border BorderThickness="2"
+                        BorderBrush="black"
+                        Margin="90,56,90,0"
+                        >
+                    <Image x:Name="webCamImage" MouseDown="webCamImage_MouseDown" Height="295" VerticalAlignment="Top"/>
+                </Border>
+            </Grid>
+
+
+            <Grid Grid.Row="1">
+                <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" x:Name="Cancelar" Text="Cancelar" Width="100" Margin="280,25,0,30" MouseDown="Cancelar_MouseDown"  />
+                <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" x:Name="Salvar" Text="Salvar" Width="100" Background="#ED6B28"  Margin="520,25,0,30" MouseDown="Salvar_MouseDown" />
+                <TextBlock x:Name="ErrorImage" HorizontalAlignment="Left"  Margin="459,75,0,0"
+                           TextWrapping="Wrap" Text="Erro" TextAlignment="Center"
+                           VerticalAlignment="Top" Width="291"
+                           Foreground="Red" Visibility="Hidden"/>
+
+                <Grid Margin="96,5,362,44">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <b:PhotoFolderOptions Style="{StaticResource ButtonChoice}" Grid.Column="0" x:Name="RdBtn_ImagemCliente" Text="Imagem de Cliente"
+                                          Height="30" Width="155" GroupName="PhotoOptions" Checked="RdBtn_ImagemCliente_Checked" Margin="5,5,0,13"  />
+                    <b:PhotoFolderOptions Style="{StaticResource ButtonChoice}" Grid.Column="1" x:Name="RdBtn_ImagemItens" Text="Imagem de Item"
+                                          Height="30" Width="140" GroupName="PhotoOptions" Checked="RdBtn_ImagemItens_Checked" Margin="5,5,0,13"/>
+                </Grid>
+
+                <Label x:Name="LabelFolderPhoto"  Content="Codigo do Cliente: " HorizontalAlignment="Left" Margin="96,50,0,0" VerticalAlignment="Top" 
+                       Width="150" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="#FF534C4C"/>
+                <TextBox x:Name="CodigoInput" HorizontalAlignment="Left" Margin="246,54,0,0" 
+                     TextWrapping="Wrap" Text="" VerticalAlignment="Top" 
+                     Width="166" FontSize="14" VerticalContentAlignment="Center"
+                     BorderBrush="Black" BorderThickness="1"/>
+
+                <TextBlock x:Name="ErrorInput" HorizontalAlignment="Left"  Margin="109,78,0,0"
+                       TextWrapping="Wrap" Text="Erro" TextAlignment="Center"
+                       VerticalAlignment="Top" Width="291"
+                       Foreground="Red" Visibility="Hidden"/>
+
+
+            </Grid>
         </Grid>
     </Grid>
-
 </Page>

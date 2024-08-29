@@ -7,6 +7,15 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\LoadingControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Error.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\KeyAcess.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Landing.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -17,6 +26,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\SelectDriver.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\SelectionDriver.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\SettingFranquia.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\Settings.xaml.cs">
@@ -30,7 +45,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\LoadingControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\PhotoComponent.Designer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Error.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\KeyAcess.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Landing.xaml">
@@ -39,10 +66,13 @@
     <Page Update="Pages\Photo.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\Scanner.xaml">
+    <Page Update="Pages\SelectDriver.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\SelectDriver.xaml">
+    <Page Update="Pages\SelectionDriver.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\SettingFranquia.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Settings.xaml">

@@ -1,4 +1,5 @@
-﻿using PrintScanner.Router;
+﻿using CamScan.Pages;
+using CamScan.Router;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
@@ -11,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PrintScanner
+namespace CamScan
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

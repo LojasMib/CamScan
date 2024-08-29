@@ -1,0 +1,27 @@
+﻿<Page x:Class="CamScan.Pages.SettingFranquia"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CamScan.Pages"
+      xmlns:r="clr-namespace:CamScan.Router"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SettingFranquia">
+
+    <Grid Background="White">
+        <Border
+            CornerRadius="20" BorderThickness="0"
+            Background="#ED6B28"
+            Margin="80,0,80,5">
+            <Grid x:Name="SetSelect" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+                <r:FolderSearch x:Name="Cidade" Grid.Row="0" Title="Cidade:" Text="" Width="400"/>
+                <r:FolderSearch x:Name="Franquia" Grid.Row="1" Title="Franquia:" Text="" Width="400" />
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
