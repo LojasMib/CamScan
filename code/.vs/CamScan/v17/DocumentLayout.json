@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\pages\\scanner.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\scanner.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\components\\settingscomponent.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\components\\settingscomponent.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\printscanner\\pages\\landing.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\landing.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\components\\settingscomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\components\\settingscomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\components\\photocomponent.designer.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\components\\photocomponent.designer.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\pages\\photo.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\photo.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 972,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -27,36 +35,104 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Scanner.xaml",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Scanner.xaml",
-              "RelativeDocumentMoniker": "PrintScanner\\Pages\\Scanner.xaml",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Scanner.xaml",
-              "RelativeToolTip": "PrintScanner\\Pages\\Scanner.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-08-28T21:35:18.096Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Landing.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Landing.xaml.cs",
-              "RelativeDocumentMoniker": "PrintScanner\\Pages\\Landing.xaml.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Landing.xaml.cs",
-              "RelativeToolTip": "PrintScanner\\Pages\\Landing.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "SettingsComponent.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Components\\SettingsComponent.Designer.cs",
+              "RelativeDocumentMoniker": "PrintScanner\\Components\\SettingsComponent.Designer.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Components\\SettingsComponent.Designer.cs",
+              "RelativeToolTip": "PrintScanner\\Components\\SettingsComponent.Designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-28T21:49:42.574Z"
+              "WhenOpened": "2024-08-29T20:52:29.913Z",
+              "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 949,
+          "DockedWidth": 1174,
           "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "3880b9fe-8b5e-40bf-b71f-b6f9ffebc396",
+        "Display": 1,
+        "X": 566,
+        "Y": 466,
+        "Width": 855,
+        "Height": 571,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Photo.xaml",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Photo.xaml",
+              "RelativeDocumentMoniker": "PrintScanner\\Pages\\Photo.xaml",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Photo.xaml",
+              "RelativeToolTip": "PrintScanner\\Pages\\Photo.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-29T17:06:25.549Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "a7c9ae3b-d07d-4575-bcdc-17774a9a2c8d",
+        "Display": 1,
+        "X": -5,
+        "Y": 241,
+        "Width": 1245,
+        "Height": 796,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SettingsComponent.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Components\\SettingsComponent.cs",
+              "RelativeDocumentMoniker": "PrintScanner\\Components\\SettingsComponent.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Components\\SettingsComponent.cs",
+              "RelativeToolTip": "PrintScanner\\Components\\SettingsComponent.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-29T20:26:40.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PhotoComponent.Designer.xaml",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Components\\PhotoComponent.Designer.xaml",
+              "RelativeDocumentMoniker": "PrintScanner\\Components\\PhotoComponent.Designer.xaml",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Components\\PhotoComponent.Designer.xaml",
+              "RelativeToolTip": "PrintScanner\\Components\\PhotoComponent.Designer.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-29T20:25:49.772Z",
+              "EditorCaption": ""
             }
           ]
         }

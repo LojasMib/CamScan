@@ -54,7 +54,7 @@ namespace CamScan.Components {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CamScan;component/components/loadingcontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CamScan;V1.0.0.0;component/components/loadingcontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Components\LoadingControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

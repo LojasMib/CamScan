@@ -21,6 +21,8 @@
     <None Remove="Images\Landing\setting.png" />
     <None Remove="Images\Landing\setting.svg" />
     <None Remove="Images\Landing\webCam.png" />
+    <None Remove="Images\Photo\Ok_Message.png" />
+    <None Remove="Images\Photo\Ponteiro_Mouse.png" />
     <None Remove="Images\Scanner\Cancel_Gray.png" />
     <None Remove="Images\Scanner\Cancel_Red.png" />
     <None Remove="Images\Settings\backButton.png" />
@@ -80,6 +82,8 @@
     <Resource Include="Images\Landing\webCam.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Photo\Ok_Message.png" />
+    <Resource Include="Images\Photo\Ponteiro_Mouse.png" />
     <Resource Include="Images\Scanner\Cancel_Gray.png" />
     <Resource Include="Images\Scanner\Cancel_Red.png" />
     <Resource Include="Images\Settings\backButton.png">
@@ -104,6 +108,12 @@
     <PackageReference Include="PDFsharp" Version="6.1.1" />
     <PackageReference Include="ServiceStack.Text" Version="8.3.0" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Components\SettingsComponent.Designer.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
   </ItemGroup>
 
 </Project>

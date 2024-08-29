@@ -211,6 +211,13 @@ namespace CamScan.Pages
             error.ShowDialog();
         }
 
+        private async void Sucess_Message()
+        {
+            SucessImage.Visibility = Visibility.Visible;
+            await Task.Delay(3000);// 1000 => 1 segundo
+            SucessImage.Visibility = Visibility.Hidden;
+        }
+
         private void Salvar_Imagem(int option)
         {
             string CodigoCliente = CodigoInput.Text + ".jpg";
@@ -234,17 +241,13 @@ namespace CamScan.Pages
                         Captura = null;
                         timer?.Start();
                     }
-                    else
-                    {
-                        Console.WriteLine("Errro: Captura é null");
-                    }
                 }
-                Console.WriteLine("Imagem salva com sucesso");
                 CodigoInput.BorderBrush = System.Windows.Media.Brushes.Black;
                 CodigoInput.BorderThickness = new Thickness(1);
                 CodigoInput.Text = "";
                 ErrorInput.Text = "";
                 ErrorInput.Visibility = Visibility.Hidden;
+                Sucess_Message();
             }
             catch (Exception ex)
             {
