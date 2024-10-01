@@ -37,7 +37,6 @@ namespace CamScan.Pages
         {
             InitializeComponent();
             Loaded += Loaded_SettingScanner;
-            Unloaded += Unloaded_SettingsScanner;
         }
 
         private ConfigScanner? Load_XML()
@@ -168,7 +167,7 @@ namespace CamScan.Pages
             }
         }
 
-        private void Unloaded_SettingsScanner(object sender, RoutedEventArgs e)
+        private void Save_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SaveConfigurationsinXML(FolderDocClientes.Text, "FolderDocumentoCliente");
             SaveConfigurationsinXML(ConfissaoDivida.Text, "FolderConfissaoDivida");

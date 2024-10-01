@@ -31,6 +31,7 @@ using System.Drawing.Imaging;
 using Microsoft.VisualBasic.ApplicationServices;
 using static PdfSharp.Capabilities.Features;
 using System.Reflection.Metadata;
+using CamScan.Components;
 
 namespace CamScan
 {
@@ -225,6 +226,7 @@ namespace CamScan
                 {
                     Dispatcher.Invoke(() =>
                     {
+                        
                         ScannedImages.Add(tempFile);
 
                         AddRoundRadioButtonsToGrid(ScannedImages.Count);
@@ -271,7 +273,20 @@ namespace CamScan
         }
 
 
-        
+        //RESTRICTIONS OF INPUT DOC CLIENTE
+        private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            // Permite apenas números
+            e.Handled = !IsTextNumeric(e.Text) && !( e.Text == "F" || e.Text == "V");
+        }
+
+        private bool IsTextNumeric(string text)
+        {
+            // Verifica se o texto é numérico
+            return int.TryParse(text, out _);
+        }
+
+
         //AREA OF USE STATIC BUTTONS
         private void Navigator_Click(object sender, RoutedEventArgs e)
         {
@@ -283,27 +298,35 @@ namespace CamScan
         {
             InputLabel.Content = "Código do Cliente:";
             InputText.Text = "";
+            InputText.IsReadOnly = false;
+            InputText.PreviewTextInput += TextBox_PreviewTextInput;
         }
 
         private void RdBtn_ConfissaoDivida_Checked(object sender, RoutedEventArgs e)
         {
             InputLabel.Content = "Data das confissões:";
+            InputText.PreviewTextInput -= TextBox_PreviewTextInput;
             DateTime dataAtual = DateTime.Today;
             string DataFormatada = dataAtual.ToString("dd-MM-yyyy"); 
             string data = $"CDF{NameFranquia} - " + DataFormatada;
             InputText.Text = data;
+            InputText.IsReadOnly = true;
         }
 
         private void RdBtn_Despesas_Checked(object sender, RoutedEventArgs e)
         {
             InputLabel.Content = "Despesas:";
+            InputText.PreviewTextInput -= TextBox_PreviewTextInput;
             InputText.Text = "";
+            InputText.IsReadOnly = false;
         }
 
         private void RdBtn_Outros_Checked(object sender, RoutedEventArgs e)
         {
             InputLabel.Content = "Outros:";
+            InputText.PreviewTextInput -= TextBox_PreviewTextInput;
             InputText.Text = "";
+            InputText.IsReadOnly = false;
         }
 
 
@@ -311,11 +334,17 @@ namespace CamScan
         private async void Escanear_MouseDown(object sender, MouseButtonEventArgs e)
         {
             
+            if (ScannedImages.Count > 0 && (RdBtn_DocCliente.IsChecked == true || RdBtn_Despesas.IsChecked == true || RdBtn_Outros.IsChecked == true))
+            {
+                return;
+            }
+
             //UTILIZA SCANNER DO TIPO WIA
             if (driverType == "WIA")
             {
                 try
                 {
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                     Dispatcher.Invoke(() => { loadingControl.Visibility = Visibility.Visible; });
                     await Task.Run(() =>
                     {
@@ -329,6 +358,7 @@ namespace CamScan
                         loadingControl.Visibility = Visibility.Collapsed;
                     });
                     Btn_Cancel.Visibility = Visibility.Visible;
+                    Mouse.OverrideCursor = null;
                 } 
             }
             else
@@ -337,6 +367,98 @@ namespace CamScan
             }
         }
 
+
+        //DISABLE BUTTONS TYPE CHECKBOX NOT CHECKED
+        private void DisableButtonsNotChecked()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (RdBtn_DocCliente.IsChecked == false)
+                {
+                    RdBtn_DocCliente.Cursor = System.Windows.Input.Cursors.No;
+                    Escanear.Cursor = System.Windows.Input.Cursors.No;
+                    RdBtn_DocCliente.IsEnabled = false;
+                    Escanear.IsEnabled = false;
+                }
+                if (RdBtn_ConfissaoDivida.IsChecked == false)
+                {
+                    RdBtn_ConfissaoDivida.Cursor = System.Windows.Input.Cursors.No;
+                    Escanear.Cursor = System.Windows.Input.Cursors.No;
+                    RdBtn_ConfissaoDivida.IsEnabled = false;
+                    Escanear.IsEnabled = false;
+                }
+                if (RdBtn_Despesas.IsChecked == false)
+                {
+                    RdBtn_Despesas.Cursor = System.Windows.Input.Cursors.No;
+                    Escanear.Cursor = System.Windows.Input.Cursors.No;
+                    RdBtn_Despesas.IsEnabled = false;
+                    Escanear.IsEnabled = false;
+                }
+                if (RdBtn_Outros.IsChecked == false)
+                {
+                    RdBtn_Outros.Cursor = System.Windows.Input.Cursors.No;
+                    Escanear.Cursor = System.Windows.Input.Cursors.No;
+                    RdBtn_Outros.IsEnabled = false;
+                    Escanear.IsEnabled = false;
+                }
+            });
+            
+        }
+
+        private void CursorPointerSet()
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (RdBtn_ConfissaoDivida.IsChecked == true)
+                {
+                    Escanear.IsEnabled = true;
+                    Escanear.Cursor = System.Windows.Input.Cursors.Hand;
+                }
+            });
+
+        }
+
+
+        private void EnableButtonsTypeCheckBox()
+        {
+            RdBtn_DocCliente.IsEnabled = true;
+            RdBtn_DocCliente.Cursor = System.Windows.Input.Cursors.Hand;
+
+            RdBtn_ConfissaoDivida.IsEnabled = true;
+            RdBtn_ConfissaoDivida.Cursor = System.Windows.Input.Cursors.Hand;
+
+            RdBtn_Despesas.IsEnabled = true;
+            RdBtn_Despesas.Cursor = System.Windows.Input.Cursors.Hand;
+
+            RdBtn_Outros.IsEnabled = true;
+            RdBtn_Outros.Cursor = System.Windows.Input.Cursors.Hand;
+
+            Escanear.IsEnabled = true;
+            Escanear.Cursor = System.Windows.Input.Cursors.Hand;
+        }
+
+        private string CreateTempFolder()
+        {
+            string tempFolderPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "ScamCam");
+
+            if (!Directory.Exists(tempFolderPath))
+            {
+                Directory.CreateDirectory(tempFolderPath);
+            }
+
+            return tempFolderPath;
+        }
+
+        private void DeleteTempFolder()
+        {
+            string tempFolderPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "ScamCam");
+            if (Directory.Exists(tempFolderPath))
+            {
+                Directory.Delete(tempFolderPath, true);
+            }
+        }
+
+
         private void ScanDocument()
         {
             try
@@ -344,16 +466,13 @@ namespace CamScan
                 wiaScanner.Scan();
                 if (wiaScanner._imageFile != null)
                 {
-                    string tempFolderPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "ScamCam");
-
-                    if (!Directory.Exists(tempFolderPath))
-                    {
-                        Directory.CreateDirectory(tempFolderPath);
-                    }
+                    string tempFolderPath = CreateTempFolder(); 
                     string tempFilePath = System.IO.Path.Combine(tempFolderPath, Guid.NewGuid().ToString() + ".bmp");
                     wiaScanner._imageFile.SaveFile(tempFilePath);
 
                     AddImageInList(tempFilePath);
+                    DisableButtonsNotChecked();
+                    CursorPointerSet();
                 }
             }
             catch (Exception ex)
@@ -401,6 +520,8 @@ namespace CamScan
                         SaveFolderScan saveFolder = new SaveFolderScan();
                         saveFolder.SaveDocumentoCliente(ScannedImages, FolderDocumentoCliente, CodigoCliente);
                         Scanned_Close();
+                        EnableButtonsTypeCheckBox();
+                        DeleteTempFolder();
                         InputText.Text = "";
 
                     }
@@ -427,6 +548,8 @@ namespace CamScan
                         SaveFolderScan saveFolder = new SaveFolderScan();
                         saveFolder.SaveConfissaoDivida(ScannedImages, FolderConfissaodeDivida, dataConfissao);
                         Scanned_Close();
+                        EnableButtonsTypeCheckBox();
+                        DeleteTempFolder();
                     }
                     catch(Exception ex)
                     {
@@ -451,6 +574,8 @@ namespace CamScan
                         SaveFolderScan saveFolder = new SaveFolderScan();
                         saveFolder.SaveDespesas(ScannedImages, FolderDespesas, despesas);
                         Scanned_Close();
+                        EnableButtonsTypeCheckBox();
+                        DeleteTempFolder();
                     }
                     catch (Exception ex)
                     {
@@ -475,6 +600,8 @@ namespace CamScan
                         SaveFolderScan saveFolder = new SaveFolderScan();
                         saveFolder.SaveOutros(ScannedImages, FolderOutros, outros);
                         Scanned_Close();
+                        EnableButtonsTypeCheckBox();
+                        DeleteTempFolder();
                     }
                     catch (Exception ex)
                     {
@@ -491,6 +618,8 @@ namespace CamScan
         private void Cancelar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Scanned_Close();
+            EnableButtonsTypeCheckBox();
+            DeleteTempFolder();
         }
 
         private void Btn_Cancel_MouseMove(object sender, WpfSystem.Input.MouseEventArgs e)

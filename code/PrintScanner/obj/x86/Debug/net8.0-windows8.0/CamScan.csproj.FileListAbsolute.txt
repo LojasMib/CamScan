@@ -82,3 +82,4 @@ C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\bin\x86\Debu
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\x86\Debug\net8.0-windows8.0\CamScan_Content.g.cs
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\x86\Debug\net8.0-windows8.0\Interop.Shell32.dll
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\x86\Debug\net8.0-windows8.0\Interop.IWshRuntimeLibrary.dll
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\obj\x86\Debug\net8.0-windows8.0\Components\SettingsComponent.baml

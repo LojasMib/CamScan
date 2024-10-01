@@ -19,7 +19,7 @@ namespace CamScan.Pages
     /// </summary>
     public partial class KeyAcess : Window
     {
-        private const string AcessKey = "1234";
+        private const string AcessKey = "SENHA";
         public bool FreeAcess {  get; private set;} = false;
         public KeyAcess()
         {

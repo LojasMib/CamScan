@@ -31,7 +31,6 @@ namespace CamScan.Pages
         {
             InitializeComponent();
             Loaded += Loaded_SettingsPhoto;
-            Unloaded += Unloaded_SettingsPhoto;
         }
 
         private void Loaded_SettingsPhoto(object sender, RoutedEventArgs e)
@@ -99,13 +98,6 @@ namespace CamScan.Pages
             }
         }
 
-
-        private void Unloaded_SettingsPhoto(object sender, RoutedEventArgs e)
-        {
-            xmlConnect.SaveConfigPhoto("FolderImagemItens", ImagemDeClientes.Text);
-            xmlConnect.SaveConfigPhoto("FolderImagemClientes", ImagemDeItens.Text);
-        }
-
         private void DriverPhoto_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SelectDriver selectDriver = new SelectDriver();
@@ -129,6 +121,12 @@ namespace CamScan.Pages
             string folder = xmlConnect.SelectFolder();
             xmlConnect.SaveConfigPhoto("FolderImagemItens", folder);
             ImagemDeItens.Text = folder;
+        }
+
+        private void Save_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            xmlConnect.SaveConfigPhoto("FolderImagemItens", ImagemDeItens.Text); 
+            xmlConnect.SaveConfigPhoto("FolderImagemClientes", ImagemDeClientes.Text);
         }
     }
 }

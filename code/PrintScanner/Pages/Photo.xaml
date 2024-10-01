@@ -68,25 +68,31 @@
                                FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
                     <Image Grid.Column="1" Width="26" Stretch="Uniform" Source="/Images/Photo/Ok_Message.png"  />
                 </Grid>
-                
 
-                <Grid Margin="96,5,362,44">
+
+                <Grid Margin="78,5,368,44">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <b:PhotoFolderOptions Style="{StaticResource ButtonChoice}" Grid.Column="0" x:Name="RdBtn_ImagemCliente" Text="Imagem de Cliente"
                                           Height="30" Width="155" GroupName="PhotoOptions" Checked="RdBtn_ImagemCliente_Checked" Margin="5,5,0,13"  />
-                    <b:PhotoFolderOptions Style="{StaticResource ButtonChoice}" Grid.Column="1" x:Name="RdBtn_ImagemItens" Text="Imagem de Item"
-                                          Height="30" Width="140" GroupName="PhotoOptions" Checked="RdBtn_ImagemItens_Checked" Margin="5,5,0,13"/>
+                    <b:PhotoFolderOptions Style="{StaticResource ButtonChoice}" Grid.Column="1" x:Name="RdBtn_ImagemItens" Text="Imagem de Produto"
+                                          Height="30" Width="165" GroupName="PhotoOptions" Checked="RdBtn_ImagemItens_Checked" Margin="5,5,0,13"/>
                 </Grid>
-
-                <Label x:Name="LabelFolderPhoto"  Content="Codigo do Cliente: " HorizontalAlignment="Left" Margin="96,50,0,0" VerticalAlignment="Top" 
-                       Width="150" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="15" FontWeight="Bold" Foreground="#FF534C4C"/>
-                <TextBox x:Name="CodigoInput" HorizontalAlignment="Left" Margin="246,54,0,0" 
-                     TextWrapping="Wrap" Text="" VerticalAlignment="Top" 
-                     Width="166" FontSize="14" VerticalContentAlignment="Center"
-                     BorderBrush="Black" BorderThickness="1"/>
+                <Grid Margin="78,46,341,13">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="176*"/>
+                        <ColumnDefinition Width="205*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="LabelFolderPhoto"  Content="Codigo do Cliente: " HorizontalAlignment="Center"  VerticalAlignment="center"
+                           Width="auto" VerticalContentAlignment="Center" FontFamily="Arial" FontSize="15" FontWeight="Bold" Foreground="#FF534C4C"/>
+                    <TextBox x:Name="CodigoInput" HorizontalAlignment="center" Grid.Column="1"
+                         TextWrapping="Wrap" Text="" VerticalAlignment="Center" 
+                         Width="166" FontSize="14" VerticalContentAlignment="Center"
+                         BorderBrush="Black" BorderThickness="1"/>
+                </Grid>
+                
 
                 <TextBlock x:Name="ErrorInput" HorizontalAlignment="Left"  Margin="109,78,0,0"
                        TextWrapping="Wrap" Text="Erro" TextAlignment="Center"

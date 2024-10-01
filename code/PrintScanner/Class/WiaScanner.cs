@@ -206,10 +206,10 @@ namespace CamScan.Class
             }
             catch
             {
-                foreach (Property prop in scannerItem.Properties)
-                {
-                    WpfSystem.MessageBox.Show($" Erro nas configurações do Scanner, Propriedades do Scanner {prop.Name}: {prop.get_Value()}");
-                }
+                //foreach (Property prop in scannerItem.Properties)
+                //{
+                //    WpfSystem.MessageBox.Show($" Erro nas configurações do Scanner, Propriedades do Scanner {prop.Name}: {prop.get_Value()}");
+                //}
             }
             
         }

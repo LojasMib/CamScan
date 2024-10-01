@@ -23,11 +23,10 @@ namespace CamScan.Pages
         public SettingFranquia()
         {
             InitializeComponent();
-            Loaded += LocalFolder;
-            Unloaded += OnUnloaded;
+            Loaded += Loades_SettingFranquia;
         }
 
-        private void LocalFolder(object sender, RoutedEventArgs e)
+        private void Loades_SettingFranquia(object sender, RoutedEventArgs e)
         {
             var config = xmlConnect.LoadConfigurations();
             if (config != null && config.Franquias.Any())
@@ -36,11 +35,6 @@ namespace CamScan.Pages
                 Cidade.Text = xml.Cidade ?? "";
                 Franquia.Text = xml.Franquia ?? "";
             }
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            SaveConfigurations();
         }
 
         private void SaveConfigurations()
@@ -53,6 +47,11 @@ namespace CamScan.Pages
             {
                 xmlConnect.SaveConfigFranquia("ConfigFranquia", Franquia.Text);
             }
+        }
+
+        private void Save_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SaveConfigurations();
         }
     }
 }

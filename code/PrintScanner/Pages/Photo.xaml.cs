@@ -331,7 +331,7 @@ namespace CamScan.Pages
                 ErrorInput.Visibility = Visibility.Collapsed;
                 ErrorInput.Text = "Insira o codigo do cliente antes de salvar!";
             }
-            LabelFolderPhoto.Content = "Código do Cliente";
+            LabelFolderPhoto.Content = "Código do Cliente: ";
         }
 
         private void RdBtn_ImagemItens_Checked(object sender, RoutedEventArgs e)
@@ -341,7 +341,7 @@ namespace CamScan.Pages
                 ErrorInput.Visibility = Visibility.Collapsed;
                 ErrorInput.Text = "Insira a descriçao do item antes de salvar!";
             }
-            LabelFolderPhoto.Content = "Descrição do Item";
+            LabelFolderPhoto.Content = "Descrição do Produto: ";
         }
     }
 }
