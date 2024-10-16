@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\PrintScanner\App.xaml
 16208253744
 1-697300258
-29-636516895
-228340529157
+30-1836193164
+229-1353190924
 Components\LoadingControl.xaml;Components\PhotoComponent.Designer.xaml;Components\SettingsComponent.xaml;MainWindow.xaml;Pages\Error.xaml;Pages\KeyAcess.xaml;Pages\Landing.xaml;Pages\Photo.xaml;Pages\Scanner.xaml;Pages\SelectDriver.xaml;Pages\SelectionDriver.xaml;Pages\SettingFranquia.xaml;Pages\Settings.xaml;Pages\SettingsPhoto.xaml;Pages\SettingsScanner.xaml;Themes\Generic.xaml;
 
-True
+False
 

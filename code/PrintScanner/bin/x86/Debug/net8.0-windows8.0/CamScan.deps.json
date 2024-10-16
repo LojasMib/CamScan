@@ -13,6 +13,7 @@
           "AForge.Video.DirectShow": "2.2.5",
           "Magick.NET-Q16-AnyCPU": "13.10.0",
           "PDFsharp": "6.1.1",
+          "Saraff.Twain": "1.0.32.732",
           "ServiceStack.Text": "8.3.0",
           "System.Drawing.Common": "8.0.8"
         },
@@ -218,6 +219,14 @@
           }
         }
       },
+      "Saraff.Twain/1.0.32.732": {
+        "runtime": {
+          "lib/net6.0-windows7.0/Saraff.Twain.dll": {
+            "assemblyVersion": "1.0.32.732",
+            "fileVersion": "1.0.32.732"
+          }
+        }
+      },
       "ServiceStack.Text/8.3.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -350,6 +359,13 @@
       "sha512": "sha512-wxBLG2f713s2Fp2rYxTCReNOcXT/4YX4h4TJW6y75xAEq2iaEjLDjZRgtXW1/IgadzyluIVmw4RqHz1rL4BYKg==",
       "path": "pdfsharp/6.1.1",
       "hashPath": "pdfsharp.6.1.1.nupkg.sha512"
+    },
+    "Saraff.Twain/1.0.32.732": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g0RE2q9ksVsjNp3tfOusSPzHFJ9HwIGxzSAuD9QmOdZipC7zuTUhE209ui4P3XTT25Ru/N3GAUU4Yf6ESUSJVg==",
+      "path": "saraff.twain/1.0.32.732",
+      "hashPath": "saraff.twain.1.0.32.732.nupkg.sha512"
     },
     "ServiceStack.Text/8.3.0": {
       "type": "package",

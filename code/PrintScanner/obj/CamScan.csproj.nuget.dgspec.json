@@ -70,6 +70,10 @@
               "target": "Package",
               "version": "[6.1.1, )"
             },
+            "Saraff.Twain": {
+              "target": "Package",
+              "version": "[1.0.32.732, )"
+            },
             "ServiceStack.Text": {
               "target": "Package",
               "version": "[8.3.0, )"

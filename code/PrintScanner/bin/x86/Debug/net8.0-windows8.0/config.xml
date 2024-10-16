@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Scanner>
+    <ConfigScanner>
+      <ConfigDriver>
+        <Name>EPSON L375 Series</Name>
+        <Type>TWAIN</Type>
+      </ConfigDriver>
+      <FolderDocumentoCliente>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Documentos de Clientes</FolderDocumentoCliente>
+      <FolderConfissaoDivida>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Confissao de Divida</FolderConfissaoDivida>
+      <FolderDespesas>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Despesas</FolderDespesas>
+    </ConfigScanner>
+  </Scanner>
+  <Photos />
+  <Franquias />
+</Configurations>
+
+
+EPSON L6270 FINANCEIRO => 169.254.12.234

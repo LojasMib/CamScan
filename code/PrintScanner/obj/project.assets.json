@@ -294,6 +294,15 @@
           }
         }
       },
+      "Saraff.Twain/1.0.32.732": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0-windows7.0/Saraff.Twain.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/Saraff.Twain.dll": {}
+        }
+      },
       "ServiceStack.Text/8.3.0": {
         "type": "package",
         "dependencies": {
@@ -787,6 +796,25 @@
         "pdfsharp.nuspec"
       ]
     },
+    "Saraff.Twain/1.0.32.732": {
+      "sha512": "g0RE2q9ksVsjNp3tfOusSPzHFJ9HwIGxzSAuD9QmOdZipC7zuTUhE209ui4P3XTT25Ru/N3GAUU4Yf6ESUSJVg==",
+      "type": "package",
+      "path": "saraff.twain/1.0.32.732",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/COPYING.LESSER.txt",
+        "content/COPYING.txt",
+        "lib/net20/Saraff.Twain.XML",
+        "lib/net20/Saraff.Twain.dll",
+        "lib/net451/Saraff.Twain.XML",
+        "lib/net451/Saraff.Twain.dll",
+        "lib/net6.0-windows7.0/Saraff.Twain.dll",
+        "lib/netstandard2.0/Saraff.Twain.dll",
+        "saraff.twain.1.0.32.732.nupkg.sha512",
+        "saraff.twain.nuspec"
+      ]
+    },
     "ServiceStack.Text/8.3.0": {
       "sha512": "n7o3PfhnyNq+zUQARtcI0BWx0eiIWvxMmQMCU9pvgQpkfiFN9/mrPVsolNQuX4uZ7w2AMXIv3FTdKaZUzBeRLQ==",
       "type": "package",
@@ -931,6 +959,7 @@
       "AForge.Video.DirectShow >= 2.2.5",
       "Magick.NET-Q16-AnyCPU >= 13.10.0",
       "PDFsharp >= 6.1.1",
+      "Saraff.Twain >= 1.0.32.732",
       "ServiceStack.Text >= 8.3.0",
       "System.Drawing.Common >= 8.0.8"
     ]
@@ -1004,6 +1033,10 @@
           "PDFsharp": {
             "target": "Package",
             "version": "[6.1.1, )"
+          },
+          "Saraff.Twain": {
+            "target": "Package",
+            "version": "[1.0.32.732, )"
           },
           "ServiceStack.Text": {
             "target": "Package",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Adc+TdYnOiwlixnuU3ce/7R2Vdvf8LZ0GzgRNoCldCheVdHpGeb56W9HvLxPzZ65pG8Q+vEy1UXtW8+nYRz5Pw==",
+  "dgSpecHash": "pvZJwjzzvbbIhRT/WK9K4aZEzrA+bxp9W42zQ4xTNaER4v9qm9bpXxw3Ybe/ZdUwFPFU30Ocjk60J0fFyr9XgQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\CamScan.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,7 @@
     "C:\\Users\\Amaur\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\Amaur\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
     "C:\\Users\\Amaur\\.nuget\\packages\\pdfsharp\\6.1.1\\pdfsharp.6.1.1.nupkg.sha512",
+    "C:\\Users\\Amaur\\.nuget\\packages\\saraff.twain\\1.0.32.732\\saraff.twain.1.0.32.732.nupkg.sha512",
     "C:\\Users\\Amaur\\.nuget\\packages\\servicestack.text\\8.3.0\\servicestack.text.8.3.0.nupkg.sha512",
     "C:\\Users\\Amaur\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.0\\system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
     "C:\\Users\\Amaur\\.nuget\\packages\\system.drawing.common\\8.0.8\\system.drawing.common.8.0.8.nupkg.sha512",

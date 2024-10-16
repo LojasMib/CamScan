@@ -32,6 +32,8 @@ namespace CamScan.Pages
     {
         XMLConnect xmlConnect = new XMLConnect();
         WiaScanner wiaScanner = new WiaScanner();
+        TwainScanner twainScanner = new TwainScanner();
+
         ScannerDevice ScannerDevice { get; set; }
         public SettingsScanner()
         {
@@ -111,6 +113,15 @@ namespace CamScan.Pages
         private void DriverScanner_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
+            //Lista dispositivos Twain
+            List<string>? TwainDevices = twainScanner.ListDevices();
+            if (TwainDevices == null)
+            {
+                return;
+            }
+
+
+
             //Lista dispositivos WIA
             List<string> WiaDevices = wiaScanner.ListScanners();
 
@@ -118,7 +129,12 @@ namespace CamScan.Pages
 
             foreach (var device in WiaDevices)
             {
-                scannerDevices.Add(new ScannerDevice { Name = device, Type= "WIA"});
+                scannerDevices.Add(new ScannerDevice { Name = device, Type = "WIA"});
+            }
+
+            foreach (var device in TwainDevices)
+            {
+                scannerDevices.Add(new ScannerDevice { Name = device, Type = "TWAIN" });
             }
 
             SelectionDriver selectionDriver = new SelectionDriver(scannerDevices);

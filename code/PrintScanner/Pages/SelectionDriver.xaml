@@ -28,8 +28,11 @@
            FontWeight="Bold"
            Foreground="#FF534C4C" 
            Content="Drivers do Scanner WIA"/>
-        <Grid x:Name="DriversOptions" Grid.Row="1">
-        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <Grid x:Name="DriversOptions" >
+            </Grid>
+        </ScrollViewer>
+        
 
     </Grid>
 </Window>
