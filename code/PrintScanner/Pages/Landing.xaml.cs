@@ -37,16 +37,16 @@ namespace CamScan.Pages
         {
             KeyAcess keyAcess = new KeyAcess();
             Window parentWindow = Window.GetWindow(this);
-            if(parentWindow != null)
+            
+            if (parentWindow != null)
             {
                 keyAcess.Owner = parentWindow;
             }
             keyAcess.ShowDialog();
-            if(keyAcess.FreeAcess == true)
+            if (keyAcess.FreeAcess == true)
             {
                 NavigationService.Navigate(new Uri("/Pages/Settings.xaml", UriKind.Relative));
             }
-            
         }
     }
 }

@@ -3,8 +3,8 @@
   <Scanner>
     <ConfigScanner>
       <ConfigDriver>
-        <Name>EPSON L375 Series</Name>
-        <Type>TWAIN</Type>
+        <Name>EPSON Perfection V19</Name>
+        <Type>WIA</Type>
       </ConfigDriver>
       <FolderDocumentoCliente>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Documentos de Clientes</FolderDocumentoCliente>
       <FolderConfissaoDivida>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Confissao de Divida</FolderConfissaoDivida>
@@ -14,6 +14,3 @@
   <Photos />
   <Franquias />
 </Configurations>
-
-
-EPSON L6270 FINANCEIRO => 169.254.12.234

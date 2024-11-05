@@ -39,6 +39,27 @@ namespace CamScan.Class
             }
             
         }
+
+        public void CreateFilePDF(List<string> ScannedList, string FileName, string Folder)
+        {
+            ConverToPdf converToPdf = new ConverToPdf();
+            converToPdf.AddListHEIC(ScannedList);
+            converToPdf.ConvertListJPEGinDocumetPdf();
+
+            string FileNameConcat = FileName + ".pdf";
+            string pdfFilePath = System.IO.Path.Combine(Folder, FileNameConcat);
+
+            int fileIndex = 1;
+            while (File.Exists(pdfFilePath))
+            {
+                string tempFileName = $"{FileName}({fileIndex}).pdf";
+                pdfFilePath = System.IO.Path.Combine(Folder, tempFileName);
+                fileIndex++;
+            }
+
+            converToPdf.SaveDocumentinPdf(pdfFilePath);
+        }
+
         public void SaveDocumentoCliente(List<string> ScannedList, string FolderDocumentoCliente, string CodigoCliente)
         {
             string bmpFilePath = ScannedList[0];
@@ -46,17 +67,32 @@ namespace CamScan.Class
             CreateFileJPG(bmpFilePath, CodigoCliente, FolderDocumentoCliente);
 
         }
-        public void SaveDespesas(List<string> ScannedList, string FolderDespesas, string FileName)
+        public void SaveDespesas(List<string> ScannedList, string FolderDespesas, string FileName, string TypeFile)
         {
             BitmapEncoder encoder = new JpegBitmapEncoder();
             string bmpFilePath = ScannedList[0];
-            CreateFileJPG(bmpFilePath, FileName, FolderDespesas);
+            if(TypeFile == "JPG")
+            {
+                CreateFileJPG(bmpFilePath, FileName, FolderDespesas);
+            }
+            else if(TypeFile == "PDF")
+            {
+                CreateFilePDF(ScannedList, FileName, FolderDespesas);
+            }
+            
         }
-        public void SaveOutros(List<string> ScannedList, string FolderOutros, string FileName)
+        public void SaveOutros(List<string> ScannedList, string FolderOutros, string FileName, string TypeFile)
         {
             BitmapEncoder encoder = new JpegBitmapEncoder();
             string bmpFilePath = ScannedList[0];
-            CreateFileJPG(bmpFilePath, FileName, FolderOutros);
+            if (TypeFile == "JPG")
+            {
+                CreateFileJPG(bmpFilePath, FileName, FolderOutros);
+            }
+            else if (TypeFile == "PDF")
+            {
+                CreateFilePDF(ScannedList, FileName, FolderOutros);
+            }
         }
 
 
@@ -64,22 +100,7 @@ namespace CamScan.Class
         //Create Files in PDF
         public void SaveConfissaoDivida(List<string> ScannedList, string FolderConfissaoDivida, string CodigoCliente)
         {
-            ConverToPdf converToPdf = new ConverToPdf();
-            converToPdf.AddListHEIC(ScannedList);
-            converToPdf.ConvertListJPEGinDocumetPdf();
-
-            string FileName = CodigoCliente + ".pdf";
-            string pdfFilePath = System.IO.Path.Combine(FolderConfissaoDivida, FileName);
-
-            int fileIndex = 1;
-            while (File.Exists(pdfFilePath))
-            {
-                string tempFileName = $"{CodigoCliente}({fileIndex}).pdf";
-                pdfFilePath = System.IO.Path.Combine(FolderConfissaoDivida, tempFileName);
-                fileIndex++;
-            }
-
-            converToPdf.SaveDocumentinPdf(pdfFilePath);
+            CreateFilePDF(ScannedList, FolderConfissaoDivida, CodigoCliente);
         }
 
         private BitmapSource ConvertBitmapToBitmapSource(Bitmap bitmap)
