@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <None Remove="IconScanCam.ico" />
+    <None Remove="Images\ChoiceFile\jpg.png" />
+    <None Remove="Images\ChoiceFile\pdf.png" />
     <None Remove="Images\Error\error.png" />
     <None Remove="Images\Landing\Logo MIB.png" />
     <None Remove="Images\Landing\LogoMib.svg" />
@@ -73,6 +75,8 @@
 
   <ItemGroup>
     <Resource Include="IconScanCam.ico" />
+    <Resource Include="Images\ChoiceFile\jpg.png" />
+    <Resource Include="Images\ChoiceFile\pdf.png" />
     <Resource Include="Images\Error\error.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

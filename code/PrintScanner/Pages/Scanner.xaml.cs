@@ -33,6 +33,7 @@ using static PdfSharp.Capabilities.Features;
 using System.Reflection.Metadata;
 using CamScan.Components;
 using Saraff.Twain;
+using System.Security.Cryptography;
 
 namespace CamScan
 {
@@ -631,6 +632,26 @@ namespace CamScan
             AddRoundRadioButtonsToGrid(ScannedImages.Count);
         }
 
+        private string? Select_File_Type()
+        {
+            ChoiceExportFile choiceExportFile = new ChoiceExportFile();
+            Window parentWindow = Window.GetWindow(this);
+            choiceExportFile.ShowDialog();
+            if (choiceExportFile.TypeFile == "PDF")
+            {
+                return "PDF";
+            }
+            else if (choiceExportFile.TypeFile == "JPG")
+            {
+                return "JPG";
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         private void Salvar_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -688,7 +709,7 @@ namespace CamScan
                     }
                     catch(Exception ex)
                     {
-                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da Confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else if(RdBtn_Despesas.IsChecked == true)
@@ -707,14 +728,20 @@ namespace CamScan
                     try
                     {
                         SaveFolderScan saveFolder = new SaveFolderScan();
-                        saveFolder.SaveDespesas(ScannedImages, FolderDespesas, despesas);
+                        string typeFile = Select_File_Type();
+                        if (typeFile == null)
+                        {
+                            throw new Exception("O tipo de arquivo não foi selecionado.");
+                        }
+                        
+                        saveFolder.SaveDespesas(ScannedImages, FolderDespesas, despesas, typeFile);
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
                     }
                     catch (Exception ex)
                     {
-                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da Despesas: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else if (RdBtn_Outros.IsChecked == true)
@@ -732,15 +759,20 @@ namespace CamScan
                     }
                     try
                     {
+                        string typeFile = Select_File_Type();
+                        if (typeFile == null)
+                        {
+                            throw new Exception("O tipo de arquivo não foi selecionado.");
+                        }
                         SaveFolderScan saveFolder = new SaveFolderScan();
-                        saveFolder.SaveOutros(ScannedImages, FolderOutros, outros);
+                        saveFolder.SaveOutros(ScannedImages, FolderOutros, outros, typeFile);
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
                     }
                     catch (Exception ex)
                     {
-                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da Outros: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
