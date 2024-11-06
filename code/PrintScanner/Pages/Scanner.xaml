@@ -124,7 +124,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="0" x:Name="Cancelar" Text="Cancelar" Width="100" Height="40" MouseDown="Cancelar_MouseDown"  />
+                    <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="0" x:Name="Cancelar" Text="Cancelar" Width="100" Height="40" Background="#FF4500" MouseDown="Cancelar_MouseDown"  />
                     <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="1" x:Name="Escanear" Text="Escanear" Width="100" Height="40" Background="#F69D0D" MouseDown="Escanear_MouseDown"  />
                     <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="2" x:Name="Salvar" Text="Salvar" Width="100" Height="40" Background="#ED6B28"  MouseDown="Salvar_MouseDown" />
                 </Grid>

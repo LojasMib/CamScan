@@ -120,6 +120,66 @@ namespace CamScan
             }
         }
 
+        public void ScannerDeviceConnectWIA(string deviceName)
+        {
+            Device device = wiaScanner.ConnectScan(deviceName);
+            if (device != null)
+            {
+                wiaScanner.SelectedScan = device.Items[1];
+            }
+        }
+
+        public void ScannerDeviceConnectTWAIN(string deviceName)
+        {
+            var mainWindow = WpfSystem.Application.Current.MainWindow;
+            var windowInteropHelper = new System.Windows.Interop.WindowInteropHelper(mainWindow);
+            var win32Window = new Win32Window(windowInteropHelper.Handle);
+            _twain = new Twain32()
+            {
+                Parent = win32Window,
+                ShowUI = false,
+            };
+
+            _twain.AcquireCompleted += _twain_AcquireCompleted;
+
+
+            if (!_twain.OpenDSM())
+            {
+                throw new Exception("Não foi possível abrir o DSM.");
+            }
+
+            int sourcesCount = _twain.SourcesCount;
+            int matchingIndex = -1;
+            if (sourcesCount > 0)
+            {
+                for (int i = 0; i < sourcesCount; i++)
+                {
+                    string sourceName = _twain.GetSourceProductName(i);
+
+                    if (sourceName.Equals(deviceName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        matchingIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (matchingIndex != -1)
+            {
+                _twain.CloseDataSource();
+                _twain.SourceIndex = matchingIndex;
+                _twain.OpenDataSource();
+                _twain.SetCap(TwCap.IPixelType, TwPixelType.RGB);
+                _twain.SetCap(TwCap.XResolution, 300); // Resolução X em DPI
+                _twain.SetCap(TwCap.YResolution, 300); // Resolução Y em DPI
+
+                _twain.SetCap(TwCap.Brightness, 0); // Brilho padrão
+                _twain.SetCap(TwCap.Contrast, 0);   // Contraste padrão
+
+                _twain.SetCap(TwCap.AutomaticColorEnabled, true); // Habilita detecção automática de cores
+            }
+        }
+
         public void OnLoaded(object sender, RoutedEventArgs e)
         {
             
@@ -143,11 +203,7 @@ namespace CamScan
                     {
                         try
                         {
-                            Device device = wiaScanner.ConnectScan(xml.ConfigDriver.Name);
-                            if (device != null)
-                            {
-                                wiaScanner.SelectedScan = device.Items[1];
-                            }
+                            ScannerDeviceConnectWIA(xml.ConfigDriver.Name);
                         }
                         catch (Exception ex)
                         {
@@ -157,58 +213,9 @@ namespace CamScan
                     //CARREGA CONEXÃO COM SCANNER DE PROTOCOLO TWAIN
                     else if (driverType == "TWAIN")
                     {
-
-                        var mainWindow = WpfSystem.Application.Current.MainWindow;
-                        var windowInteropHelper = new System.Windows.Interop.WindowInteropHelper(mainWindow);
-                        var win32Window = new Win32Window(windowInteropHelper.Handle);
-                        _twain = new Twain32()
-                        {
-                            Parent = win32Window,
-                            ShowUI = false,
-                        };
-
-                        _twain.AcquireCompleted += _twain_AcquireCompleted;
-
                         try
                         {
-
-                            if (!_twain.OpenDSM())
-                            {
-                                throw new Exception("Não foi possível abrir o DSM.");
-                            }
-
-                            int sourcesCount = _twain.SourcesCount;
-                            int matchingIndex = -1;
-                            if(sourcesCount > 0)
-                            {
-                                for (int i = 0; i < sourcesCount; i++)
-                                {
-                                    string sourceName = _twain.GetSourceProductName(i);
-
-                                    if (sourceName.Equals(xml.ConfigDriver.Name, StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        matchingIndex = i;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (matchingIndex != -1)
-                            {
-                                _twain.CloseDataSource();
-                                _twain.SourceIndex = matchingIndex;
-                                _twain.OpenDataSource();
-                                _twain.SetCap(TwCap.IPixelType, TwPixelType.RGB);
-                                _twain.SetCap(TwCap.XResolution, 300); // Resolução X em DPI
-                                _twain.SetCap(TwCap.YResolution, 300); // Resolução Y em DPI
-
-                                _twain.SetCap(TwCap.Brightness, 0); // Brilho padrão
-                                _twain.SetCap(TwCap.Contrast, 0);   // Contraste padrão
-
-                                _twain.SetCap(TwCap.AutomaticColorEnabled, true); // Habilita detecção automática de cores
-                            }
-
-
+                            ScannerDeviceConnectTWAIN(xml.ConfigDriver.Name);
                         }
                         catch (Exception ex)
                         {
@@ -429,6 +436,14 @@ namespace CamScan
         }
 
 
+        private void VisibilityBtn_Cancel()
+        {
+            if (ScannedImages.Count > 1)
+            {
+                Btn_Cancel.Visibility = Visibility.Visible;
+            }
+        }
+
         //AREA OF USE ACTION BUTTONS
         private async void Escanear_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -443,10 +458,11 @@ namespace CamScan
             {
                 try
                 {
-                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+                    
                     Dispatcher.Invoke(() => { loadingControl.Visibility = Visibility.Visible; });
                     await Task.Run(() =>
                     {
+                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                         ScanDocument();
                     });
                 }
@@ -460,8 +476,9 @@ namespace CamScan
                     Dispatcher.Invoke(() =>
                     {
                         loadingControl.Visibility = Visibility.Collapsed;
+                        VisibilityBtn_Cancel();
                     });
-                    Btn_Cancel.Visibility = Visibility.Visible;
+                    
                     Mouse.OverrideCursor = null;
                 } 
             }
@@ -495,7 +512,7 @@ namespace CamScan
 
             else
             {
-                new Error("Escaner não configurado, contate a TI!");
+                new Error("Driver do Scanner não configurado, contate a TI!");
             }
         }
 
