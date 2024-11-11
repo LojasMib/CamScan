@@ -25,11 +25,17 @@
     <None Remove="Images\Landing\webCam.png" />
     <None Remove="Images\Photo\Ok_Message.png" />
     <None Remove="Images\Photo\Ponteiro_Mouse.png" />
+    <None Remove="Images\Scanner\cadeado_aberto.png" />
+    <None Remove="Images\Scanner\cadeado_aberto.svg" />
+    <None Remove="Images\Scanner\cadeado_fechado.png" />
+    <None Remove="Images\Scanner\cadeado_fechafo.svg" />
     <None Remove="Images\Scanner\Cancel_Gray.png" />
     <None Remove="Images\Scanner\Cancel_Red.png" />
     <None Remove="Images\Settings\backButton.png" />
     <None Remove="Images\Window\IconScanCam.ico" />
     <None Remove="Images\Window\IconScanCam.png" />
+    <None Remove="Pages\cadeado_aberto.svg" />
+    <None Remove="Pages\cadeado_fechafo.svg" />
     <None Remove="Pages\Logo MIB.png" />
   </ItemGroup>
 
@@ -94,6 +100,8 @@
     </Resource>
     <Resource Include="Images\Photo\Ok_Message.png" />
     <Resource Include="Images\Photo\Ponteiro_Mouse.png" />
+    <Resource Include="Images\Scanner\cadeado_aberto.png" />
+    <Resource Include="Images\Scanner\cadeado_fechado.png" />
     <Resource Include="Images\Scanner\Cancel_Gray.png" />
     <Resource Include="Images\Scanner\Cancel_Red.png" />
     <Resource Include="Images\Settings\backButton.png">
@@ -105,6 +113,8 @@
     <Resource Include="Images\Window\IconScanCam.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Pages\cadeado_aberto.svg" />
+    <Resource Include="Pages\cadeado_fechafo.svg" />
     <Resource Include="Pages\Logo MIB.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

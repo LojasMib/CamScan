@@ -40,7 +40,7 @@ namespace CamScan.Class
             
         }
 
-        public void CreateFilePDF(List<string> ScannedList, string FileName, string Folder)
+        public void CreateFilePDF(List<string> ScannedList, string Folder, string FileName)
         {
             ConverToPdf converToPdf = new ConverToPdf();
             converToPdf.AddListHEIC(ScannedList);
@@ -77,7 +77,7 @@ namespace CamScan.Class
             }
             else if(TypeFile == "PDF")
             {
-                CreateFilePDF(ScannedList, FileName, FolderDespesas);
+                CreateFilePDF(ScannedList, FolderDespesas, FileName);
             }
             
         }
@@ -98,7 +98,7 @@ namespace CamScan.Class
 
 
         //Create Files in PDF
-        public void SaveConfissaoDivida(List<string> ScannedList, string FolderConfissaoDivida, string CodigoCliente)
+        public void SaveConfissaoDivida(List<string> ScannedList, string CodigoCliente, string FolderConfissaoDivida)
         {
             CreateFilePDF(ScannedList, FolderConfissaoDivida, CodigoCliente);
         }

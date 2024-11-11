@@ -19,11 +19,13 @@ namespace CamScan.Pages
     /// </summary>
     public partial class KeyAcess : Window
     {
-        private const string AcessKey = "SENHA";
+        private string AcessKey { get; set;}
         public bool FreeAcess {  get; private set;} = false;
-        public KeyAcess()
+        public KeyAcess(string AcessKey)
         {
             InitializeComponent();
+            this.AcessKey = AcessKey;
+
         }
 
         private void KeyInput_PasswordChanged(object sender, RoutedEventArgs e)

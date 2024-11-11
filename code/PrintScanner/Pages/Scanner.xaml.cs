@@ -42,6 +42,9 @@ namespace CamScan
     /// </summary>
     public partial class Scanner : Page
     {
+        private string? DataConfissao { get; set; }
+        private const string AcessKey = "SENHA";
+
         private Twain32 _twain;
 
         private int quantityScanned {  get; set; }
@@ -55,7 +58,6 @@ namespace CamScan
         private string? FolderDocumentoCliente { get; set; }
         private string? FolderConfissaodeDivida { get; set; }
         private string? FolderDespesas { get; set; }
-
         private string? FolderOutros { get; set; }
 
         private string? NameFranquia { get; set; }
@@ -402,6 +404,9 @@ namespace CamScan
 
         private void RdBtn_DocCliente_Checked(object sender, RoutedEventArgs e)
         {
+            InputText.Visibility = Visibility.Visible;
+            InputDate.Visibility = Visibility.Hidden;
+            Btn_Lock.Visibility = Visibility.Hidden;
             InputLabel.Content = "Código do Cliente:";
             InputText.Text = "";
             InputText.IsReadOnly = false;
@@ -411,28 +416,40 @@ namespace CamScan
         private void RdBtn_ConfissaoDivida_Checked(object sender, RoutedEventArgs e)
         {
             InputLabel.Content = "Data das confissões:";
-            InputText.PreviewTextInput -= TextBox_PreviewTextInput;
+            InputText.Visibility = Visibility.Hidden;
+            InputDate.Visibility = Visibility.Visible;
+            Btn_Lock.Visibility = Visibility.Visible;
+
+            InputDate.IsEnabled = false;
             DateTime dataAtual = DateTime.Today;
-            string DataFormatada = dataAtual.ToString("dd-MM-yyyy"); 
-            string data = $"CDF{NameFranquia} - " + DataFormatada;
-            InputText.Text = data;
-            InputText.IsReadOnly = true;
+            InputDate.SelectedDate = dataAtual;
+            string DataFormatada = InputDate.SelectedDate.Value.ToString("dd-MM-yyyy"); 
+            DataConfissao = $"CDF{NameFranquia} - {DataFormatada}";
+            
         }
 
         private void RdBtn_Despesas_Checked(object sender, RoutedEventArgs e)
         {
-            InputLabel.Content = "Despesas:";
             InputText.PreviewTextInput -= TextBox_PreviewTextInput;
+            InputText.Visibility = Visibility.Visible;
+            InputDate.Visibility = Visibility.Hidden;
+            Btn_Lock.Visibility = Visibility.Hidden;
+            InputLabel.Content = "Despesas:";
             InputText.Text = "";
             InputText.IsReadOnly = false;
+            
         }
 
         private void RdBtn_Outros_Checked(object sender, RoutedEventArgs e)
         {
-            InputLabel.Content = "Outros:";
             InputText.PreviewTextInput -= TextBox_PreviewTextInput;
+            InputText.Visibility = Visibility.Visible;
+            InputDate.Visibility = Visibility.Hidden;
+            Btn_Lock.Visibility = Visibility.Hidden;
+            InputLabel.Content = "Outros:";
             InputText.Text = "";
             InputText.IsReadOnly = false;
+            
         }
 
 
@@ -448,8 +465,14 @@ namespace CamScan
         private async void Escanear_MouseDown(object sender, MouseButtonEventArgs e)
         {
             
+            
             if (ScannedImages.Count > 0 && (RdBtn_DocCliente.IsChecked == true || RdBtn_Despesas.IsChecked == true || RdBtn_Outros.IsChecked == true))
             {
+                return;
+            }
+            if (IndexOfListImagesScanned >= 2)
+            {
+                WpfSystem.MessageBox.Show("A quantidade de imagens por documento não pode ser maior que 8", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -458,11 +481,10 @@ namespace CamScan
             {
                 try
                 {
-                    
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                     Dispatcher.Invoke(() => { loadingControl.Visibility = Visibility.Visible; });
                     await Task.Run(() =>
                     {
-                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                         ScanDocument();
                     });
                 }
@@ -478,7 +500,7 @@ namespace CamScan
                         loadingControl.Visibility = Visibility.Collapsed;
                         VisibilityBtn_Cancel();
                     });
-                    
+                    InputText.PreviewTextInput -= TextBox_PreviewTextInput;
                     Mouse.OverrideCursor = null;
                 } 
             }
@@ -557,13 +579,6 @@ namespace CamScan
                     RdBtn_DocCliente.IsEnabled = false;
                     Escanear.IsEnabled = false;
                 }
-                if (RdBtn_ConfissaoDivida.IsChecked == false)
-                {
-                    RdBtn_ConfissaoDivida.Cursor = System.Windows.Input.Cursors.No;
-                    Escanear.Cursor = System.Windows.Input.Cursors.No;
-                    RdBtn_ConfissaoDivida.IsEnabled = false;
-                    Escanear.IsEnabled = false;
-                }
                 if (RdBtn_Despesas.IsChecked == false)
                 {
                     RdBtn_Despesas.Cursor = System.Windows.Input.Cursors.No;
@@ -577,6 +592,15 @@ namespace CamScan
                     Escanear.Cursor = System.Windows.Input.Cursors.No;
                     RdBtn_Outros.IsEnabled = false;
                     Escanear.IsEnabled = false;
+                    
+                }
+                if (RdBtn_ConfissaoDivida.IsChecked == false)
+                {
+                    RdBtn_ConfissaoDivida.Cursor = System.Windows.Input.Cursors.No;
+                    Escanear.Cursor = System.Windows.Input.Cursors.No;
+                    RdBtn_ConfissaoDivida.IsEnabled = false;
+                    Escanear.IsEnabled = false;
+                    Escanear.Background = new SolidColorBrush((WpfSystem.Media.Color)WpfSystem.Media.ColorConverter.ConvertFromString("#D3D3D3"));
                 }
             });
             
@@ -612,6 +636,9 @@ namespace CamScan
 
             Escanear.IsEnabled = true;
             Escanear.Cursor = System.Windows.Input.Cursors.Hand;
+
+            InputText.Text = "";
+            Escanear.Background = new SolidColorBrush((WpfSystem.Media.Color)WpfSystem.Media.ColorConverter.ConvertFromString("#F69D0D"));
         }
 
         private string CreateTempFolder()
@@ -633,6 +660,7 @@ namespace CamScan
             {
                 Directory.Delete(tempFolderPath, true);
             }
+            
         }
 
 
@@ -669,6 +697,13 @@ namespace CamScan
 
         }
 
+        private async void Sucess_Message()
+        {
+            MessageSucess.Visibility = Visibility.Visible;
+            await Task.Delay(3000);// 1000 => 1 segundo
+            MessageSucess.Visibility = Visibility.Hidden;
+        }
+
         private void Salvar_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -695,7 +730,7 @@ namespace CamScan
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
-                        InputText.Text = "";
+                        Sucess_Message();
 
                     }
                     catch (Exception ex)
@@ -710,8 +745,7 @@ namespace CamScan
                         WpfSystem.MessageBox.Show("Pasta de Confissão de Divida não configurada", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
-                    string dataConfissao = InputText.Text;
-                    if (dataConfissao == null || dataConfissao.Length == 0 || dataConfissao == "")
+                    if (DataConfissao == null || DataConfissao.Length == 0 || DataConfissao == "")
                     {
                         WpfSystem.MessageBox.Show("Digite a data no padrão estabelecido para salvar a imagem!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -719,10 +753,11 @@ namespace CamScan
                     try
                     {
                         SaveFolderScan saveFolder = new SaveFolderScan();
-                        saveFolder.SaveConfissaoDivida(ScannedImages, FolderConfissaodeDivida, dataConfissao);
+                        saveFolder.SaveConfissaoDivida(ScannedImages, DataConfissao, FolderConfissaodeDivida);
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
+                        Sucess_Message();
                     }
                     catch(Exception ex)
                     {
@@ -755,6 +790,7 @@ namespace CamScan
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
+                        Sucess_Message();
                     }
                     catch (Exception ex)
                     {
@@ -786,6 +822,7 @@ namespace CamScan
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
+                        Sucess_Message();
                     }
                     catch (Exception ex)
                     {
@@ -830,10 +867,27 @@ namespace CamScan
 
         private void Btn_Cancel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(IndexOfListImagesScanned > 0)
+            if(ScannedImages.Any() && IndexOfListImagesScanned >= 0)
             {
                 ScannedImages.RemoveAt(IndexOfListImagesScanned);
                 AddRoundRadioButtonsToGrid(ScannedImages.Count());
+            }
+        }
+
+        private void Btn_Lock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            KeyAcess keyAcess = new KeyAcess(AcessKey);
+            Window parentWindow = Window.GetWindow(this);
+
+            if (parentWindow != null)
+            {
+                keyAcess.Owner = parentWindow;
+            }
+            keyAcess.ShowDialog();
+            if (keyAcess.FreeAcess == true)
+            {
+                InputDate.IsEnabled = true;
+                keyAcess.Close();
             }
         }
     }
