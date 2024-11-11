@@ -1,0 +1,82 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo da barra lateral */
+.sidebar {
+    min-height: 100vh;
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-250px); /* Oculta a sidebar por padrão */
+    transition: transform 0.3s ease;
+}
+
+.sidebar a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+}
+
+/* Ajuste de margem para o conteúdo */
+body{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.navigation{
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    padding: 50px;
+    width: 70%;
+    margin-top: 0;
+    padding-top: 0;
+    
+}
+
+.carousel-item ul{
+    position: absolute;
+}
+
+/* Responsividade: esconder a barra lateral em dispositivos menores */
+@media (min-width: 768px) {
+    .sidebar {
+        transform: translateX(0);
+        width: 250px;
+        position: fixed;
+    }
+
+    .navigation {
+        margin-left: 135px;
+    }
+
+    .toggle-btn {
+        display: none; /* Oculta o botão em telas grandes */
+    }
+
+}
