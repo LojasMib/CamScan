@@ -22,6 +22,7 @@ namespace CamScan.Pages
     /// </summary>
     public partial class Landing : Page
     {
+        private const string AcessKey = "SENHA";
         public Landing()
         {
             InitializeComponent();
@@ -35,18 +36,19 @@ namespace CamScan.Pages
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-            KeyAcess keyAcess = new KeyAcess();
+            KeyAcess keyAcess = new KeyAcess(AcessKey);
+            
             Window parentWindow = Window.GetWindow(this);
-            if(parentWindow != null)
+            
+            if (parentWindow != null)
             {
                 keyAcess.Owner = parentWindow;
             }
             keyAcess.ShowDialog();
-            if(keyAcess.FreeAcess == true)
+            if (keyAcess.FreeAcess == true)
             {
                 NavigationService.Navigate(new Uri("/Pages/Settings.xaml", UriKind.Relative));
             }
-            
         }
     }
 }

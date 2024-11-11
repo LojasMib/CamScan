@@ -83,9 +83,29 @@
                     VerticalContentAlignment="Center" FontFamily="Arial"
                     FontSize="14" FontWeight="Bold" Foreground="#FF534C4C"/>
                     <TextBox  x:Name="InputText" HorizontalAlignment="Left" Margin="178,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="146" VerticalContentAlignment="Center" Height="25"/>
-                    <TextBlock x:Name="InputError" HorizontalAlignment="Left"  Foreground="Red" Margin="53,75,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="272"/>
+                    <TextBlock x:Name="InputError" HorizontalAlignment="Left"  Foreground="Red" Margin="53,75,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="272" Cursor="Hand"/>
+                    <Image x:Name="Btn_Lock"  Margin="290,43,0,44" Cursor="Hand" MouseDown="Btn_Lock_MouseDown" Visibility="Visible" >
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Source" Value="/Images/Scanner/cadeado_fechado.png"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Source" Value="/Images/Scanner/cadeado_aberto.png"/>
+                                        <Setter Property="Width" Value="28"/>
+                                        <Setter Property="Height" Value="28"/>
+                                    </Trigger>
 
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="Width" Value="25"/>
+                                        <Setter Property="Height" Value="25"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <DatePicker x:Name="InputDate" HorizontalAlignment="Left" Margin="177,0,0,0" VerticalAlignment="Center" Width="147" Height="26" Visibility="Hidden"/>
                 </Grid>
+
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -106,7 +126,7 @@
                             <Image x:Name="PictureScanner" Stretch="Uniform" />
                             <b:LoadingControl x:Name="loadingControl" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
-                        
+
                     </Border>
 
                     <Image Grid.Row="0" x:Name="Btn_Cancel" Margin="320,10,0,320" Stretch="Uniform" Source="/Images/Scanner/Cancel_Gray.png"
@@ -117,6 +137,18 @@
 
                     <Grid x:Name="SelectImageGrid" Grid.Row="1" HorizontalAlignment="Center" >
                     </Grid>
+                    <Grid x:Name="MessageSucess" Width="274" Visibility="Hidden"  Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Margin="46,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center"
+                               TextWrapping="Wrap" Text="Arquivo Salvo com Sucesso!!" TextAlignment="Center" 
+                                Width="291" Foreground="DarkSeaGreen" 
+                               FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                        <Image Grid.Column="1" Width="26" Stretch="Uniform" Source="/Images/Photo/Ok_Message.png"  />
+                    </Grid>
+
                 </Grid>
                 <Grid Grid.Row="1" >
                     <Grid.ColumnDefinitions>
@@ -124,12 +156,12 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="0" x:Name="Cancelar" Text="Cancelar" Width="100" Height="40" MouseDown="Cancelar_MouseDown"  />
+                    <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="0" x:Name="Cancelar" Text="Cancelar" Width="100" Height="40" Background="#FF4500" MouseDown="Cancelar_MouseDown"  />
                     <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="1" x:Name="Escanear" Text="Escanear" Width="100" Height="40" Background="#F69D0D" MouseDown="Escanear_MouseDown"  />
                     <b:ButtonOfPhoto Style="{StaticResource ButtonAction}" Grid.Column="2" x:Name="Salvar" Text="Salvar" Width="100" Height="40" Background="#ED6B28"  MouseDown="Salvar_MouseDown" />
                 </Grid>
             </Grid>
         </Grid>
     </Grid>
-   
+
 </Page>

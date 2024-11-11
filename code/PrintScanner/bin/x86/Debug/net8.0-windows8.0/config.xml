@@ -3,7 +3,7 @@
   <Scanner>
     <ConfigScanner>
       <ConfigDriver>
-        <Name>EPSON L375 Series</Name>
+        <Name>EPSON L6160/L6170 Series</Name>
         <Type>TWAIN</Type>
       </ConfigDriver>
       <FolderDocumentoCliente>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Documentos de Clientes</FolderDocumentoCliente>
@@ -11,9 +11,20 @@
       <FolderDespesas>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Despesas</FolderDespesas>
     </ConfigScanner>
   </Scanner>
-  <Photos />
-  <Franquias />
+  <Photos>
+    <ConfigPhoto>
+      <ConfigDriverPhoto>
+        <string>HD User Facing</string>
+        <string>@device:pnp:\\?\usb#vid_04f2&amp;pid_b64f&amp;mi_00#6&amp;147b4c&amp;0&amp;0000#{65e8773d-8f56-11d0-a3b9-00a0c9223196}\global</string>
+      </ConfigDriverPhoto>
+      <FolderImagemClientes>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Imagens de Clientes</FolderImagemClientes>
+      <FolderImagemItens>C:\Users\Amaur\OneDrive\Documentos\MIB\CamScanTeste\Imagens de Itens</FolderImagemItens>
+    </ConfigPhoto>
+  </Photos>
+  <Franquias>
+    <ConfigFranquia>
+      <Cidade>Dias Davila</Cidade>
+      <Franquia>01</Franquia>
+    </ConfigFranquia>
+  </Franquias>
 </Configurations>
-
-
-EPSON L6270 FINANCEIRO => 169.254.12.234

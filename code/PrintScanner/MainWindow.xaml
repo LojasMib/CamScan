@@ -6,7 +6,7 @@
         xmlns:n="clr-namespace:CamScan.Router"
         xmlns:local="clr-namespace:CamScan"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         Title="ScanCam" Height="500" Width="800" Icon="/IconScanCam.ico"
         Closed="Window_Closed">

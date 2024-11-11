@@ -33,6 +33,7 @@ using static PdfSharp.Capabilities.Features;
 using System.Reflection.Metadata;
 using CamScan.Components;
 using Saraff.Twain;
+using System.Security.Cryptography;
 
 namespace CamScan
 {
@@ -41,6 +42,9 @@ namespace CamScan
     /// </summary>
     public partial class Scanner : Page
     {
+        private string? DataConfissao { get; set; }
+        private const string AcessKey = "SENHA";
+
         private Twain32 _twain;
 
         private int quantityScanned {  get; set; }
@@ -54,7 +58,6 @@ namespace CamScan
         private string? FolderDocumentoCliente { get; set; }
         private string? FolderConfissaodeDivida { get; set; }
         private string? FolderDespesas { get; set; }
-
         private string? FolderOutros { get; set; }
 
         private string? NameFranquia { get; set; }
@@ -119,6 +122,66 @@ namespace CamScan
             }
         }
 
+        public void ScannerDeviceConnectWIA(string deviceName)
+        {
+            Device device = wiaScanner.ConnectScan(deviceName);
+            if (device != null)
+            {
+                wiaScanner.SelectedScan = device.Items[1];
+            }
+        }
+
+        public void ScannerDeviceConnectTWAIN(string deviceName)
+        {
+            var mainWindow = WpfSystem.Application.Current.MainWindow;
+            var windowInteropHelper = new System.Windows.Interop.WindowInteropHelper(mainWindow);
+            var win32Window = new Win32Window(windowInteropHelper.Handle);
+            _twain = new Twain32()
+            {
+                Parent = win32Window,
+                ShowUI = false,
+            };
+
+            _twain.AcquireCompleted += _twain_AcquireCompleted;
+
+
+            if (!_twain.OpenDSM())
+            {
+                throw new Exception("Não foi possível abrir o DSM.");
+            }
+
+            int sourcesCount = _twain.SourcesCount;
+            int matchingIndex = -1;
+            if (sourcesCount > 0)
+            {
+                for (int i = 0; i < sourcesCount; i++)
+                {
+                    string sourceName = _twain.GetSourceProductName(i);
+
+                    if (sourceName.Equals(deviceName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        matchingIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (matchingIndex != -1)
+            {
+                _twain.CloseDataSource();
+                _twain.SourceIndex = matchingIndex;
+                _twain.OpenDataSource();
+                _twain.SetCap(TwCap.IPixelType, TwPixelType.RGB);
+                _twain.SetCap(TwCap.XResolution, 300); // Resolução X em DPI
+                _twain.SetCap(TwCap.YResolution, 300); // Resolução Y em DPI
+
+                _twain.SetCap(TwCap.Brightness, 0); // Brilho padrão
+                _twain.SetCap(TwCap.Contrast, 0);   // Contraste padrão
+
+                _twain.SetCap(TwCap.AutomaticColorEnabled, true); // Habilita detecção automática de cores
+            }
+        }
+
         public void OnLoaded(object sender, RoutedEventArgs e)
         {
             
@@ -142,11 +205,7 @@ namespace CamScan
                     {
                         try
                         {
-                            Device device = wiaScanner.ConnectScan(xml.ConfigDriver.Name);
-                            if (device != null)
-                            {
-                                wiaScanner.SelectedScan = device.Items[1];
-                            }
+                            ScannerDeviceConnectWIA(xml.ConfigDriver.Name);
                         }
                         catch (Exception ex)
                         {
@@ -156,58 +215,9 @@ namespace CamScan
                     //CARREGA CONEXÃO COM SCANNER DE PROTOCOLO TWAIN
                     else if (driverType == "TWAIN")
                     {
-
-                        var mainWindow = WpfSystem.Application.Current.MainWindow;
-                        var windowInteropHelper = new System.Windows.Interop.WindowInteropHelper(mainWindow);
-                        var win32Window = new Win32Window(windowInteropHelper.Handle);
-                        _twain = new Twain32()
-                        {
-                            Parent = win32Window,
-                            ShowUI = false,
-                        };
-
-                        _twain.AcquireCompleted += _twain_AcquireCompleted;
-
                         try
                         {
-
-                            if (!_twain.OpenDSM())
-                            {
-                                throw new Exception("Não foi possível abrir o DSM.");
-                            }
-
-                            int sourcesCount = _twain.SourcesCount;
-                            int matchingIndex = -1;
-                            if(sourcesCount > 0)
-                            {
-                                for (int i = 0; i < sourcesCount; i++)
-                                {
-                                    string sourceName = _twain.GetSourceProductName(i);
-
-                                    if (sourceName.Equals(xml.ConfigDriver.Name, StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        matchingIndex = i;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (matchingIndex != -1)
-                            {
-                                _twain.CloseDataSource();
-                                _twain.SourceIndex = matchingIndex;
-                                _twain.OpenDataSource();
-                                _twain.SetCap(TwCap.IPixelType, TwPixelType.RGB);
-                                _twain.SetCap(TwCap.XResolution, 300); // Resolução X em DPI
-                                _twain.SetCap(TwCap.YResolution, 300); // Resolução Y em DPI
-
-                                _twain.SetCap(TwCap.Brightness, 0); // Brilho padrão
-                                _twain.SetCap(TwCap.Contrast, 0);   // Contraste padrão
-
-                                _twain.SetCap(TwCap.AutomaticColorEnabled, true); // Habilita detecção automática de cores
-                            }
-
-
+                            ScannerDeviceConnectTWAIN(xml.ConfigDriver.Name);
                         }
                         catch (Exception ex)
                         {
@@ -394,6 +404,9 @@ namespace CamScan
 
         private void RdBtn_DocCliente_Checked(object sender, RoutedEventArgs e)
         {
+            InputText.Visibility = Visibility.Visible;
+            InputDate.Visibility = Visibility.Hidden;
+            Btn_Lock.Visibility = Visibility.Hidden;
             InputLabel.Content = "Código do Cliente:";
             InputText.Text = "";
             InputText.IsReadOnly = false;
@@ -403,37 +416,63 @@ namespace CamScan
         private void RdBtn_ConfissaoDivida_Checked(object sender, RoutedEventArgs e)
         {
             InputLabel.Content = "Data das confissões:";
-            InputText.PreviewTextInput -= TextBox_PreviewTextInput;
+            InputText.Visibility = Visibility.Hidden;
+            InputDate.Visibility = Visibility.Visible;
+            Btn_Lock.Visibility = Visibility.Visible;
+
+            InputDate.IsEnabled = false;
             DateTime dataAtual = DateTime.Today;
-            string DataFormatada = dataAtual.ToString("dd-MM-yyyy"); 
-            string data = $"CDF{NameFranquia} - " + DataFormatada;
-            InputText.Text = data;
-            InputText.IsReadOnly = true;
+            InputDate.SelectedDate = dataAtual;
+            string DataFormatada = InputDate.SelectedDate.Value.ToString("dd-MM-yyyy"); 
+            DataConfissao = $"CDF{NameFranquia} - {DataFormatada}";
+            
         }
 
         private void RdBtn_Despesas_Checked(object sender, RoutedEventArgs e)
         {
-            InputLabel.Content = "Despesas:";
             InputText.PreviewTextInput -= TextBox_PreviewTextInput;
+            InputText.Visibility = Visibility.Visible;
+            InputDate.Visibility = Visibility.Hidden;
+            Btn_Lock.Visibility = Visibility.Hidden;
+            InputLabel.Content = "Despesas:";
             InputText.Text = "";
             InputText.IsReadOnly = false;
+            
         }
 
         private void RdBtn_Outros_Checked(object sender, RoutedEventArgs e)
         {
-            InputLabel.Content = "Outros:";
             InputText.PreviewTextInput -= TextBox_PreviewTextInput;
+            InputText.Visibility = Visibility.Visible;
+            InputDate.Visibility = Visibility.Hidden;
+            Btn_Lock.Visibility = Visibility.Hidden;
+            InputLabel.Content = "Outros:";
             InputText.Text = "";
             InputText.IsReadOnly = false;
+            
         }
 
+
+        private void VisibilityBtn_Cancel()
+        {
+            if (ScannedImages.Count > 1)
+            {
+                Btn_Cancel.Visibility = Visibility.Visible;
+            }
+        }
 
         //AREA OF USE ACTION BUTTONS
         private async void Escanear_MouseDown(object sender, MouseButtonEventArgs e)
         {
             
+            
             if (ScannedImages.Count > 0 && (RdBtn_DocCliente.IsChecked == true || RdBtn_Despesas.IsChecked == true || RdBtn_Outros.IsChecked == true))
             {
+                return;
+            }
+            if (IndexOfListImagesScanned >= 2)
+            {
+                WpfSystem.MessageBox.Show("A quantidade de imagens por documento não pode ser maior que 8", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -459,8 +498,9 @@ namespace CamScan
                     Dispatcher.Invoke(() =>
                     {
                         loadingControl.Visibility = Visibility.Collapsed;
+                        VisibilityBtn_Cancel();
                     });
-                    Btn_Cancel.Visibility = Visibility.Visible;
+                    InputText.PreviewTextInput -= TextBox_PreviewTextInput;
                     Mouse.OverrideCursor = null;
                 } 
             }
@@ -494,7 +534,7 @@ namespace CamScan
 
             else
             {
-                new Error("Escaner não configurado, contate a TI!");
+                new Error("Driver do Scanner não configurado, contate a TI!");
             }
         }
 
@@ -539,13 +579,6 @@ namespace CamScan
                     RdBtn_DocCliente.IsEnabled = false;
                     Escanear.IsEnabled = false;
                 }
-                if (RdBtn_ConfissaoDivida.IsChecked == false)
-                {
-                    RdBtn_ConfissaoDivida.Cursor = System.Windows.Input.Cursors.No;
-                    Escanear.Cursor = System.Windows.Input.Cursors.No;
-                    RdBtn_ConfissaoDivida.IsEnabled = false;
-                    Escanear.IsEnabled = false;
-                }
                 if (RdBtn_Despesas.IsChecked == false)
                 {
                     RdBtn_Despesas.Cursor = System.Windows.Input.Cursors.No;
@@ -559,6 +592,15 @@ namespace CamScan
                     Escanear.Cursor = System.Windows.Input.Cursors.No;
                     RdBtn_Outros.IsEnabled = false;
                     Escanear.IsEnabled = false;
+                    
+                }
+                if (RdBtn_ConfissaoDivida.IsChecked == false)
+                {
+                    RdBtn_ConfissaoDivida.Cursor = System.Windows.Input.Cursors.No;
+                    Escanear.Cursor = System.Windows.Input.Cursors.No;
+                    RdBtn_ConfissaoDivida.IsEnabled = false;
+                    Escanear.IsEnabled = false;
+                    Escanear.Background = new SolidColorBrush((WpfSystem.Media.Color)WpfSystem.Media.ColorConverter.ConvertFromString("#D3D3D3"));
                 }
             });
             
@@ -594,6 +636,9 @@ namespace CamScan
 
             Escanear.IsEnabled = true;
             Escanear.Cursor = System.Windows.Input.Cursors.Hand;
+
+            InputText.Text = "";
+            Escanear.Background = new SolidColorBrush((WpfSystem.Media.Color)WpfSystem.Media.ColorConverter.ConvertFromString("#F69D0D"));
         }
 
         private string CreateTempFolder()
@@ -615,6 +660,7 @@ namespace CamScan
             {
                 Directory.Delete(tempFolderPath, true);
             }
+            
         }
 
 
@@ -629,6 +675,33 @@ namespace CamScan
             Escanear.Text = "Escanear";
             ScannedImages.Clear();
             AddRoundRadioButtonsToGrid(ScannedImages.Count);
+        }
+
+        private string? Select_File_Type()
+        {
+            ChoiceExportFile choiceExportFile = new ChoiceExportFile();
+            Window parentWindow = Window.GetWindow(this);
+            choiceExportFile.ShowDialog();
+            if (choiceExportFile.TypeFile == "PDF")
+            {
+                return "PDF";
+            }
+            else if (choiceExportFile.TypeFile == "JPG")
+            {
+                return "JPG";
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        private async void Sucess_Message()
+        {
+            MessageSucess.Visibility = Visibility.Visible;
+            await Task.Delay(3000);// 1000 => 1 segundo
+            MessageSucess.Visibility = Visibility.Hidden;
         }
 
         private void Salvar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -657,7 +730,7 @@ namespace CamScan
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
-                        InputText.Text = "";
+                        Sucess_Message();
 
                     }
                     catch (Exception ex)
@@ -672,8 +745,7 @@ namespace CamScan
                         WpfSystem.MessageBox.Show("Pasta de Confissão de Divida não configurada", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
-                    string dataConfissao = InputText.Text;
-                    if (dataConfissao == null || dataConfissao.Length == 0 || dataConfissao == "")
+                    if (DataConfissao == null || DataConfissao.Length == 0 || DataConfissao == "")
                     {
                         WpfSystem.MessageBox.Show("Digite a data no padrão estabelecido para salvar a imagem!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -681,14 +753,15 @@ namespace CamScan
                     try
                     {
                         SaveFolderScan saveFolder = new SaveFolderScan();
-                        saveFolder.SaveConfissaoDivida(ScannedImages, FolderConfissaodeDivida, dataConfissao);
+                        saveFolder.SaveConfissaoDivida(ScannedImages, DataConfissao, FolderConfissaodeDivida);
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
+                        Sucess_Message();
                     }
                     catch(Exception ex)
                     {
-                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da Confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else if(RdBtn_Despesas.IsChecked == true)
@@ -707,14 +780,21 @@ namespace CamScan
                     try
                     {
                         SaveFolderScan saveFolder = new SaveFolderScan();
-                        saveFolder.SaveDespesas(ScannedImages, FolderDespesas, despesas);
+                        string typeFile = Select_File_Type();
+                        if (typeFile == null)
+                        {
+                            throw new Exception("O tipo de arquivo não foi selecionado.");
+                        }
+                        
+                        saveFolder.SaveDespesas(ScannedImages, FolderDespesas, despesas, typeFile);
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
+                        Sucess_Message();
                     }
                     catch (Exception ex)
                     {
-                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da Despesas: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else if (RdBtn_Outros.IsChecked == true)
@@ -732,15 +812,21 @@ namespace CamScan
                     }
                     try
                     {
+                        string typeFile = Select_File_Type();
+                        if (typeFile == null)
+                        {
+                            throw new Exception("O tipo de arquivo não foi selecionado.");
+                        }
                         SaveFolderScan saveFolder = new SaveFolderScan();
-                        saveFolder.SaveOutros(ScannedImages, FolderOutros, outros);
+                        saveFolder.SaveOutros(ScannedImages, FolderOutros, outros, typeFile);
                         Scanned_Close();
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
+                        Sucess_Message();
                     }
                     catch (Exception ex)
                     {
-                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da confissão: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                        WpfSystem.MessageBox.Show($"Erro ao salvar a imagem da Outros: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -781,10 +867,27 @@ namespace CamScan
 
         private void Btn_Cancel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(IndexOfListImagesScanned > 0)
+            if(ScannedImages.Any() && IndexOfListImagesScanned >= 0)
             {
                 ScannedImages.RemoveAt(IndexOfListImagesScanned);
                 AddRoundRadioButtonsToGrid(ScannedImages.Count());
+            }
+        }
+
+        private void Btn_Lock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            KeyAcess keyAcess = new KeyAcess(AcessKey);
+            Window parentWindow = Window.GetWindow(this);
+
+            if (parentWindow != null)
+            {
+                keyAcess.Owner = parentWindow;
+            }
+            keyAcess.ShowDialog();
+            if (keyAcess.FreeAcess == true)
+            {
+                InputDate.IsEnabled = true;
+                keyAcess.Close();
             }
         }
     }

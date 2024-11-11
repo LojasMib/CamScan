@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/index.css" />
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <title>Auxílio ao Usuário - Web Cam</title>
+</head>
+<body >
+     <!-- Botão de alternância para dispositivos móveis -->
+    <button class="btn btn-dark toggle-btn m-3" onclick="toggleSidebar()">☰ Menu</button>
+
+    <div class="sidebar d-flex flex-column p-3" id="sidebar">
+        <h4 class="text-center">Menu</h4>
+        <a href="./index.html" class="nav-link">Início</a>
+        <a href="#pagina1" class="nav-link">Scanner</a>
+        <a href="#pagina2" class="nav-link">Web Cam</a>
+    </div>
+
+    <div class="content" onclick="retractSidebar()">
+        <h1>Instruções do Web Cam</h1>
+        <ol>
+            <li type="1">
+                <h4>Esta é à Página de apresentação do aplicativo</h4>
+                <img src="../assets/Teladeinicio.png" alt="TelaDeApresentação">
+            </li>
+            <li>
+                <ol type="2">
+                    <li>
+                        <h4>Clicando nesse botão do aplicativo você irá para à página de Scanner</h4>
+                        <img src="../assets/IrparaScanner.png" alt="TelaparaScanner">
+                    </li>
+                    <li>
+                        <a href="./scanner.html">Configurações do Scanner</a>
+                    </li>
+    
+                </ol>
+            </li>
+            <li>
+                <ol>
+                    <li>
+                        <h4>Clicando nesse botão do aplicativo você irá para à página de Web Cam</h4>
+                        <img src="../assets/IrparaWebCam.png" alt="TelaparaWebCam">
+                    </li>
+                    <li>
+                        <a href="./webcam.html">Configurações da WebCam</a>
+                    </li>
+                </ol>
+                
+            </li>
+
+        </ol>
+    </div>
+
+    
+
+    <!-- JavaScript para abrir/fechar o menu lateral em dispositivos móveis -->
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+
+            // Alterna a posição da sidebar
+            if (sidebar.style.transform === "translateX(0px)") {
+                sidebar.style.transform = "translateX(-250px)";
+            } else {
+                sidebar.style.transform = "translateX(0px)";
+            }
+        }
+
+        function retractSidebar() {
+            const sidebar = document.getElementById("sidebar");
+
+            // Alterna a posição da sidebar
+            if (sidebar.style.transform === "translateX(0px)") {
+                sidebar.style.transform = "translateX(-250px)";
+            }
+        }
+    </script>
+</body>
+</html>
