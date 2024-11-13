@@ -1,14 +1,9 @@
-﻿using System.Net.Http;
+﻿using Newtonsoft.Json;
+using System.IO;
+using System.Net.Http;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace Atualizate
 {
@@ -25,9 +20,37 @@ namespace Atualizate
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += GetRemoteVersionAsync;
         }
 
-        public static async Task<string> GetRemoteVersionAsync()
+        private async Task<string> SetNumber(string path)
+        {
+            try
+            {
+                var reader = new StreamReader(path);
+                string xml = await reader.ReadToEndAsync();
+
+                XDocument xmlReader = XDocument.Parse(xml);
+
+                var numberElement = xmlReader.Root?.Element("Number");
+                if (numberElement != null)
+                {
+                    return numberElement.Value;
+                }
+                else
+                {
+                    MessageBox.Show("Elemento <number> não encontrado no XML.");
+                    return null;
+                }
+            }
+            catch( Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+                
+        }
+        private async void GetRemoteVersionAsync(object sender, RoutedEventArgs e)
         {
             using(HttpClient client = new HttpClient())
             {
@@ -36,17 +59,44 @@ namespace Atualizate
                 client.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-                var url = $"https://api.github.com/repos/{repoOwner}/{repoName}/contents/version.txt?ref={branchName}";
+                var url = $"https://api.github.com/repos/{repoOwner}/{repoName}/contents/code/Atualizate/version/version.xml?ref={branchName}";
+
+                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string downloadNewPath = System.IO.Path.Combine(currentDirectory, "version", "newversion","newversion.xml");
+                string downloadPath = System.IO.Path.Combine(currentDirectory, "version", "version.xml");
+                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(downloadNewPath));
 
                 try
                 {
-                    var response = await client.GetStringAsync(url);
-                    return response.Trim();
+                    var response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var fileContent = JsonConvert.DeserializeObject<dynamic>(jsonResponse).content.ToString().Trim();
+
+                    byte[] fileBytes = Convert.FromBase64String(fileContent);
+                    string xmlContent = Encoding.UTF8.GetString(fileBytes);
+                    
+                    await File.WriteAllBytesAsync(downloadNewPath, fileBytes);
+
+                    MessageBox.Show("Arquivo version.xml baixado com sucesso!", "Download Completo");
+
+                    string numberVersion = await SetNumber(downloadPath);
+                    string newNumberVersion = await SetNumber(downloadNewPath);
+
+                    int numberNumber = int.Parse(numberVersion.Replace(".", ""));
+                    int newNumberNumber = int.Parse(newNumberVersion.Replace(".", ""));
+
+                    if (newNumberNumber > numberNumber)
+                    {
+                        MessageBox.Show($"Nova versão {newNumberVersion} : {newNumberNumber}, versão antiga {numberVersion} : {numberNumber}");
+                    }
+
                 }
-                catch(HttpRequestException e)
+                catch(HttpRequestException err)
                 {
-                    Console.WriteLine("Erro ao acessar a API de atualização:" + e.Message);
-                    return null;
+                    MessageBox.Show("Erro ao acessar a API de atualização:" + err.Message);
                 }
             }
         }
