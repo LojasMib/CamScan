@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "hMrINb7gb6gNSFOTKzM/J92V6XxjRUGotRVtXbZfbOuOEiPM+KKVnK+949vRqirv5aNLHBhCgny93IsNmOSL0Q==",
+  "dgSpecHash": "wOcp8FIe5lRA7mVmayYs04f64m4D96RIa9SO3dyopeVs3uSXnwT2pLNX1eU14IGSAdEYOcwq9+EZAc1WtI3+zg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Atualizate.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Amaur\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
