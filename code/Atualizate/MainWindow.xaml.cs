@@ -8,6 +8,8 @@ using System.Text.Json;
 using System.Windows;
 using System.Xml.Linq;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using Atualizate.Class;
 
 namespace Atualizate
 {
@@ -16,170 +18,184 @@ namespace Atualizate
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly HttpClient _client;
-        private readonly string _baseUrl;
+        private GitHubCliente _gitClient;
 
-        private static readonly string repoOwner = "AmauryMagno";
-        private static readonly string repoName = "CamScan";
-        private static readonly string branchName = "Atualizate";
+        private readonly int? _camScanProcessId;
+        
 
-        private static readonly string token = "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";
-        public class Content
-        {
-            public string FileContent { get; set; }
-            public string name { get; set; }
-            public string path { get; set; }
-            public string sha { get; set; }
-            public long size { get; set; }
-            public string url { get; set; }
-            public string html_url { get; set; }
-            public string git_url { get; set; }
-            public string download_url { get; set; }
-            public string type { get; set; }
-            
-        }
         public MainWindow()
         {
             InitializeComponent();
-            _client = new HttpClient();
-            _client.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
-
-            _client.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-            _baseUrl = $"https://api.github.com/repos/{repoOwner}/{repoName}";
-            Loaded += GetRemoteVersionAsync;
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+            {
+                _camScanProcessId = int.Parse(args[1]);
+                MessageBox.Show($"Parâmetro recebido: {args[1]}");
+                Loaded += InitializeConection;
+            }
+            else
+            {
+                MessageBox.Show("Nenhum parâmetro foi recebido!");
+                Application.Current.Shutdown();
+            }
+            
         }
 
-        private async Task<string> SetNumber(string path)
+        private void InitializeConection(object sender, RoutedEventArgs e)
         {
             try
             {
-                var reader = new StreamReader(path);
-                string xml = await reader.ReadToEndAsync();
+                _gitClient = new GitHubCliente();
+                _gitClient.InitializeHttpClient();
+                GetRemoteVersionAsync();
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show($"Erro na conexão ao repositório do GitHub: {err}");
+            }
+        }
 
-                XDocument xmlReader = XDocument.Parse(xml);
-
-                var numberElement = xmlReader.Root?.Element("Number");
-                if (numberElement != null)
+        private void DeleteAllFilesExcept(string folderPath, string file1)
+        {
+            try
+            {
+                foreach (string filePath in Directory.GetFiles(folderPath))
                 {
-                    return numberElement.Value;
+                    string fileName = Path.GetFileName(filePath);
+
+                    if (!fileName.Equals(file1, StringComparison.OrdinalIgnoreCase) || !fileName.Equals(_gitClient._versionLocal.Outdate, StringComparison.OrdinalIgnoreCase))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+                MessageBox.Show("Arquivos excluídos com sucesso, exceto os especificados!");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Erro ao tentar excluir arquivos " + ex.Message);
+            }
+        }
+        private void CopyDirectory(string sourceDir, string destinationDir)
+        {
+            try
+            {
+                // Cria o diretório de destino se ele não existir
+                Directory.CreateDirectory(destinationDir);
+
+                // Copia todos os arquivos
+                foreach (string filePath in Directory.GetFiles(sourceDir))
+                {
+                    string fileName = Path.GetFileName(filePath);
+                    string destFilePath = Path.Combine(destinationDir, fileName);
+                    File.Copy(filePath, destFilePath, true); // Sobrescreve se já existir
+                }
+
+                // Copia todas as subpastas recursivamente
+                foreach (string subDirPath in Directory.GetDirectories(sourceDir))
+                {
+                    string subDirName = Path.GetFileName(subDirPath);
+                    string destSubDirPath = Path.Combine(destinationDir, subDirName);
+                    CopyDirectory(subDirPath, destSubDirPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao copiar o conteúdo: {ex.Message}");
+            }
+        }
+
+        private async void GetRemoteVersionAsync()
+        {
+
+            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string versionPath = System.IO.Path.Combine(currentDirectory, "version");
+            string newJsonConfig = System.IO.Path.Combine(versionPath, "newversion","newversion.json");
+            string jsonConfigLocal = System.IO.Path.Combine(versionPath, "version.json");
+            string downloadNewFile = System.IO.Path.Combine(versionPath, "CamScan.zip");
+
+            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(jsonConfigLocal));
+            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(newJsonConfig));
+
+            try
+            {
+                string newJson = await _gitClient.DownloadJsonConfig(newJsonConfig);
+
+                string currentJson = _gitClient.ReaderFileJson(jsonConfigLocal);
+
+                if(newJson == "Erro" || currentJson == "Erro")
+                {
+                    Application.Current.Shutdown();
+                }
+
+                int numberNumber = int.Parse(newJson.Replace(".", ""));
+                int newNumberNumber = int.Parse(currentJson.Replace(".", ""));
+
+                if (newNumberNumber > numberNumber)
+                {
+                    MessageBox.Show("Uma atualização do sistema foi encontrada, o processo de atualizaçã irá iniciar");
+                    _gitClient.DownloadFileZip(downloadNewFile);
+                    MessageBox.Show("Arquivo CamScan.zip baixado com sucesso!", "Download completo");
+
+                    if(_camScanProcessId.HasValue)
+                    {
+                        try
+                        {
+                                
+                            string zipPath =  $"{versionPath}/CamScan.zip";
+                            string extractPath = Path.GetFullPath(Path.Combine(currentDirectory, "..", ".."));
+
+                            string atualizatePath = Path.GetFullPath(Path.Combine(currentDirectory, ".."));
+                            MessageBox.Show($"Extract Path: {extractPath}; Atualizate Path: {atualizatePath};");
+
+                            Process camScanProcess = Process.GetProcessById(_camScanProcessId.Value);
+                            camScanProcess.Kill();
+                            MessageBox.Show("CamScam foi encerrado para executar atualização.");
+                                
+                            if (Directory.Exists(extractPath))
+                            {
+                                DeleteAllFilesExcept(extractPath, atualizatePath);
+                                MessageBox.Show($"CamScam.zip será extraido para {extractPath}.");
+                                ZipFile.ExtractToDirectory(zipPath, extractPath);
+                                MessageBox.Show("Arquivo ZIP extraido com sucesso");
+                                string ProgramAtualizate = $"{extractPath}/{_gitClient._versionUpdate.PathExecutable}";
+                                if (Directory.Exists(ProgramAtualizate))
+                                {
+                                    CopyDirectory(ProgramAtualizate, extractPath);
+                                    MessageBox.Show("Arquivo principal atualizado");
+                                }
+                                Directory.Delete($"{extractPath}/CamScan", true);
+                            }
+                            if (File.Exists($"{extractPath}/CamScan.exe"))
+                            {
+                                Process atualizateProcess = new Process();
+                                atualizateProcess.StartInfo.FileName = $"{extractPath}/{_gitClient._versionUpdate.NameExecutable}";
+                                atualizateProcess.Start();
+                            }
+                            Application.Current.Shutdown();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Erro ao tentar acessar o CamScan: " + ex.Message);
+                        }
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Elemento <number> não encontrado no XML.");
-                    return null;
+                    MessageBox.Show("Nenhuma atualização encontrada");
+                    Application.Current.Shutdown();
                 }
+
             }
-            catch( Exception ex)
+            catch(HttpRequestException err)
             {
-                MessageBox.Show(ex.Message);
-                return null;
+                MessageBox.Show("Erro ao acessar a API de atualização:" + err.Message);
+                Application.Current.Shutdown();
             }
-                
-        }
-        private async void GetRemoteVersionAsync(object sender, RoutedEventArgs e)
-        {
-            using(HttpClient client = _client)
+            catch (Exception ex)
             {
-
-                var url = $"{_baseUrl}/contents/code/Atualizate/version/version.xml?ref={branchName}";
-                var urlfile = $"{_baseUrl}/contents/code/CamScan.zip?ref={branchName}";
-
-                string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string basePath = System.IO.Path.Combine(currentDirectory, "version");
-                string downloadNewPath = System.IO.Path.Combine(basePath, "newversion","newversion.xml");
-                string downloadPath = System.IO.Path.Combine(basePath, "version.xml");
-                string downloadNewFile = System.IO.Path.Combine(basePath, "CamScan");
-                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(downloadNewPath));
-
-                try
-                {
-                    var response = await client.GetAsync(url);
-                    response.EnsureSuccessStatusCode();
-
-
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-                    var fileContentBase64 = JsonConvert.DeserializeObject<dynamic>(jsonResponse).content.ToString().Trim();
-
-                    byte[] fileBytes = Convert.FromBase64String(fileContentBase64);
-                    string xmlContent = Encoding.UTF8.GetString(fileBytes);
-                    
-                    await File.WriteAllBytesAsync(downloadNewPath, fileBytes);
-
-                    MessageBox.Show("Arquivo version.xml baixado com sucesso!", "Download Completo");
-
-                    string numberVersion = await SetNumber(downloadPath);
-                    string newNumberVersion = await SetNumber(downloadNewPath);
-
-                    int numberNumber = int.Parse(numberVersion.Replace(".", ""));
-                    int newNumberNumber = int.Parse(newNumberVersion.Replace(".", ""));
-
-                    if (newNumberNumber > numberNumber)
-                    {
-                        //var responsefile = await client.GetAsync(urlfile);
-                        //responsefile.EnsureSuccessStatusCode();
-
-                        //var jsonResponseFile = await responsefile.Content.ReadAsStringAsync();
-                        //var fileContentBase64File = JsonConvert.DeserializeObject<dynamic>(jsonResponse).content.ToString().Trim();
-
-                        //byte[] zipFileBytes = Convert.FromBase64String(fileContentBase64File);
-
-                        //await File.WriteAllBytesAsync(downloadNewFile, zipFileBytes);
-
-                        DownloadDirectory(urlfile, downloadNewFile);
-
-                        MessageBox.Show("Arquivo CamScan.zip baixado com sucesso!", "Download completo");
-                    }
-
-                }
-                catch(HttpRequestException err)
-                {
-                    MessageBox.Show("Erro ao acessar a API de atualização:" + err.Message);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro durante o processamento: " + ex.Message);
-                }
+                MessageBox.Show("Erro durante o processamento: " + ex.Message);
+                Application.Current.Shutdown();
             }
         }
-
-        private async Task DownloadDirectory(string apiUrl, string targetDirectory)
-        {
-            using var response = await _client.GetAsync(apiUrl);
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-
-            var items = System.Text.Json.JsonSerializer.Deserialize<Content[]>(content);
-
-            foreach (var item in items)
-            {
-                string filePath = Path.Combine(targetDirectory, item.path);
-
-                if(item.type == "dir")
-                {
-                    Directory.CreateDirectory(filePath);
-                    await DownloadDirectory(item.url, filePath);
-                }
-                else
-                {
-                    using var fileStream = File.Create(filePath);
-                    if(item.download_url != null)
-                    {
-                        using var downloadResponse = await _client.GetAsync(item.download_url);
-                        await downloadResponse.Content.CopyToAsync(fileStream);
-                    }
-                    else
-                    {
-                        byte[] fileBytes = Convert.FromBase64String(content);
-                        await fileStream.WriteAsync(fileBytes, 0, fileBytes.Length);
-                    }
-                }
-            }
-
-
-        }
-
-
     }
 }

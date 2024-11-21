@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Atualizate"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="200" Width="400">
     <Grid>
+        <Label Content="Compact Atualizate" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top"
+               FontFamily="Arial" FontSize="15" FontWeight="Bold" Foreground="#FF534C4C"/>
+        <ProgressBar HorizontalAlignment="Center" Height="15" Margin="0,69,0,0" VerticalAlignment="Top" Width="200"/>
+        <TextBlock x:Name="ProgressLabel" FontSize="10" VerticalAlignment="Top" Margin="100,54,100,0" Text="Progresso: 0%" />
+        <TextBlock x:Name="InfoProgress" Text="Inicio" HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Height="82" Margin="0,92,0,0"
+                   FontFamily="Arial" FontSize="10" Foreground="#FF534C4C" FontWeight="SemiBold"/>
+
 
     </Grid>
 </Window>

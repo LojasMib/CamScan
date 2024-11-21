@@ -10,6 +10,7 @@
     <Platforms>AnyCPU;x86</Platforms>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Images\Window\IconScanCam.ico</ApplicationIcon>
+    <PackAsTool>False</PackAsTool>
   </PropertyGroup>
 
   <ItemGroup>

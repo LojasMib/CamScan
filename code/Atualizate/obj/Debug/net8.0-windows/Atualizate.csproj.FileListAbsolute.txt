@@ -22,4 +22,5 @@ C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\Atualizate\obj\Debug\net8
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\Atualizate\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\Atualizate\obj\Debug\net8.0-windows\Atualizate.csproj.AssemblyReference.cache
 C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\Atualizate\obj\Debug\net8.0-windows\Atualizate.csproj.Up2Date
-C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\Atualizate\bin\Debug\net8.0-windows\version\version.xml
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\Atualizate\bin\Debug\net8.0-windows\Atualizate.dll.config
+C:\Users\Amaur\OneDrive\Documentos\GitHub\CamScan\code\Atualizate\bin\Debug\net8.0-windows\version\version.json
