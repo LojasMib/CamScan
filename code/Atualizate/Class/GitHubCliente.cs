@@ -8,8 +8,10 @@ using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Atualizate.Class;
 using System.Windows;
 using static Atualizate.MainWindow;
+
 
 namespace Atualizate.Class
 {
@@ -18,43 +20,17 @@ namespace Atualizate.Class
     {
         private HttpClient _client;
         private string _baseUrl;
-        public Version _versionUpdate;
-        public Version _versionLocal;
+        private string _urlJsonConfig;
+        private string _urlFileSystem;
 
+        public Models.Version _versionUpdate;
+        public Models.Version _versionLocal;
+        private Serialize _serialize;
 
         private static readonly string repoOwner = "AmauryMagno";
         private static readonly string repoName = "CamScan";
         private static readonly string branchName = "Atualizate";
         private static readonly string token = "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";
-
-        private string _urlJsonConfig;
-        private string _urlFileSystem;
-
-        public class Version
-        {
-            public string GitBranch { get; private set; }
-            public string Number { get; private set; }
-            public string NameExecutable { get; private set; }
-            public string PathExecutable { get; private set; }
-            public string NameFileZip { get; private set; }
-            public string Outdate { get; private set; }
-        }
-
-        public class Content
-        {
-            public string FileContent { get; set; }
-            public string name { get; set; }
-            public string path { get; set; }
-            public string sha { get; set; }
-            public long size { get; set; }
-            public string url { get; set; }
-            public string html_url { get; set; }
-            public string git_url { get; set; }
-            public string download_url { get; set; }
-            public string type { get; set; }
-
-        }
-
 
         public void InitializeHttpClient()
         {
@@ -66,7 +42,7 @@ namespace Atualizate.Class
                 _client.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 _baseUrl = $"https://api.github.com/repos/{repoOwner}/{repoName}";
-                _urlJsonConfig = $"{ _baseUrl}/contents/code/Atualizate/version/version.json?ref={ branchName}";
+                _urlJsonConfig = $"{_baseUrl}/contents/code/Atualizate/version/version.json?ref={branchName}";
                 _urlFileSystem = $"{_baseUrl}/contents/code?ref={branchName}";
             }
             catch (Exception err)
@@ -75,33 +51,19 @@ namespace Atualizate.Class
             }
         }
 
-        private Version? DeserializerJson(string fileJson)
-        {
-            return JsonSerializer.Deserialize<Version>(fileJson);
-        }
-
-        private string SerializerJson(Version version)
-        {
-            string jsonString = JsonSerializer.Serialize(version, new JsonSerializerOptions { WriteIndented = true });
-            return jsonString;
-        }
-
         private async Task<string>? GitConnection(string url)
         {
-            using(HttpClient client = _client)
+            try
             {
-                try
-                {
-                    var response = await client.GetAsync(url);
-                    response.EnsureSuccessStatusCode();
+                var response = await _client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
 
-                    return await response.Content.ReadAsStringAsync();
-                }
-                catch(Exception err)
-                {
-                    MessageBox.Show($"Conexão com GitHub não estabelecida: {err}", "Erro de Conexão");
-                    return null;
-                }
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show($"Conexão com GitHub não estabelecida: {err}", "Erro de Conexão");
+                return null;
             }
         }
 
@@ -110,17 +72,25 @@ namespace Atualizate.Class
             try
             {
                 var response = await GitConnection(_urlJsonConfig);
+                var options = new JsonSerializerOptions
+                {
+                    NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
+                };
+                var deserializedResponse = _serialize.DeserializerJson<Models.Content>(response);
+                var contetnBase64 = deserializedResponse.content;
                 if (!string.IsNullOrEmpty(response))
                 {
-                    _versionUpdate = DeserializerJson(response);
-                    string responseSerializer = SerializerJson(_versionUpdate);
+                    byte[] jsonBytes = Convert.FromBase64String(contetnBase64);
+                    string jsonString = Encoding.UTF8.GetString(jsonBytes);
+                    _versionUpdate =_serialize.DeserializerJson<Models.Version>(jsonString);
+
                     string directoryPath = Path.GetDirectoryName(downloadPath);
                     if (!Directory.Exists(directoryPath))
                     {
                         Directory.CreateDirectory(directoryPath);
                     }
-                    File.WriteAllText(downloadPath, responseSerializer);
-                    MessageBox.Show("Arquivo version.xml baixado com sucesso!", "Download Completo");
+                    File.WriteAllText(downloadPath, JsonSerializer.Serialize(_versionUpdate, new JsonSerializerOptions { WriteIndented = true }));
+                    MessageBox.Show("Arquivo version.json baixado com sucesso!", "Download Completo");
                     return _versionUpdate.Number;
                 }
                 else
@@ -140,7 +110,8 @@ namespace Atualizate.Class
         {
             try
             {
-                _versionLocal = DeserializerJson(path);
+                string jsonContent = File.ReadAllText(path);
+                _versionLocal = _serialize.DeserializerJson<Models.Version>(jsonContent);
                 return _versionLocal.Number;
             }catch(Exception err)
             {
@@ -150,13 +121,13 @@ namespace Atualizate.Class
             
         }
 
-        public async void DownloadFileZip(string downloadPath)
+        public async Task<Boolean> DownloadFileZip(string downloadPath)
         {
             try
             {
                 var response = await GitConnection(_urlFileSystem);
 
-                var items = System.Text.Json.JsonSerializer.Deserialize<Content[]>(response);
+                var items = _serialize.DeserializerJson<Models.Content[]>(response);
 
                 foreach (var item in items)
                 {
@@ -169,14 +140,17 @@ namespace Atualizate.Class
                         using (var fileStream = new FileStream(downloadPath, FileMode.Create))
                         {
                             await stream.CopyToAsync(fileStream);
+                            return true;
                         }
 
                     }
                 }
+                return false;
             
             }catch(Exception err)
             {
                 MessageBox.Show($"Erro no download do arquivo ZIP: {err.Message}");
+                return false;
             }
         }
     }

@@ -109,31 +109,36 @@ namespace Atualizate
 
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string versionPath = System.IO.Path.Combine(currentDirectory, "version");
-            string newJsonConfig = System.IO.Path.Combine(versionPath, "newversion","newversion.json");
-            string jsonConfigLocal = System.IO.Path.Combine(versionPath, "version.json");
-            string downloadNewFile = System.IO.Path.Combine(versionPath, "CamScan.zip");
+            string newPathJsonConfig = System.IO.Path.Combine(versionPath, "newversion","newversion.json");
+            string jsonConfigLocal = System.IO.Path.Combine(versionPath, "version.json");            
 
             Directory.CreateDirectory(System.IO.Path.GetDirectoryName(jsonConfigLocal));
-            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(newJsonConfig));
+            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(newPathJsonConfig));
 
             try
             {
-                string newJson = await _gitClient.DownloadJsonConfig(newJsonConfig);
+                string newJson = await _gitClient.DownloadJsonConfig(newPathJsonConfig);
 
                 string currentJson = _gitClient.ReaderFileJson(jsonConfigLocal);
-
-                if(newJson == "Erro" || currentJson == "Erro")
+                if (newJson == "Erro" || currentJson == "Erro")
                 {
                     Application.Current.Shutdown();
                 }
 
-                int numberNumber = int.Parse(newJson.Replace(".", ""));
-                int newNumberNumber = int.Parse(currentJson.Replace(".", ""));
+                string downloadNewFile = System.IO.Path.Combine(versionPath, _gitClient._versionUpdate.NameFileZip);
+
+                
+                int numberNumber = int.Parse(currentJson.Replace(".", ""));
+                int newNumberNumber = int.Parse(newJson.Replace(".", ""));
 
                 if (newNumberNumber > numberNumber)
                 {
                     MessageBox.Show("Uma atualização do sistema foi encontrada, o processo de atualizaçã irá iniciar");
-                    _gitClient.DownloadFileZip(downloadNewFile);
+                    Boolean result = await _gitClient.DownloadFileZip(downloadNewFile);
+                    if (result == false)
+                    {
+                        Application.Current.Shutdown();
+                    }
                     MessageBox.Show("Arquivo CamScan.zip baixado com sucesso!", "Download completo");
 
                     if(_camScanProcessId.HasValue)
