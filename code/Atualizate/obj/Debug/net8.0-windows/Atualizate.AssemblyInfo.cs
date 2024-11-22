@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Atualizate")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f5e8ddd48661d26900aa1b7532a8b48d66ceaec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54a98c0e5e10db76ba2207326d06549468161b6c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Atualizate")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Atualizate")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

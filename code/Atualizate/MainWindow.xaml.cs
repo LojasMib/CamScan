@@ -155,22 +155,22 @@ namespace Atualizate
                             Process camScanProcess = Process.GetProcessById(_camScanProcessId.Value);
                             camScanProcess.Kill();
                             MessageBox.Show("CamScam foi encerrado para executar atualização.");
-                                
+                            string ProgramAtualizate = $"{extractPath}/{_gitClient._versionUpdate.PathExecutable}";
                             if (Directory.Exists(extractPath))
                             {
                                 DeleteAllFilesExcept(extractPath, atualizatePath);
                                 MessageBox.Show($"CamScam.zip será extraido para {extractPath}.");
                                 ZipFile.ExtractToDirectory(zipPath, extractPath);
                                 MessageBox.Show("Arquivo ZIP extraido com sucesso");
-                                string ProgramAtualizate = $"{extractPath}/{_gitClient._versionUpdate.PathExecutable}";
+                                
                                 if (Directory.Exists(ProgramAtualizate))
                                 {
                                     CopyDirectory(ProgramAtualizate, extractPath);
                                     MessageBox.Show("Arquivo principal atualizado");
                                 }
-                                Directory.Delete($"{extractPath}/CamScan", true);
+                                Directory.Delete($"{ProgramAtualizate}", true);
                             }
-                            if (File.Exists($"{extractPath}/CamScan.exe"))
+                            if (File.Exists($"{ProgramAtualizate}/CamScan.exe"))
                             {
                                 Process atualizateProcess = new Process();
                                 atualizateProcess.StartInfo.FileName = $"{extractPath}/{_gitClient._versionUpdate.NameExecutable}";
@@ -181,6 +181,7 @@ namespace Atualizate
                         catch (Exception ex)
                         {
                             MessageBox.Show("Erro ao tentar acessar o CamScan: " + ex.Message);
+                            Application.Current.Shutdown();
                         }
                     }
                 }

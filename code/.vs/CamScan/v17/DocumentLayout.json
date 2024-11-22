@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\atualizate\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|solutionrelative:atualizate\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\printscanner\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\atualizate\\version\\version.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|solutionrelative:atualizate\\version\\version.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\atualizate\\class\\githubcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|solutionrelative:atualizate\\class\\githubcliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\atualizate\\class\\serialize.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|solutionrelative:atualizate\\class\\serialize.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\atualizate\\class\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|solutionrelative:atualizate\\class\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,8 +25,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 1604,
-          "SelectedChildIndex": 5,
+          "DockedWidth": 2407,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,45 +50,56 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Serialize.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Class\\Serialize.cs",
-              "RelativeDocumentMoniker": "Atualizate\\Class\\Serialize.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Class\\Serialize.cs",
-              "RelativeToolTip": "Atualizate\\Class\\Serialize.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAgAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T01:11:51.847Z",
-              "EditorCaption": ""
+              "DocumentIndex": 2,
+              "Title": "version.json",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\version\\version.json",
+              "RelativeDocumentMoniker": "Atualizate\\version\\version.json",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\version\\version.json",
+              "RelativeToolTip": "Atualizate\\version\\version.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-22T02:15:46.545Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Models.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Class\\Models.cs",
-              "RelativeDocumentMoniker": "Atualizate\\Class\\Models.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Class\\Models.cs",
-              "RelativeToolTip": "Atualizate\\Class\\Models.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAArAAAA",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "PrintScanner\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\MainWindow.xaml.cs",
+              "RelativeToolTip": "PrintScanner\\MainWindow.xaml.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAxwB0AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T01:12:36.969Z",
+              "WhenOpened": "2024-11-21T14:41:34.602Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Atualizate\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Atualizate\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAJAAAAAAAAAAAIAwwKQAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T01:52:21.254Z",
               "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 2237,
+          "DockedWidth": 1434,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "GitHubCliente.cs",
               "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Class\\GitHubCliente.cs",
               "RelativeDocumentMoniker": "Atualizate\\Class\\GitHubCliente.cs",
               "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Class\\GitHubCliente.cs",
               "RelativeToolTip": "Atualizate\\Class\\GitHubCliente.cs",
-              "ViewState": "AQIAAIQAAAAAAAAAAAAowJ0AAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAJsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-19T13:23:36.481Z",
               "EditorCaption": ""

@@ -20,6 +20,7 @@ namespace CamScan
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Process atualizateProcess;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace CamScan
 
                 string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-                Process atualizateProcess = new Process();
+                atualizateProcess = new Process();
                 atualizateProcess.StartInfo.FileName = $"{currentDirectory}/Atualizate/net8.0-windows/Atualizate.exe";
                 atualizateProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                 atualizateProcess.StartInfo.Arguments = Process.GetCurrentProcess().Id.ToString();
@@ -51,6 +52,12 @@ namespace CamScan
         }
         private void Window_Closed(object sender, EventArgs e)
         {
+            if(atualizateProcess != null && !atualizateProcess.HasExited)
+            {
+                atualizateProcess.Kill();
+                atualizateProcess.Dispose();
+            }
+
             if(MainFrame.Content is Photo photo)
             {
                 photo.StopCamera();

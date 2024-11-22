@@ -36,6 +36,7 @@ namespace Atualizate.Class
         {
             try
             {
+                _serialize = new Serialize();
                 _client = new HttpClient();
                 _client.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
 

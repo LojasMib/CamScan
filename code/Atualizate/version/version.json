@@ -1,8 +1,8 @@
 {
   "GitBranch": "NameLastBranch",
-  "Number": "00.00.0001",
+  "Number": "00.00.0000",
   "NameExecutable": "CamScan.exe",
-  "PathExecutable": "CamScan/net8.0-windows8.0/",
+  "PathExecutable": "net8.0-windows8.0/",
   "NameFileZip": "CamScan.zip",
   "Outdate": "Config.xml"
 }
