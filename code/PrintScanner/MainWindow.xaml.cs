@@ -47,6 +47,11 @@ namespace CamScan
             {
                 System.Windows.MessageBox.Show($"Erro na localização do arquivo de atualização: {err.Message}", "Erro de Atualização", MessageBoxButton.OK, MessageBoxImage.Warning);
                 this.IsEnabled = true;
+                if (atualizateProcess != null && !atualizateProcess.HasExited)
+                {
+                    atualizateProcess.Kill();
+                    atualizateProcess.Dispose();
+                }
             }
 
         }

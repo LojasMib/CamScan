@@ -1,8 +1,11 @@
 {
-  "GitBranch": "NameLastBranch",
+  "RepoOwner": "LojasMib",
+  "RepoName": "Atualizate_CamScan",
+  "BranchName": "Atualizate",
+  "TokenAPI": "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",
   "Number": "00.00.0000",
   "NameExecutable": "CamScan.exe",
-  "PathExecutable": "net8.0-windows8.0/",
+  "PathExecutable": "CamScan",
   "NameFileZip": "CamScan.zip",
   "Outdate": "Config.xml"
 }

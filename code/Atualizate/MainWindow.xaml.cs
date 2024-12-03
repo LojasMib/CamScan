@@ -10,6 +10,9 @@ using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Atualizate.Class;
+using Microsoft.Win32;
+using System.Windows.Threading;
+using System.Windows.Media.Animation;
 
 namespace Atualizate
 {
@@ -19,62 +22,117 @@ namespace Atualizate
     public partial class MainWindow : Window
     {
         private GitHubCliente _gitClient;
+        private readonly Logger _log;
 
         private readonly int? _camScanProcessId;
+
+        private readonly string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
         
 
         public MainWindow()
         {
             InitializeComponent();
+            
             string[] args = Environment.GetCommandLineArgs();
+            _log = new Logger();
             if (args.Length > 1)
             {
                 _camScanProcessId = int.Parse(args[1]);
-                MessageBox.Show($"Parâmetro recebido: {args[1]}");
-                Loaded += InitializeConection;
+                _log.Log($"Parâmetro recebido: {_camScanProcessId}");
+
             }
             else
             {
-                MessageBox.Show("Nenhum parâmetro foi recebido!");
+                _log.Log("ERRO: Nenhum parâmetro foi recebido!");
                 Application.Current.Shutdown();
             }
+
+            this.ContentRendered += MainWindow_ContentRenderer;
             
         }
 
-        private void InitializeConection(object sender, RoutedEventArgs e)
+        private async void MainWindow_ContentRenderer(object sender, EventArgs e)
+        {
+            await UpdateProgress(0, "Atualize Start");
+            Initialize_Conection();
+        }
+
+        private async void Initialize_Conection()
         {
             try
             {
-                _gitClient = new GitHubCliente();
-                _gitClient.InitializeHttpClient();
-                GetRemoteVersionAsync();
+                string jsonConfigLocal = System.IO.Path.Combine(currentDirectory, "version", "version.json");
+                _gitClient = new GitHubCliente(jsonConfigLocal);
+                string InitializeConnection =  _gitClient.InitializeHttpClient();
+                if( InitializeConnection != "true")
+                {
+                    _log.Log(InitializeConnection);
+                    Application.Current.Shutdown();
+                }
+                await UpdateProgress(10, "Conexão com servidor estabelecida!");
+
+                await GetRemoteVersionAsync();
             }
             catch(Exception err)
             {
-                MessageBox.Show($"Erro na conexão ao repositório do GitHub: {err}");
+                _log.Log($"ERRO: Erro na conexão ao repositório do GitHub: {err}");
             }
         }
 
-        private void DeleteAllFilesExcept(string folderPath, string file1)
+        private void DeleteAllFilesExcept(string folderPath, string folder1)
         {
             try
             {
+                folder1 = Path.GetFileName(folder1);
+
                 foreach (string filePath in Directory.GetFiles(folderPath))
                 {
                     string fileName = Path.GetFileName(filePath);
 
-                    if (!fileName.Equals(file1, StringComparison.OrdinalIgnoreCase) || !fileName.Equals(_gitClient._versionLocal.Outdate, StringComparison.OrdinalIgnoreCase))
+                    if (IsFileInUse(filePath))
+                    {
+                        _log.Log($"Aviso: Arquivo em uso, não será excluído: {fileName}");
+                    }
+                    
+
+                    if (!fileName.Equals(folder1, StringComparison.OrdinalIgnoreCase) && !fileName.Equals(_gitClient._versionLocal.Outdate, StringComparison.OrdinalIgnoreCase))
                     {
                         File.Delete(filePath);
                     }
                 }
-                MessageBox.Show("Arquivos excluídos com sucesso, exceto os especificados!");
+
+                foreach(string directoryPath in Directory.GetDirectories(folderPath))
+                {
+                    string folderName = Path.GetFileName(directoryPath);
+                    if(!folderName.Equals(folder1, StringComparison.OrdinalIgnoreCase) &&
+                        !folderName.Equals(_gitClient._versionLocal.Outdate, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Directory.Delete(directoryPath, true);
+                    }
+                }
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Erro ao tentar excluir arquivos " + ex.Message);
+                _log.Log($"ERRO: Erro ao tentar excluir arquivos para atualização {ex.Message}");
             }
         }
+
+        private bool IsFileInUse(string filePath)
+        {
+            try
+            {
+                using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    fs.Close();
+                }
+            }
+            catch (IOException)
+            {
+                return true; // Arquivo em uso
+            }
+            return false;
+        }
+
         private void CopyDirectory(string sourceDir, string destinationDir)
         {
             try
@@ -97,110 +155,177 @@ namespace Atualizate
                     string destSubDirPath = Path.Combine(destinationDir, subDirName);
                     CopyDirectory(subDirPath, destSubDirPath);
                 }
+
+                _log.Log("Arquivos e pastas copiados para diretório correto");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao copiar o conteúdo: {ex.Message}");
+                _log.Log($"ERRO: Erro ao copiar o conteúdo: {ex.Message}");
             }
         }
 
-        private async void GetRemoteVersionAsync()
+        private void DeleteOutdatedFiles(string PathNewVersion, string fileZip)
         {
+            Directory.Delete(PathNewVersion, true);
+            File.Delete(fileZip);
+        }
 
-            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string versionPath = System.IO.Path.Combine(currentDirectory, "version");
-            string newPathJsonConfig = System.IO.Path.Combine(versionPath, "newversion","newversion.json");
-            string jsonConfigLocal = System.IO.Path.Combine(versionPath, "version.json");            
-
-            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(jsonConfigLocal));
-            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(newPathJsonConfig));
-
+        private async Task UpdateProgressBar(int progress, string status)
+        {
             try
             {
-                string newJson = await _gitClient.DownloadJsonConfig(newPathJsonConfig);
-
-                string currentJson = _gitClient.ReaderFileJson(jsonConfigLocal);
-                if (newJson == "Erro" || currentJson == "Erro")
+                await Dispatcher.InvokeAsync(() =>
                 {
-                    Application.Current.Shutdown();
-                }
+                    ProgressBar.Value = progress;
+                    ProgressLabel.Text = $"Progresso: {progress}%";
+                    InfoProgress.Text = status + (string.IsNullOrEmpty(InfoProgress.Text) ? "" : "\n" + InfoProgress.Text);
+                }, DispatcherPriority.Render);
+            }
+            catch (Exception ex)
+            {
+                _log.Log($"ERRO: Falha ao atualizar a barra de progresso: {ex.Message}");
+            }
 
-                string downloadNewFile = System.IO.Path.Combine(versionPath, _gitClient._versionUpdate.NameFileZip);
+        }
 
+        private async Task GetRemoteVersionAsync()
+        {
+            try
+            {
+
+                //Passo 1: Configuração Inicial
+                string versionPath = System.IO.Path.Combine(currentDirectory, "version");
+                string jsonConfigLocal = System.IO.Path.Combine(currentDirectory, "version", "version.json");
+                string newFileJsonConfig = System.IO.Path.Combine(versionPath, "newversion", "newversion.json");
+
+                CreateDirectories(versionPath);
+
+                await UpdateProgress(15, "Diretórios do arquivo json atual e do novo verificados e criados!");
+
+                //Passo 2: Download e validação do .json Remoto
+                string newJson = await _gitClient.DownloadJsonConfig(newFileJsonConfig);
+                string currentJson = _gitClient._versionLocal.Number;
+                ValidateJsonContent(currentJson, newJson);
+
+                await UpdateProgress(20, "Arquivo remoto .json, baixado!");
+
+                //Passo 3: Verifica se há atualização
+                if (NeedsUpdate(currentJson, newJson))
+                {
+                    await UpdateProgress(30, "Atualização encontrada");
+
+                    string downloadNewFile = System.IO.Path.Combine(versionPath, _gitClient._versionUpdate.NameFileZip);
+                    await _gitClient.DownloadFileZip(downloadNewFile);
                 
-                int numberNumber = int.Parse(currentJson.Replace(".", ""));
-                int newNumberNumber = int.Parse(newJson.Replace(".", ""));
+                    await UpdateProgress(40, "Atualização baixada");
 
-                if (newNumberNumber > numberNumber)
-                {
-                    MessageBox.Show("Uma atualização do sistema foi encontrada, o processo de atualizaçã irá iniciar");
-                    Boolean result = await _gitClient.DownloadFileZip(downloadNewFile);
-                    if (result == false)
-                    {
-                        Application.Current.Shutdown();
-                    }
-                    MessageBox.Show("Arquivo CamScan.zip baixado com sucesso!", "Download completo");
+                    //Passo 4: Processar atualização
+                    await ProcessUpdate(versionPath, currentDirectory);
 
-                    if(_camScanProcessId.HasValue)
-                    {
-                        try
-                        {
-                                
-                            string zipPath =  $"{versionPath}/CamScan.zip";
-                            string extractPath = Path.GetFullPath(Path.Combine(currentDirectory, "..", ".."));
-
-                            string atualizatePath = Path.GetFullPath(Path.Combine(currentDirectory, ".."));
-                            MessageBox.Show($"Extract Path: {extractPath}; Atualizate Path: {atualizatePath};");
-
-                            Process camScanProcess = Process.GetProcessById(_camScanProcessId.Value);
-                            camScanProcess.Kill();
-                            MessageBox.Show("CamScam foi encerrado para executar atualização.");
-                            string ProgramAtualizate = $"{extractPath}/{_gitClient._versionUpdate.PathExecutable}";
-                            if (Directory.Exists(extractPath))
-                            {
-                                DeleteAllFilesExcept(extractPath, atualizatePath);
-                                MessageBox.Show($"CamScam.zip será extraido para {extractPath}.");
-                                ZipFile.ExtractToDirectory(zipPath, extractPath);
-                                MessageBox.Show("Arquivo ZIP extraido com sucesso");
-                                
-                                if (Directory.Exists(ProgramAtualizate))
-                                {
-                                    CopyDirectory(ProgramAtualizate, extractPath);
-                                    MessageBox.Show("Arquivo principal atualizado");
-                                }
-                                Directory.Delete($"{ProgramAtualizate}", true);
-                            }
-                            if (File.Exists($"{ProgramAtualizate}/CamScan.exe"))
-                            {
-                                Process atualizateProcess = new Process();
-                                atualizateProcess.StartInfo.FileName = $"{extractPath}/{_gitClient._versionUpdate.NameExecutable}";
-                                atualizateProcess.Start();
-                            }
-                            Application.Current.Shutdown();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Erro ao tentar acessar o CamScan: " + ex.Message);
-                            Application.Current.Shutdown();
-                        }
-                    }
                 }
-                else
-                {
-                    MessageBox.Show("Nenhuma atualização encontrada");
-                    Application.Current.Shutdown();
-                }
-
+                await UpdateProgress(100, "Atualização concluída!");
+                
             }
             catch(HttpRequestException err)
             {
-                MessageBox.Show("Erro ao acessar a API de atualização:" + err.Message);
+                _log.Log($"ERRO: Erro de comunicação HTTP com servidor {err.Message}");
                 Application.Current.Shutdown();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro durante o processamento: " + ex.Message);
+                _log.Log($"ERRO: Erro durante o processamento: {ex.Message}");
                 Application.Current.Shutdown();
+            }
+            finally
+            {
+                Application.Current.Shutdown();
+            }
+        }
+        
+        private async Task UpdateProgress(int progress, string message)
+        {
+            await UpdateProgressBar(progress, message);
+            _log.Log(message);
+        }
+
+        private void CreateDirectories(string versionPath)
+        {
+            Directory.CreateDirectory(versionPath);
+            Directory.CreateDirectory(Path.Combine(versionPath, "newversion"));
+        }
+
+        private void ValidateJsonContent(string currentJson, string newJson)
+        {
+            if (currentJson.Contains("ERRO:"))
+            {
+                throw new Exception("O JSON local está vazio.");
+            }
+            if (newJson.Contains("ERRO:"))
+            {
+                throw new Exception("O JSON remoto está vazio.");
+            }
+        }
+
+        private bool NeedsUpdate(string currentJson, string newJson)
+        {
+            int currentVersion = int.Parse(currentJson.Replace(".", ""));
+            int newVersion = int.Parse(newJson.Replace(".", ""));
+
+            return newVersion > currentVersion;
+        }
+
+        private async Task ProcessUpdate(string versionPath, string currentDirectory)
+        {
+            string zipPath = Path.Combine(versionPath, "CamScan.zip");
+            string currentPath = Path.GetFullPath(Path.Combine(currentDirectory, "..", ".."));
+            string atualizatePath = Path.GetFullPath(Path.Combine(currentDirectory, ".."));
+
+            if(!Directory.Exists(currentPath))
+            {
+                throw new Exception("Pasta principal não encontrada");
+            }
+            if (!Directory.Exists(atualizatePath))
+            {
+                throw new Exception("Pasta de atualização não encontrada");
+            }
+            if(!File.Exists(zipPath))
+            {
+                throw new Exception("O arquivo ZIP de atualização não foi encontrado.");
+            }
+
+            //Process camScanProcess = Process.GetProcessById(_camScanProcessId.Value);
+            //camScanProcess.Kill();
+            await UpdateProgress(50, "Aplicação principal encerrada");
+            await Task.Delay(300);
+            DeleteAllFilesExcept(currentPath, atualizatePath);
+            await UpdateProgress(55, "Arquivos da pasta principal deletados");
+
+            await UpdateProgress(60, "Descompactando atualização...");
+            ZipFile.ExtractToDirectory(zipPath, currentPath);
+            await UpdateProgress(65, $"Descompactação concluida!");
+
+            DeleteOutdatedFiles(Path.Combine(versionPath, "newversion"), zipPath);
+            await UpdateProgress(70, "Arquivo zip deletado");
+
+            _gitClient.UpdateJsonConfig(Path.Combine(versionPath, "version.json"));
+            await UpdateProgress(80, "Novo arquivo .json salvo");
+
+            RestartApplication(currentPath);
+        }
+
+        private async void RestartApplication(string currentPath)
+        {
+            string executablePath = Path.Combine(currentPath, _gitClient._versionUpdate.NameExecutable);
+            if (File.Exists(executablePath))
+            {
+                Process atualizateProcess = new Process();
+                atualizateProcess.StartInfo.FileName = $"{currentPath}/{_gitClient._versionUpdate.NameExecutable}";
+                atualizateProcess.Start();
+                await UpdateProgress(90, "Aplicação principal reiniciada");
+            }
+            else
+            {
+                throw new Exception($"Arquivo executável não encontrado: {executablePath}");
             }
         }
     }

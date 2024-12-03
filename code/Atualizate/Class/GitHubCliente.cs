@@ -25,134 +25,136 @@ namespace Atualizate.Class
 
         public Models.Version _versionUpdate;
         public Models.Version _versionLocal;
-        private Serialize _serialize;
+        Serialize _serialize = new Serialize();
 
-        private static readonly string repoOwner = "AmauryMagno";
-        private static readonly string repoName = "CamScan";
-        private static readonly string branchName = "Atualizate";
-        private static readonly string token = "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";
 
-        public void InitializeHttpClient()
+        public GitHubCliente(string jsonCurrent)
+        {
+            ReaderFileJson(jsonCurrent);
+        }
+
+        public string InitializeHttpClient()
         {
             try
             {
-                _serialize = new Serialize();
                 _client = new HttpClient();
-                _client.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
+                _client.DefaultRequestHeaders.UserAgent.TryParseAdd("Atualizate-App/1.0");
 
                 _client.DefaultRequestHeaders.Authorization =
-                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                _baseUrl = $"https://api.github.com/repos/{repoOwner}/{repoName}";
-                _urlJsonConfig = $"{_baseUrl}/contents/code/Atualizate/version/version.json?ref={branchName}";
-                _urlFileSystem = $"{_baseUrl}/contents/code?ref={branchName}";
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _versionLocal.TokenAPI); ;
+                _baseUrl = $"https://api.github.com/repos/{_versionLocal.RepoOwner}/{_versionLocal.RepoName}";
+                _urlJsonConfig = $"{_baseUrl}/contents/code/Atualizate/version/version.json?ref={_versionLocal.BranchName}";
+                _urlFileSystem = $"{_baseUrl}/contents/code?ref={_versionLocal.BranchName}";
+                return "true";
             }
             catch (Exception err)
             {
-                MessageBox.Show($"Erro na conexão ao repositório do GitHub: {err}");
+                return $"Erro na conexão ao repositório do GitHub: {err}";
             }
         }
 
-        private async Task<string>? GitConnection(string url)
-        {
+        private async Task<string> GitConnection(string url)
+        {            
             try
             {
                 var response = await _client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
-
                 return await response.Content.ReadAsStringAsync();
             }
-            catch(Exception err)
+            catch (TaskCanceledException)
             {
-                MessageBox.Show($"Conexão com GitHub não estabelecida: {err}", "Erro de Conexão");
-                return null;
+                throw new Exception("A solicitação ao Servidor Git expirou.");
+            }
+            catch (Exception err)
+            {
+                throw new Exception($"Erro na conexão com o Servidor Git: {err} ");
             }
         }
 
         public async Task<string> DownloadJsonConfig(string downloadPath)
         {
-            try
+            var response = await GitConnection(_urlJsonConfig);
+            var options = new JsonSerializerOptions
             {
-                var response = await GitConnection(_urlJsonConfig);
-                var options = new JsonSerializerOptions
-                {
-                    NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
-                };
-                var deserializedResponse = _serialize.DeserializerJson<Models.Content>(response);
-                var contetnBase64 = deserializedResponse.content;
-                if (!string.IsNullOrEmpty(response))
-                {
-                    byte[] jsonBytes = Convert.FromBase64String(contetnBase64);
-                    string jsonString = Encoding.UTF8.GetString(jsonBytes);
-                    _versionUpdate =_serialize.DeserializerJson<Models.Version>(jsonString);
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
+            };
+            var deserializedResponse = _serialize.DeserializerJson<Models.Content>(response);
+            var contetnBase64 = deserializedResponse.content;
 
-                    string directoryPath = Path.GetDirectoryName(downloadPath);
-                    if (!Directory.Exists(directoryPath))
-                    {
-                        Directory.CreateDirectory(directoryPath);
-                    }
-                    File.WriteAllText(downloadPath, JsonSerializer.Serialize(_versionUpdate, new JsonSerializerOptions { WriteIndented = true }));
-                    MessageBox.Show("Arquivo version.json baixado com sucesso!", "Download Completo");
-                    return _versionUpdate.Number;
-                }
-                else
-                {
-                    MessageBox.Show("Erro: resposta da conexão é nula ou vazia.", "Erro");
-                    return "Erro";
-                }
-            }
-            catch(Exception err)
+            if (!string.IsNullOrEmpty(response))
             {
-                MessageBox.Show($"Erro no Download: {err.Message}");
-                return "Erro";
+                byte[] jsonBytes = Convert.FromBase64String(contetnBase64);
+                string jsonString = Encoding.UTF8.GetString(jsonBytes);
+                _versionUpdate =_serialize.DeserializerJson<Models.Version>(jsonString);
+
+                string directoryPath = Path.GetDirectoryName(downloadPath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+                File.WriteAllText(downloadPath, JsonSerializer.Serialize(_versionUpdate, new JsonSerializerOptions { WriteIndented = true }));
+                return _versionUpdate.Number;
+            }
+            else
+            {
+                return $"ERRO: resposta da conexão é nula ou vazia.";
             }
         }
 
-        public string ReaderFileJson(string path)
+        public void ReaderFileJson(string path)
         {
             try
             {
                 string jsonContent = File.ReadAllText(path);
                 _versionLocal = _serialize.DeserializerJson<Models.Version>(jsonContent);
-                return _versionLocal.Number;
-            }catch(Exception err)
+            }
+            catch(Exception ex)
             {
-                MessageBox.Show($"Erro na leitura do arquivo local: {err.Message}");
-                return "Erro";
+                throw new Exception($"ERRO: erro na leitura do arquivo {ex}");
             }
             
         }
 
-        public async Task<Boolean> DownloadFileZip(string downloadPath)
+        public void UpdateJsonConfig(string path)
         {
             try
             {
-                var response = await GitConnection(_urlFileSystem);
-
-                var items = _serialize.DeserializerJson<Models.Content[]>(response);
-
-                foreach (var item in items)
+                string directoryPath = Path.GetDirectoryName(path);
+                if (!Directory.Exists(directoryPath))
                 {
-                    if (item.name == _versionUpdate.NameFileZip)
+                    Directory.CreateDirectory(directoryPath);
+                }
+                File.WriteAllText(path, JsonSerializer.Serialize(_versionUpdate, new JsonSerializerOptions { WriteIndented = true }));
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show($"Erro na atualização do version.json: {err.Message}");
+            }
+        }
+
+        public async Task DownloadFileZip(string downloadPath)
+        {
+            var response = await GitConnection(_urlFileSystem);
+
+            var items = _serialize.DeserializerJson<Models.Content[]>(response);
+
+            foreach (var item in items)
+            {
+                if (item.name == _versionUpdate.NameFileZip)
+                {
+                    var responseFile = await _client.GetAsync(item.download_url);
+                    responseFile.EnsureSuccessStatusCode();
+
+                    var stream = await responseFile.Content.ReadAsStreamAsync();
+                    using (var fileStream = new FileStream(downloadPath, FileMode.Create))
                     {
-                        var responseFile = await _client.GetAsync(item.download_url);
-                        responseFile.EnsureSuccessStatusCode();
-
-                        var stream = await responseFile.Content.ReadAsStreamAsync();
-                        using (var fileStream = new FileStream(downloadPath, FileMode.Create))
-                        {
-                            await stream.CopyToAsync(fileStream);
-                            return true;
-                        }
-
+                        await stream.CopyToAsync(fileStream);
+                        return;
                     }
                 }
-                return false;
-            
-            }catch(Exception err)
-            {
-                MessageBox.Show($"Erro no download do arquivo ZIP: {err.Message}");
-                return false;
             }
+            throw new Exception($"ERRO: erro no download do arquivo zip");
+            
         }
     }
 }

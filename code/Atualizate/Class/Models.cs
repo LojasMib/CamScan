@@ -10,7 +10,10 @@ namespace Atualizate.Class
     {
         public class Version
         {
-            public string GitBranch { get; set; }
+            public string RepoOwner { get; set; }
+            public string RepoName { get; set; }
+            public string BranchName { get; set; }
+            public string TokenAPI { get; set; }
             public string Number { get; set; }
             public string NameExecutable { get; set; }
             public string PathExecutable { get; set; }
