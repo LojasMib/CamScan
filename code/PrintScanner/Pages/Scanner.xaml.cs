@@ -44,6 +44,7 @@ namespace CamScan
     {
         private string? DataConfissao { get; set; }
         private const string AcessKey = "SENHA";
+        private const string SecondKey= "liberadata*";
 
         private Twain32 _twain;
 
@@ -413,6 +414,14 @@ namespace CamScan
             InputText.PreviewTextInput += TextBox_PreviewTextInput;
         }
 
+        private string Format_InputDate()
+        {
+            DateTime dataAtual = DateTime.Today;
+            InputDate.SelectedDate = dataAtual;
+            string DataFormatada = InputDate.SelectedDate.Value.ToString("dd-MM-yyyy");
+            return $"CDF{NameFranquia} - {DataFormatada}";
+        }
+
         private void RdBtn_ConfissaoDivida_Checked(object sender, RoutedEventArgs e)
         {
             InputLabel.Content = "Data das confissões:";
@@ -421,10 +430,7 @@ namespace CamScan
             Btn_Lock.Visibility = Visibility.Visible;
 
             InputDate.IsEnabled = false;
-            DateTime dataAtual = DateTime.Today;
-            InputDate.SelectedDate = dataAtual;
-            string DataFormatada = InputDate.SelectedDate.Value.ToString("dd-MM-yyyy"); 
-            DataConfissao = $"CDF{NameFranquia} - {DataFormatada}";
+            DataConfissao = Format_InputDate();
             
         }
 
@@ -470,7 +476,7 @@ namespace CamScan
             {
                 return;
             }
-            if (IndexOfListImagesScanned >= 2)
+            if (IndexOfListImagesScanned >= 7)
             {
                 WpfSystem.MessageBox.Show("A quantidade de imagens por documento não pode ser maior que 8", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -745,6 +751,7 @@ namespace CamScan
                         WpfSystem.MessageBox.Show("Pasta de Confissão de Divida não configurada", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+                    DataConfissao = Format_InputDate();
                     if (DataConfissao == null || DataConfissao.Length == 0 || DataConfissao == "")
                     {
                         WpfSystem.MessageBox.Show("Digite a data no padrão estabelecido para salvar a imagem!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -876,7 +883,7 @@ namespace CamScan
 
         private void Btn_Lock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            KeyAcess keyAcess = new KeyAcess(AcessKey);
+            KeyAcess keyAcess = new KeyAcess(AcessKey, SecondKey);
             Window parentWindow = Window.GetWindow(this);
 
             if (parentWindow != null)

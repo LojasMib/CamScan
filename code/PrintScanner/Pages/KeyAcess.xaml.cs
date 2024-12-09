@@ -20,18 +20,20 @@ namespace CamScan.Pages
     public partial class KeyAcess : Window
     {
         private string AcessKey { get; set;}
+        private string? SecondKey { get; set;}
         public bool FreeAcess {  get; private set;} = false;
-        public KeyAcess(string AcessKey)
+        public KeyAcess(string AcessKey, string? secondKey = null)
         {
             InitializeComponent();
             this.AcessKey = AcessKey;
-
+            this.SecondKey = secondKey;
         }
 
         private void KeyInput_PasswordChanged(object sender, RoutedEventArgs e)
         {
             var passwordBox = sender as PasswordBox;
-            if (passwordBox != null && passwordBox.Password == AcessKey)
+            var password = passwordBox?.Password;
+            if (password != null && (password == AcessKey || (SecondKey != null && password == SecondKey)))
             {
                 FreeAcess = true;
                 this.Close();
