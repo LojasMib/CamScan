@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CamScan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f4ba919d03e0f288c889a45ce6a23f3d6cd2612")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf55f4e90286a125eec26baa52e729c37dbec611")]
 [assembly: System.Reflection.AssemblyProductAttribute("CamScan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CamScan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

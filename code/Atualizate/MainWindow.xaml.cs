@@ -24,7 +24,7 @@ namespace Atualizate
         private GitHubCliente _gitClient;
         private readonly Logger _log;
 
-        private readonly int? _camScanProcessId;
+        private readonly int? r;
 
         private readonly string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
         
@@ -293,8 +293,8 @@ namespace Atualizate
                 throw new Exception("O arquivo ZIP de atualização não foi encontrado.");
             }
 
-            //Process camScanProcess = Process.GetProcessById(_camScanProcessId.Value);
-            //camScanProcess.Kill();
+            Process camScanProcess = Process.GetProcessById(_camScanProcessId.Value);
+            camScanProcess.Kill();
             await UpdateProgress(50, "Aplicação principal encerrada");
             await Task.Delay(300);
             DeleteAllFilesExcept(currentPath, atualizatePath);
