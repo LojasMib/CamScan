@@ -1,6 +1,8 @@
 ﻿using AForge.Video.DirectShow;
+using CamScan.Router;
 using CamScan.Services;
 using IWshRuntimeLibrary;
+using ServiceStack;
 using Shell32;
 using System;
 using System.Collections.Generic;
@@ -27,10 +29,53 @@ namespace CamScan.Pages
     public partial class SettingsPhoto : Page
     {
         XMLConnect xmlConnect = new XMLConnect();
+        PathSavedXML _pathSavedXML;
+        FilterInfo _selectedDevice;
+        private readonly Settings _settings;
+
+        public class PathSavedXML()
+        {
+            public string DriverPhotoDevice { get; set; } = string.Empty;
+            public string ImagemDeClientes { get; set; } = string.Empty;
+            public string ImagemDeItens { get; set; } = string.Empty;
+        }
+
+
         public SettingsPhoto()
         {
             InitializeComponent();
+            _pathSavedXML = new PathSavedXML();
             Loaded += Loaded_SettingsPhoto;
+        }
+
+        public SettingsPhoto(Settings settings): this()
+        {
+            _settings = settings;
+        }
+
+        public SettingsPhoto(Settings settings, string sucessMessage) : this(settings)
+        {
+            InitializeWithSuccessMessage(sucessMessage);
+        }
+
+        public async Task Sucess_Message(string message, Settings setting)
+        {
+            setting.MessageText.Text = message;
+            setting.MessageSucess.Visibility = Visibility.Visible;
+            await Task.Delay(2000);// 1000 => 1 segundo
+            setting.MessageSucess.Visibility = Visibility.Hidden;
+        }
+
+        private async void InitializeWithSuccessMessage(string successMessage)
+        {
+            await Sucess_Message(successMessage, _settings);
+        }
+
+        private void CompareTextFolders()
+        {
+            ConfirmFileSave(_pathSavedXML.DriverPhotoDevice, DriverPhoto.Text, DriverPhoto);
+            ConfirmFileSave(_pathSavedXML.ImagemDeClientes, ImagemDeClientes.Text, ImagemDeClientes);
+            ConfirmFileSave(_pathSavedXML.ImagemDeItens, ImagemDeItens.Text, ImagemDeItens);
         }
 
         private void Loaded_SettingsPhoto(object sender, RoutedEventArgs e)
@@ -39,27 +84,29 @@ namespace CamScan.Pages
             if (config != null && config.Photos.Any())
             {
                 var xml = config.Photos.Last();
-                try
+                if(xml.ConfigDriverPhoto != null && xml.ConfigDriverPhoto.Any())
                 {
-                    DriverPhoto.Text = xml.ConfigDriverPhoto[0];
+                    _pathSavedXML.DriverPhotoDevice = xml.ConfigDriverPhoto[0] ?? "";
+                    DriverPhoto.Text = _pathSavedXML.DriverPhotoDevice ?? "";
                 }
-                catch
-                {
-                    DriverPhoto.Text = "";
-                }
-                ImagemDeClientes.Text = xml.FolderImagemClientes ?? VerifyFoldersAreaOfWork("Imagens de Clientes");
-                ImagemDeItens.Text = xml.FolderImagemItens ?? VerifyFoldersAreaOfWork("Imagens de Itens");
+
+                _pathSavedXML.ImagemDeClientes = xml.FolderImagemClientes ?? "";
+                _pathSavedXML.ImagemDeItens = xml.FolderImagemItens ?? "";
+
+
+                ImagemDeClientes.Text = _pathSavedXML.ImagemDeClientes ?? VerifyFoldersAreaOfWork("Imagens de Clientes");
+                ImagemDeItens.Text = _pathSavedXML.ImagemDeItens ?? VerifyFoldersAreaOfWork("Imagens de Itens");
+                CompareTextFolders();
             }
             else
             {
                 DriverPhoto.Text = "";
                 ImagemDeClientes.Text = VerifyFoldersAreaOfWork("Imagens de Clientes");
                 ImagemDeItens.Text = VerifyFoldersAreaOfWork("Imagens de Itens");
+                CompareTextFolders();
             }
-            
-
         }
-
+        
         private string VerifyFoldersAreaOfWork(string folder)
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -98,35 +145,77 @@ namespace CamScan.Pages
             }
         }
 
+        private void UpdateBorderBrushGreen(FolderSearch typePath)
+        {
+            typePath.BorderBrush = new SolidColorBrush(Colors.Green);
+        }
+
+        private void UpdateBorderBrushRed(FolderSearch typePath)
+        {
+            typePath.BorderBrush = new SolidColorBrush(Colors.Red);
+        }
+
+
+        private void ConfirmFileSave(string textInput, string pathSaved, FolderSearch typePath)
+        {
+            if (textInput != pathSaved || string.IsNullOrEmpty(textInput))
+            {
+                UpdateBorderBrushRed(typePath);
+            }
+            if (textInput == pathSaved && !string.IsNullOrEmpty(textInput))
+            {
+                UpdateBorderBrushGreen(typePath);
+            }
+        }
+
         private void DriverPhoto_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SelectDriver selectDriver = new SelectDriver();
-            if(selectDriver.ShowDialog() == true)
+            if(selectDriver.ShowDialog() == true && selectDriver.SelectDeviceName != null)
             {
-                FilterInfo selectDevice = selectDriver.SelectDeviceName;
-                xmlConnect.SaveConfigPhoto("ConfigDriverPhoto", "", selectDevice);
-                DriverPhoto.Text = selectDevice.Name;
+                _selectedDevice = selectDriver.SelectDeviceName;
+                DriverPhoto.Text = _selectedDevice.Name ?? "";
+                ConfirmFileSave(DriverPhoto.Text, _pathSavedXML.DriverPhotoDevice, DriverPhoto);
             }
         }
 
         private void ImagemDeClientes_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfigPhoto("FolderImagemClientes", folder);
             ImagemDeClientes.Text = folder;
+            ConfirmFileSave(ImagemDeClientes.Text, _pathSavedXML.ImagemDeClientes, ImagemDeClientes);
         }
 
         private void ImagemDeItens_MouseDown(object sender, MouseButtonEventArgs e)
         {
             string folder = xmlConnect.SelectFolder();
-            xmlConnect.SaveConfigPhoto("FolderImagemItens", folder);
             ImagemDeItens.Text = folder;
+            ConfirmFileSave(ImagemDeItens.Text, _pathSavedXML.ImagemDeItens, ImagemDeItens);
         }
+
+        private void SaveConfigurationsinXML(string folder, FolderSearch folderSearch)
+        {
+            if (!folder.IsNullOrEmpty())
+            {
+                if (folderSearch.Name == "DriverPhoto")
+                {
+                    xmlConnect.SaveConfigPhoto(null, folderSearch, _selectedDevice);
+                }
+                else
+                {
+                    xmlConnect.SaveConfigPhoto(folder, folderSearch, null);
+                }
+            }
+        }
+
 
         private void Save_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            xmlConnect.SaveConfigPhoto("FolderImagemItens", ImagemDeItens.Text); 
-            xmlConnect.SaveConfigPhoto("FolderImagemClientes", ImagemDeClientes.Text);
+            SaveConfigurationsinXML(DriverPhoto.Text, DriverPhoto);
+            SaveConfigurationsinXML(ImagemDeItens.Text, ImagemDeItens);
+            SaveConfigurationsinXML(ImagemDeClientes.Text, ImagemDeClientes);
+            string messageSucess = "Configurações Salvas com Sucesso!!";
+            NavigationService?.Navigate(new SettingsPhoto(_settings, messageSucess));
         }
     }
 }

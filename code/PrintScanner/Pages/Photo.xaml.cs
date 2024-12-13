@@ -213,6 +213,7 @@ namespace CamScan.Pages
 
         private async void Sucess_Message()
         {
+            ErrorImage.Visibility = Visibility.Hidden;
             SucessImage.Visibility = Visibility.Visible;
             await Task.Delay(3000);// 1000 => 1 segundo
             SucessImage.Visibility = Visibility.Hidden;
@@ -261,6 +262,7 @@ namespace CamScan.Pages
             {
                 if(Captura == null)
                 {
+                    SucessImage.Visibility = Visibility.Hidden;
                     ErrorImage.Visibility = Visibility.Visible;
                     ErrorImage.Text = "Tire uma foto antes de tentar salvar!";
                     return;

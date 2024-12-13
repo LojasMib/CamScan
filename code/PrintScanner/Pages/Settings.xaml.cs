@@ -33,17 +33,18 @@ namespace CamScan.Pages
         public Settings()
         {
             InitializeComponent();
-            MainSetting.Content = new SettingsScanner();
+            MainSetting.Content = new SettingsScanner(this);
         } 
 
         private void SetScaner_Click(object sender, RoutedEventArgs e)
         {
-            MainSetting.Content = new SettingsScanner();
+            var settingScanner = new SettingsScanner(this);
+            MainSetting.Content = settingScanner;
         }
 
         private void SetPhoto_Click(object sender, RoutedEventArgs e)
         {
-            MainSetting.Content = new SettingsPhoto();
+            MainSetting.Content = new SettingsPhoto(this);
         }
 
         private void Navigator_Click(object sender, RoutedEventArgs e)
@@ -54,7 +55,8 @@ namespace CamScan.Pages
 
         private void SetFranquia_Click(object sender, RoutedEventArgs e)
         {
-            MainSetting.Content = new SettingFranquia();
+            var settingFranquia = new SettingFranquia(this);
+            MainSetting.Content = settingFranquia;
         }
     }
     

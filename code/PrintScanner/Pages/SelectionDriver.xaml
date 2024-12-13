@@ -27,7 +27,7 @@
            FontSize="20"
            FontWeight="Bold"
            Foreground="#FF534C4C" 
-           Content="Drivers do Scanner WIA"/>
+           Content="Drivers do Scanner"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <Grid x:Name="DriversOptions" >
             </Grid>

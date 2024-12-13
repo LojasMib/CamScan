@@ -22,6 +22,17 @@
                 <RowDefinition Height="80"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <Grid x:Name="MessageSucess" Width="305" Visibility="Collapsed"  Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="251,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="MessageText"  HorizontalAlignment="Left" VerticalAlignment="Center"
+                   TextWrapping="Wrap" Text="Configurações Salvas com Sucesso!!" TextAlignment="Center" 
+                    Width="291" Foreground="DarkSeaGreen" 
+                   FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+                <Image Grid.Column="1" Width="26" Stretch="Uniform" Source="/Images/Photo/Ok_Message.png"  />
+            </Grid>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <router:Navigator Style="{StaticResource NavigatorImage}"
                           ImageSource="/Images/Settings/backButton.png"
@@ -44,9 +55,10 @@
                          Margin="418,35,0,-10" Background="#ED6B28"
                          GroupName="Setting_Options"  />
                 </Grid>
+
             </StackPanel>
             <Frame x:Name="MainSetting" Grid.Row="1"/>
         </Grid>
     </Grid>
-    
+
 </Page>

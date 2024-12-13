@@ -7,7 +7,7 @@
       xmlns:r="clr-namespace:CamScan.Router"
       xmlns:s="clr-namespace:CamScan.Components"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="480" d:DesignWidth="800"
       Title="SettingsScanner">
 
     <Page.Resources>
@@ -26,7 +26,7 @@
         Margin="80,0,80,5">
             <Grid x:Name="SetSelect">
                 <Grid.RowDefinitions>
-
+                    <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="2*"/>
@@ -34,16 +34,23 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
-                <r:FolderSearch x:Name="DriverScanner" Grid.Row="0" Title="Driver Scanner:" Text="" Width="400" MouseDown="DriverScanner_MouseDown"/>
-                <r:FolderSearch x:Name="FolderDocClientes" Grid.Row="1" Title="Documento de Cliente: " Text="" Width="500" MouseDown="FolderDocClientes_MouseDown" />
-                <r:FolderSearch x:Name="ConfissaoDivida" Grid.Row="2" Title="Confissão de Divida: " Text="" Width="500" MouseDown="ConfissaoDivida_MouseDown"/>
-                <r:FolderSearch x:Name="Despesas" Grid.Row="3" Title="Despesas: " Text="" Width="500" MouseDown="Despesas_MouseDown"/>
-                <r:FolderSearch x:Name="Outros" Grid.Row="4" Title="Outros: " Text="" Width="500" MouseDown="Outros_MouseDown"/>
-                <s:ButtonSave Style="{StaticResource ButtonSave}"  x:Name="Save"  Grid.Row="5" Text="Salvar" Width="100" Height="35"
-                              Background="#D3D3D3" BorderThickness="2" BorderBrush="Green" Foreground="Green" Margin="400,-5,0,0" MouseDown="Save_MouseDown"
-                              
-                              />
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <s:ButtonSave Grid.Column="0" HorizontalAlignment="Right" Margin="0,10,20,0" Style="{StaticResource ButtonSave}"  x:Name="Btn_USB"  Grid.Row="6" Text="USB" Width="100" Height="35"
+                        Background="#D3D3D3" BorderThickness="2" BorderBrush="#FF7F50" Foreground="#000" MouseDown="Btn_USB_MouseDown"  />
+                    <s:ButtonSave Grid.Column="1" HorizontalAlignment="Left" Margin="20,10,0,0" Style="{StaticResource ButtonSave}"  x:Name="Btn_Rede"  Grid.Row="6" Text="Rede" Width="100" Height="35"
+                        Background="#D3D3D3" BorderThickness="2" BorderBrush="#708090" Foreground="#000" MouseDown="Btn_Rede_MouseDown"   />
+                </Grid>
+                <r:FolderSearch x:Name="DriverScanner" Grid.Row="1" BorderBrush="Red" Title="Driver Scanner:" Text="" Width="400" MouseDown="DriverScanner_MouseDown"/>
+                <r:FolderSearch x:Name="FolderDocClientes" BorderBrush="Red" Grid.Row="2" Title="Documento de Cliente: " Text="" Width="500" MouseDown="FolderDocClientes_MouseDown" />
+                <r:FolderSearch x:Name="ConfissaoDivida" Grid.Row="3" BorderBrush="Red" Title="Confissão de Divida: " Text="" Width="500" MouseDown="ConfissaoDivida_MouseDown"/>
+                <r:FolderSearch x:Name="Despesas" Grid.Row="4" BorderBrush="Red"  Title="Despesas: " Text="" Width="500" MouseDown="Despesas_MouseDown"/>
+                <r:FolderSearch x:Name="Outros" Grid.Row="5" BorderBrush="Red"  Title="Outros: " Text="" Width="500" MouseDown="Outros_MouseDown"/>
+                <s:ButtonSave Style="{StaticResource ButtonSave}"  x:Name="Save"  Grid.Row="6" Text="Salvar" Width="100" Height="35"
+                              Background="#D3D3D3" BorderThickness="2" BorderBrush="Green" Foreground="Green" Margin="400,-5,0,0" MouseDown="Save_MouseDown"/>
             </Grid>
         </Border>
     </Grid>

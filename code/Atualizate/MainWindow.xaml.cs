@@ -24,7 +24,7 @@ namespace Atualizate
         private GitHubCliente _gitClient;
         private readonly Logger _log;
 
-        private readonly int? r;
+        private readonly int? _camScanProcessId;
 
         private readonly string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
         
