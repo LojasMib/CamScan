@@ -1,6 +1,8 @@
 ﻿using AForge.Video.DirectShow;
 using CamScan.Class;
 using CamScan.Pages;
+using CamScan.Router;
+using ServiceStack;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -107,7 +109,7 @@ namespace CamScan.Services
 
         }
 
-        public void SaveConfigPhoto(string tipo, string folder, FilterInfo? driver = null)
+        public void SaveConfigPhoto( string? folder, FolderSearch folderSearch, FilterInfo? driver = null)
         {
             var configs = LoadConfigurations();
 
@@ -118,17 +120,17 @@ namespace CamScan.Services
                 newConfig.ConfigDriverPhoto = new List<String>();
             }
 
-            if (tipo == "ConfigDriverPhoto" && driver != null)
+            if (folderSearch.Name == "DriverPhoto" && driver != null)
             {
                 newConfig.ConfigDriverPhoto.Clear();
                 newConfig.ConfigDriverPhoto.Add(driver.Name);
                 newConfig.ConfigDriverPhoto.Add(driver.MonikerString);
             }
-            else if (tipo == "FolderImagemClientes")
+            else if (folderSearch.Name == "ImagemDeClientes")
             {
                 newConfig.FolderImagemClientes = folder;
             }
-            else if (tipo == "FolderImagemItens")
+            else if (folderSearch.Name == "ImagemDeItens")
             {
                 newConfig.FolderImagemItens = folder;
             }
@@ -139,31 +141,38 @@ namespace CamScan.Services
         }
 
 
-        public void SaveConfigScanner(string tipo, string? folder, ScannerDevice? driver)
+        public void SaveConfigScanner(string? folder, FolderSearch folderSearch, ScannerDevice? driver)
         {
             var configs = LoadConfigurations();
             ConfigScanner newConfig = configs.Scanner.FirstOrDefault() ?? new ConfigScanner();
 
-            if (tipo == "ConfigDriver")
+            
+            
+            if (folderSearch.Name == "DriverScanner" && string.IsNullOrEmpty(folder))
             {
                 newConfig.ConfigDriver = driver;
             }
-            else if (tipo == "FolderDocumentoCliente")
+            else if(!string.IsNullOrEmpty(folder))
             {
-                newConfig.FolderDocumentoCliente = folder;
+                if (folderSearch.Name == "FolderDocClientes")
+                {
+                    newConfig.FolderDocumentoCliente = folder;
+                }
+                else if (folderSearch.Name == "ConfissaoDivida")
+                {
+                    newConfig.FolderConfissaoDivida = folder;
+                }
+                else if (folderSearch.Name == "Despesas")
+                {
+                    newConfig.FolderDespesas = folder;
+                }
+                else if (folderSearch.Name == "Outros")
+                {
+                    newConfig.FolderOutros = folder;
+                }
             }
-            else if (tipo == "FolderConfissaoDivida")
-            {
-                newConfig.FolderConfissaoDivida = folder;
-            }
-            else if (tipo == "FolderDespesas")
-            {
-                newConfig.FolderDespesas = folder;
-            }
-            else if (tipo == "FolderOutros")
-            {
-                newConfig.FolderOutros = folder;
-            }
+            
+            
 
             configs.Scanner.Clear();
             configs.Scanner.Add(newConfig);

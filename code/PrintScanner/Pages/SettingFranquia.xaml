@@ -29,8 +29,8 @@
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <r:FolderSearch x:Name="Cidade" Grid.Row="0" Title="Cidade:" Text="" Width="400" Height="60"/>
-                <r:FolderSearch x:Name="Franquia" Grid.Row="1" Title="Franquia:" Text="" Width="400"  Height="60"/>
+                <r:FolderSearch x:Name="Cidade" Grid.Row="0" Title="Cidade:" BorderBrush="Red" Text="" Width="400" Height="60"/>
+                <r:FolderSearch x:Name="Franquia" Grid.Row="1" Title="Franquia:" BorderBrush="Red" Text="" Width="400"  Height="60"/>
                 <s:ButtonSave Style="{StaticResource ButtonSave}"  x:Name="Save"  Grid.Row="4" Text="Salvar" Width="100" Height="35"
                             Background="#D3D3D3" BorderThickness="2" BorderBrush="Green" Foreground="Green" Margin="400,10,0,0" MouseDown="Save_MouseDown"
                 />

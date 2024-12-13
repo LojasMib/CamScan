@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\atualizate\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{220A7F59-62B8-44E4-979A-85D68EFA6DE5}|Atualizate\\Atualizate.csproj|solutionrelative:atualizate\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|c:\\users\\amaur\\onedrive\\documentos\\github\\camscan\\code\\printscanner\\pages\\photo.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DE78F66-670E-43AF-85BD-1494A25AC5D5}|PrintScanner\\CamScan.csproj|solutionrelative:printscanner\\pages\\photo.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -44,26 +44,26 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Atualizate\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\MainWindow.xaml.cs",
-              "RelativeToolTip": "Atualizate\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAAIBAAAAAAAAAAAcwBoAAAAfAAAA",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "PrintScanner\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\MainWindow.xaml.cs",
+              "RelativeToolTip": "PrintScanner\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T17:13:27.018Z",
+              "WhenOpened": "2024-12-13T15:07:03.243Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "PrintScanner\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\MainWindow.xaml.cs",
-              "RelativeToolTip": "PrintScanner\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAApwCAAAAAQAAAA",
+              "Title": "Photo.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Photo.xaml.cs",
+              "RelativeDocumentMoniker": "PrintScanner\\Pages\\Photo.xaml.cs",
+              "ToolTip": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\Pages\\Photo.xaml.cs",
+              "RelativeToolTip": "PrintScanner\\Pages\\Photo.xaml.cs",
+              "ViewState": "AQIAAJ0AAAAAAAAAAAAYwNQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T16:46:24.485Z",
+              "WhenOpened": "2024-12-13T14:08:47.583Z",
               "EditorCaption": ""
             }
           ]

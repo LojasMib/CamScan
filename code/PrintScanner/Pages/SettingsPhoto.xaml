@@ -31,9 +31,9 @@
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
 
-                <r:FolderSearch x:Name="DriverPhoto" Grid.Row="0" Title="Driver WebCam:" Text="" Width="400" Height="60" MouseDown="DriverPhoto_MouseDown" />
-                <r:FolderSearch x:Name="ImagemDeClientes" Grid.Row="1" Title="Imagens de Cliente: " Text="" Width="500" Height="60" MouseDown="ImagemDeClientes_MouseDown"/>
-                <r:FolderSearch x:Name="ImagemDeItens" Grid.Row="2" Title="Imagens de Itens: " Text="" Width="500" Height="60" MouseDown="ImagemDeItens_MouseDown"/>
+                <r:FolderSearch x:Name="DriverPhoto" Grid.Row="0" BorderBrush="Red" Title="Driver WebCam:" Text="" Width="400" Height="60" MouseDown="DriverPhoto_MouseDown" />
+                <r:FolderSearch x:Name="ImagemDeClientes" Grid.Row="1" BorderBrush="Red" Title="Imagens de Cliente: " Text="" Width="500" Height="60" MouseDown="ImagemDeClientes_MouseDown"/>
+                <r:FolderSearch x:Name="ImagemDeItens" Grid.Row="2" BorderBrush="Red" Title="Imagens de Itens: " Text="" Width="500" Height="60" MouseDown="ImagemDeItens_MouseDown"/>
                 <s:ButtonSave Style="{StaticResource ButtonSave}"  x:Name="Save"  Grid.Row="4" Text="Salvar" Width="100" Height="35"
                             Background="#D3D3D3" BorderThickness="2" BorderBrush="Green" Foreground="Green" Margin="400,10,0,0" MouseDown="Save_MouseDown"
                               />

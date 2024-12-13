@@ -414,12 +414,19 @@ namespace CamScan
             InputText.PreviewTextInput += TextBox_PreviewTextInput;
         }
 
-        private string Format_InputDate()
+        private string Format_InputDate(bool useDateToday)
         {
-            DateTime dataAtual = DateTime.Today;
-            InputDate.SelectedDate = dataAtual;
-            string DataFormatada = InputDate.SelectedDate.Value.ToString("dd-MM-yyyy");
-            return $"CDF{NameFranquia} - {DataFormatada}";
+            DateTime dataSelecionada;
+            if (useDateToday)
+            {
+                dataSelecionada = DateTime.Today;
+                InputDate.SelectedDate = dataSelecionada;
+            }
+
+            dataSelecionada = DateTime.Parse(InputDate.Text);
+            string dataFormatada = dataSelecionada.ToString("dd-MM-yyyy");
+            return $"CDF{NameFranquia} - {dataFormatada}";
+            
         }
 
         private void RdBtn_ConfissaoDivida_Checked(object sender, RoutedEventArgs e)
@@ -430,7 +437,7 @@ namespace CamScan
             Btn_Lock.Visibility = Visibility.Visible;
 
             InputDate.IsEnabled = false;
-            DataConfissao = Format_InputDate();
+            DataConfissao = Format_InputDate(true);
             
         }
 
@@ -751,7 +758,7 @@ namespace CamScan
                         WpfSystem.MessageBox.Show("Pasta de Confissão de Divida não configurada", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
-                    DataConfissao = Format_InputDate();
+                    DataConfissao = Format_InputDate(false);
                     if (DataConfissao == null || DataConfissao.Length == 0 || DataConfissao == "")
                     {
                         WpfSystem.MessageBox.Show("Digite a data no padrão estabelecido para salvar a imagem!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
