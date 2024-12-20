@@ -103,7 +103,8 @@
                             </Style>
                         </Image.Style>
                     </Image>
-                    <DatePicker x:Name="InputDate" HorizontalAlignment="Left" Margin="177,0,0,0" VerticalAlignment="Center" Width="147" Height="26" Visibility="Hidden"/>
+                    <DatePicker Name="InputDate" HorizontalAlignment="Left" Margin="177,0,0,0" VerticalAlignment="Center" Width="147" Height="26" Visibility="Hidden">
+                    </DatePicker>
                 </Grid>
 
             </Grid>

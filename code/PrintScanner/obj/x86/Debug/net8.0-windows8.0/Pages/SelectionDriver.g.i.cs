@@ -62,7 +62,7 @@ namespace CamScan.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CamScan;V1.0.0.0;component/pages/selectiondriver.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CamScan;component/pages/selectiondriver.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Pages\SelectionDriver.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
