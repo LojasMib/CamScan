@@ -435,10 +435,9 @@ namespace CamScan
             InputText.Visibility = Visibility.Hidden;
             InputDate.Visibility = Visibility.Visible;
             Btn_Lock.Visibility = Visibility.Visible;
-
-            InputDate.IsEnabled = false;
+            BlockDates();
+            EffectCalender();
             DataConfissao = Format_InputDate(true);
-            
         }
 
         private void RdBtn_Despesas_Checked(object sender, RoutedEventArgs e)
@@ -902,6 +901,47 @@ namespace CamScan
             {
                 InputDate.IsEnabled = true;
                 keyAcess.Close();
+                ReleaseDates();
+                ReleaseDatesInput();
+            }
+        }
+
+        private void ReleaseDates()
+        {
+            InputDate.BlackoutDates.Clear();
+        }
+
+        private void BlockDates()
+        {
+            ReleaseDates();
+            BlockDatesInput();
+            InputDate.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-2)));
+            InputDate.BlackoutDates.Add(new CalendarDateRange(DateTime.Today.AddDays(1), DateTime.MaxValue));
+        }
+
+        private void BlockDatesInput()
+        {
+            var textBox = (WpfSystem.Controls.TextBox)InputDate.Template.FindName("PART_TextBox", InputDate);
+            if (textBox != null)
+            {
+                textBox.IsReadOnly = true;
+            }
+        }
+        private void ReleaseDatesInput()
+        {
+            var textBox = (WpfSystem.Controls.TextBox)InputDate.Template.FindName("PART_TextBox", InputDate);
+            if (textBox != null)
+            {
+                textBox.IsReadOnly = false;
+            }
+        }
+
+        private void EffectCalender()
+        {
+            var button = (WpfSystem.Controls.Button)InputDate.Template.FindName("PART_Button", InputDate);
+            if (button != null)
+            {
+                button.Cursor = WpfSystem.Input.Cursors.Hand; // Define o cursor como mão
             }
         }
     }

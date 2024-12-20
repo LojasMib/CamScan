@@ -63,7 +63,7 @@ namespace CamScan.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CamScan;V1.0.0.0;component/pages/landing.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CamScan;component/pages/landing.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Pages\Landing.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
