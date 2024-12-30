@@ -771,6 +771,7 @@ namespace CamScan
                         EnableButtonsTypeCheckBox();
                         DeleteTempFolder();
                         Sucess_Message();
+                        IndexOfListImagesScanned = 0;
                     }
                     catch(Exception ex)
                     {
@@ -854,6 +855,7 @@ namespace CamScan
             Scanned_Close();
             EnableButtonsTypeCheckBox();
             DeleteTempFolder();
+            IndexOfListImagesScanned = 0;
         }
 
         private void Btn_Cancel_MouseMove(object sender, WpfSystem.Input.MouseEventArgs e)
