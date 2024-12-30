@@ -26,7 +26,7 @@
                          ImageSource="/Images/Landing/setting.png" Click="BtnSettings_Click"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" 
                           />
-            <Image Height="69" Margin="250,21,250,0"  VerticalAlignment="Top" Source="/Pages/Logo MIB.png"/>
+            <Image Height="100" Margin="259,0,259,0"  VerticalAlignment="Center" Source="/Images/Landing/logo.png" Stretch="Fill"/>
         </Grid>
 
         <StackPanel Grid.Row="1" Cursor="">
@@ -42,7 +42,7 @@
                 </Grid.ColumnDefinitions>
                 <r:Navigator Style="{StaticResource NavigatorOptions}" Grid.Column="0" Text="Scanner" FontSize="14"  NavUri="/Pages/Scanner.xaml" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,50,0" Margin="-50,-1,0,1" ImageSource="/Images/Landing/scanner.png" Cursor="Hand" Grid.RowSpan="2" ButtonBase.Click="Grid_Click"/>
                 <r:Navigator Style="{StaticResource NavigatorOptions}" Grid.Column="2" Text="Photo" FontSize="14" NavUri="/Pages/Photo.xaml" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="50,0,50,0" Margin="0,-1,-50,1" ImageSource="/Images/Landing/webCam.png" Grid.RowSpan="2" ButtonBase.Click="Grid_Click"/>
-                
+
             </Grid>
         </StackPanel>
     </Grid>

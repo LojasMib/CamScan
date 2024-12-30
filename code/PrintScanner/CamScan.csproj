@@ -19,6 +19,7 @@
     <None Remove="Images\ChoiceFile\pdf.png" />
     <None Remove="Images\Error\error.png" />
     <None Remove="Images\Landing\Logo MIB.png" />
+    <None Remove="Images\Landing\logo.png" />
     <None Remove="Images\Landing\LogoMib.svg" />
     <None Remove="Images\Landing\scanner.png" />
     <None Remove="Images\Landing\setting.png" />
@@ -37,7 +38,6 @@
     <None Remove="Images\Window\IconScanCam.png" />
     <None Remove="Pages\cadeado_aberto.svg" />
     <None Remove="Pages\cadeado_fechafo.svg" />
-    <None Remove="Pages\Logo MIB.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,8 +87,8 @@
     <Resource Include="Images\Error\error.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\Landing\Logo MIB.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Resource Include="Images\Landing\logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Landing\scanner.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -116,9 +116,6 @@
     </Resource>
     <Resource Include="Pages\cadeado_aberto.svg" />
     <Resource Include="Pages\cadeado_fechafo.svg" />
-    <Resource Include="Pages\Logo MIB.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>

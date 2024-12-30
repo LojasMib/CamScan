@@ -12,7 +12,7 @@ namespace CamScan
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += VerifyUpdate;
+            //Loaded += VerifyUpdate;
         }
         private void VerifyUpdate(object sender, EventArgs e)
         {
