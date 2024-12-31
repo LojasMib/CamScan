@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pvZJwjzzvbbIhRT/WK9K4aZEzrA+bxp9W42zQ4xTNaER4v9qm9bpXxw3Ybe/ZdUwFPFU30Ocjk60J0fFyr9XgQ==",
+  "dgSpecHash": "UBJz1MGHORO6y/aP0sWKj8RsQam3mMAXrxTKojb0w1g5On/dWkIM/FoPLCFkzkvXCCjBHPNmf0G1BxTpRc4kkA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\PrintScanner\\CamScan.csproj",
+  "projectFilePath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\GitMib\\CamScan\\code\\PrintScanner\\CamScan.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Amaur\\.nuget\\packages\\aforge\\2.2.5\\aforge.2.2.5.nupkg.sha512",
     "C:\\Users\\Amaur\\.nuget\\packages\\aforge.video\\2.2.5\\aforge.video.2.2.5.nupkg.sha512",

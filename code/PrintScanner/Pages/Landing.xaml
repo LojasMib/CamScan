@@ -26,7 +26,7 @@
                          ImageSource="/Images/Landing/setting.png" Click="BtnSettings_Click"
                          HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" 
                           />
-            <Image Height="100" Margin="259,0,259,0"  VerticalAlignment="Center" Source="/Images/Landing/logo.png" Stretch="Fill"/>
+            <Image Height="93" Margin="259,0,259,0"  VerticalAlignment="Center" Source="/Images/Landing/LogoMIB.png"/>
         </Grid>
 
         <StackPanel Grid.Row="1" Cursor="">
@@ -40,8 +40,8 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <r:Navigator Style="{StaticResource NavigatorOptions}" Grid.Column="0" Text="Scanner" FontSize="14"  NavUri="/Pages/Scanner.xaml" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,50,0" Margin="-50,-1,0,1" ImageSource="/Images/Landing/scanner.png" Cursor="Hand" Grid.RowSpan="2" ButtonBase.Click="Grid_Click"/>
-                <r:Navigator Style="{StaticResource NavigatorOptions}" Grid.Column="2" Text="Photo" FontSize="14" NavUri="/Pages/Photo.xaml" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="50,0,50,0" Margin="0,-1,-50,1" ImageSource="/Images/Landing/webCam.png" Grid.RowSpan="2" ButtonBase.Click="Grid_Click"/>
+                <r:Navigator Style="{StaticResource NavigatorOptions}" Grid.Column="0" Text="Scanner" FontSize="14"  NavUri="/Pages/Scanner.xaml" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,0,50,0" Margin="-50,-13,0,33" ImageSource="/Images/Landing/scanner.png" Cursor="Hand" Grid.RowSpan="2" ButtonBase.Click="Grid_Click"/>
+                <r:Navigator Style="{StaticResource NavigatorOptions}" Grid.Column="2" Text="Photo" FontSize="14" NavUri="/Pages/Photo.xaml" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="50,0,50,0" Margin="0,-13,-50,33" ImageSource="/Images/Landing/webCam.png" Grid.RowSpan="2" ButtonBase.Click="Grid_Click"/>
 
             </Grid>
         </StackPanel>

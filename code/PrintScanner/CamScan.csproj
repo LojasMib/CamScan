@@ -18,8 +18,7 @@
     <None Remove="Images\ChoiceFile\jpg.png" />
     <None Remove="Images\ChoiceFile\pdf.png" />
     <None Remove="Images\Error\error.png" />
-    <None Remove="Images\Landing\Logo MIB.png" />
-    <None Remove="Images\Landing\logo.png" />
+    <None Remove="Images\Landing\LogoMIB.png" />
     <None Remove="Images\Landing\LogoMib.svg" />
     <None Remove="Images\Landing\scanner.png" />
     <None Remove="Images\Landing\setting.png" />
@@ -87,7 +86,7 @@
     <Resource Include="Images\Error\error.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\Landing\logo.png">
+    <Resource Include="Images\Landing\LogoMIB.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Landing\scanner.png">

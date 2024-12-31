@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Atualizate.csproj": {}
+    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\GitMib\\CamScan\\code\\Atualizate\\Atualizate.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Atualizate.csproj": {
+    "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\GitMib\\CamScan\\code\\Atualizate\\Atualizate.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Atualizate.csproj",
+        "projectUniqueName": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\GitMib\\CamScan\\code\\Atualizate\\Atualizate.csproj",
         "projectName": "Atualizate",
-        "projectPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\Atualizate.csproj",
+        "projectPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\GitMib\\CamScan\\code\\Atualizate\\Atualizate.csproj",
         "packagesPath": "C:\\Users\\Amaur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\CamScan\\code\\Atualizate\\obj\\",
+        "outputPath": "C:\\Users\\Amaur\\OneDrive\\Documentos\\GitHub\\GitMib\\CamScan\\code\\Atualizate\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
